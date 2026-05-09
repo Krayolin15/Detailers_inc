@@ -1,0 +1,5773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Detailers Inc. | Extreme Mobile Carwash Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <!-- SEO BASIC SETUP -->
+<meta name="description" content="Professional car detailing in South Africa. Interior & exterior detailing, showroom finish, and premium vehicle care by Detailers Inc.">
+<meta name="keywords" content="car detailing Durban, car wash South Africa, car polish, interior cleaning, exterior detailing, Detailers Inc">
+<meta name="author" content="Detailers Inc">
+
+<!-- Open Graph (for WhatsApp / social sharing) -->
+<meta property="og:title" content="Detailers Inc - Premium Car Detailing">
+<meta property="og:description" content="We bring showroom shine to your vehicle. Book professional detailing today.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Detailers Inc - Premium Car Detailing">
+<meta property="og:description" content="Showroom-quality car detailing services in South Africa. Book your transformation today.">
+<meta property="og:type" content="website">
+<meta name="geo.region" content="ZA-KZN">
+<meta name="geo.placename" content="Durban">
+<meta name="geo.position" content="-29.8587;31.0218">
+<meta name="ICBM" content="-29.8587, 31.0218">
+    <style>
+        :root {
+            --primary: #00D4FF;
+            --primary-dark: #00B4D8;
+            --accent: #00FF88;
+            --accent-glow: rgba(0, 255, 136, 0.5);
+            --bg-dark: #0A0F1A;
+            --bg-darker: #050810;
+            --bg-card: rgba(26, 31, 46, 0.95);
+            --text: #ffffff;
+            --text-muted: #8B92A8;
+            --glow: rgba(0, 212, 255, 0.5);
+            --liquid-ease: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --custom-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: auto; }
+        
+        body { 
+            font-family: 'Rajdhani', sans-serif; 
+            background: var(--bg-dark); 
+            color: var(--text); 
+            overflow-x: hidden; 
+            cursor: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Custom Cursor System - Desktop Only */
+        .cursor-system {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            mix-blend-mode: screen;
+        }
+        
+        .cursor-core {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, var(--primary), var(--accent));
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px var(--primary), 0 0 40px var(--accent);
+            transition: transform 0.05s ease-out;
+        }
+        
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.6;
+            transition: all 0.15s ease-out;
+        }
+        
+        .cursor-outer {
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            transition: all 0.3s ease-out;
+        }
+        
+        .cursor-glow {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--glow), transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.2;
+            transition: all 0.4s ease-out;
+            filter: blur(20px);
+        }
+        
+        /* Cursor States */
+        .cursor-hover .cursor-core {
+            transform: translate(-50%, -50%) scale(2);
+            background: var(--accent);
+        }
+        
+        .cursor-hover .cursor-ring {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: var(--accent);
+            opacity: 1;
+        }
+        
+        .cursor-hover .cursor-outer {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 0.5;
+        }
+        
+        .cursor-click .cursor-core {
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+        
+        /* Epic Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a1f2e 0%, #050810 100%);
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .loader-water-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(0, 212, 255, 0.1) 20%,
+                rgba(0, 212, 255, 0.3) 50%,
+                rgba(0, 180, 216, 0.6) 80%,
+                var(--primary) 100%);
+            animation: water-rise 3s ease-out forwards;
+        }
+        
+        @keyframes water-rise {
+            0% { height: 0%; }
+            100% { height: 100%; }
+        }
+        
+        .loader-bubbles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .loader-bubble {
+            position: absolute;
+            bottom: -100px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(0,212,255,0.4), transparent);
+            border-radius: 50%;
+            animation: bubble-rise 2.5s ease-in infinite;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.3), 0 0 20px rgba(0,212,255,0.3);
+        }
+        
+        @keyframes bubble-rise {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-50vh) scale(1.2) rotate(180deg); opacity: 0.8; }
+            100% { transform: translateY(-120vh) scale(0.3) rotate(360deg); opacity: 0; }
+        }
+        
+        .loader-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .loader-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: logo-shine 2s ease-in-out infinite, gradient-shift 3s ease infinite;
+            filter: drop-shadow(0 0 30px var(--glow));
+            margin-bottom: 30px;
+        }
+        
+        @keyframes logo-shine {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--glow)) brightness(1); }
+            50% { filter: drop-shadow(0 0 50px var(--glow)) brightness(1.3); }
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .loader-counter {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: var(--primary);
+            text-shadow: 0 0 40px var(--glow), 0 0 80px var(--glow);
+            margin-bottom: 20px;
+        }
+        
+        .loader-bar {
+            width: min(300px, 80vw);
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto 30px;
+        }
+        
+        .loader-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--primary);
+            animation: progress-fill 2.5s ease-out forwards;
+        }
+        
+        @keyframes progress-fill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .loader-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            animation: text-pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes text-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Particle Overlay */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 15, 26, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: all 0.5s var(--custom-expo);
+        }
+        
+        .navbar.visible { transform: translateY(0); }
+        
+        .navbar.scrolled {
+            background: rgba(10, 15, 26, 0.95);
+            padding: 15px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            cursor: none;
+            transition: all 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 20px var(--glow));
+        }
+        
+        .logo-icon {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: var(--primary);
+            animation: car-bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px var(--glow));
+        }
+        
+        @keyframes car-bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(-5deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+            75% { transform: translateY(-10px) rotate(-3deg); }
+        }
+        
+        .accent { color: var(--primary); text-shadow: 0 0 20px var(--glow); }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            position: relative;
+            padding: 10px 0;
+            transition: all 0.3s;
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: translateX(-100%);
+            transition: transform 0.4s var(--custom-expo);
+            box-shadow: 0 0 15px var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0,212,255,0.2), transparent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s;
+            z-index: -1;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--glow);
+        }
+        
+        .nav-link:hover::before { transform: translateX(0); }
+        
+        .nav-link:hover::after {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .btn-nav {
+            background: transparent;
+            border: 2px solid var(--primary);
+            padding: 12px 30px;
+            border-radius: 30px;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            cursor: none;
+            transition: all 0.5s var(--custom-expo);
+        }
+        
+        .btn-nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s var(--custom-expo);
+            z-index: -1;
+        }
+        
+        .btn-nav:hover {
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-nav:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: none;
+            padding: 10px;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s var(--custom-expo);
+            box-shadow: 0 0 10px var(--glow);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        /* Mobile Navigation Overlay */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 26, 0.98);
+            backdrop-filter: blur(30px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s var(--custom-expo);
+        }
+        
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .mobile-nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            padding: 15px 40px;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            transition: all 0.4s var(--custom-expo);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mobile-nav-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+        
+        .mobile-nav-link:hover, .mobile-nav-link:active {
+            border-color: var(--primary);
+            color: var(--bg-dark);
+            transform: scale(1.1);
+        }
+        
+        .mobile-nav-link:hover::before, .mobile-nav-link:active::before {
+            opacity: 1;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 20;
+            max-width: 650px;
+            padding-top: 100px;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 35px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--primary);
+            letter-spacing: 4px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+            animation: badge-glow 3s ease-in-out infinite;
+            cursor: none;
+            transition: all 0.3s;
+        }
+        
+        .hero-badge:hover {
+            transform: scale(1.05);
+            background: rgba(0, 212, 255, 0.2);
+        }
+        
+        @keyframes badge-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.05); }
+            50% { box-shadow: 0 0 50px rgba(0, 212, 255, 0.5), inset 0 0 30px rgba(0, 212, 255, 0.1); }
+        }
+        
+        .badge-pulse {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 1.2s ease-in-out infinite;
+            box-shadow: 0 0 15px var(--accent);
+        }
+        
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.8); opacity: 0.5; }
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 10vw, 9rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 35px;
+            perspective: 1000px;
+        }
+        
+        .title-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(100px) rotateX(-90deg);
+        }
+        
+        .line-1 {
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        .line-2 {
+            color: var(--primary);
+            text-shadow: 0 0 60px var(--glow), 0 0 120px var(--glow);
+            font-size: 1.15em;
+            position: relative;
+        }
+        
+        .line-2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary), var(--accent));
+            background-size: 300% 100%;
+            animation: line-shimmer 2s linear infinite;
+            box-shadow: 0 0 20px var(--primary);
+        }
+        
+        @keyframes line-shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 300% 0%; }
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        /* Epic Buttons */
+        .btn-epic {
+            position: relative;
+            padding: clamp(15px, 3vw, 22px) clamp(30px, 5vw, 55px);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: none;
+            cursor: none;
+            overflow: hidden;
+            transition: all 0.5s var(--liquid-ease);
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            white-space: nowrap;
+        }
+        
+        .btn-primary-epic {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--bg-dark);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.4), inset 0 0 20px rgba(255,255,255,0.2);
+        }
+        
+        .btn-primary-epic::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary), var(--accent));
+            border-radius: 50px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+            filter: blur(15px);
+            animation: border-rotate 3s linear infinite;
+        }
+        
+        .btn-primary-epic:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.6);
+        }
+        
+        .btn-primary-epic:hover::before { opacity: 1; }
+        
+        @keyframes border-rotate {
+            0% { filter: blur(15px) hue-rotate(0deg); }
+            100% { filter: blur(15px) hue-rotate(360deg); }
+        }
+        
+        .btn-secondary-epic {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary-epic::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s var(--custom-expo);
+            z-index: -1;
+        }
+        
+        .btn-secondary-epic:hover {
+            color: var(--bg-dark);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary-epic:hover::before { transform: scaleY(1); }
+        
+        .btn-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(0);
+            animation: ripple-expand 0.8s ease-out;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple-expand {
+            to { transform: scale(4); opacity: 0; }
+        }
+        
+        /* Hero Car Stage */
+        .hero-car-stage {
+            position: relative;
+            width: 55%;
+            height: 750px;
+            perspective: 2000px;
+            z-index: 15;
+        }
+        
+        .car-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+        }
+        
+        .car-body {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+            transform: translateX(-150%) scale(0.8) rotateY(-30deg);
+            opacity: 0;
+            filter: blur(20px);
+            will-change: transform, opacity, filter;
+            animation: car-float 5s ease-in-out infinite;
+            cursor: none;
+        }
+        
+        @keyframes car-float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            25% { transform: translateY(-15px) rotateY(2deg); }
+            50% { transform: translateY(-25px) rotateY(0deg); }
+            75% { transform: translateY(-10px) rotateY(-2deg); }
+        }
+        
+        .car-image {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 60px 120px rgba(0, 0, 0, 0.9));
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s var(--custom-expo);
+        }
+        
+        .car-reflection {
+            position: absolute;
+            bottom: -30%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to bottom, rgba(0, 212, 255, 0.3), transparent);
+            transform: scaleY(-1);
+            opacity: 0.5;
+            mask-image: linear-gradient(to bottom, black, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+            filter: blur(10px);
+            animation: reflection-shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes reflection-shimmer {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
+        }
+        
+        .car-glow {
+            position: absolute;
+            inset: -80px;
+            background: radial-gradient(ellipse at center, var(--glow), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes glow-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.15); opacity: 0.6; }
+        }
+        
+        .car-body:hover .car-glow { opacity: 1; }
+        
+        .car-body:hover .car-image {
+            filter: drop-shadow(0 80px 150px rgba(0, 212, 255, 0.3));
+            transform: scale(1.02);
+        }
+        
+        /* Water Spray Effect */
+        .water-spray {
+            position: absolute;
+            top: 0;
+            left: -100px;
+            width: 100px;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .spray-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: spray-move 1s ease-out forwards;
+        }
+        
+        @keyframes spray-move {
+            0% { transform: translateX(0) translateY(0); opacity: 0.8; }
+            100% { transform: translateX(200px) translateY(var(--y-offset)); opacity: 0; }
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            z-index: 100;
+            cursor: none;
+            transition: all 0.3s;
+        }
+        
+        .scroll-indicator:hover {
+            transform: translateX(-50%) translateY(-10px);
+        }
+        
+        .mouse-icon {
+            width: 35px;
+            height: 55px;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 0 25px var(--glow);
+        }
+        
+        .mouse-wheel {
+            width: 6px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 3px;
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: mouse-wheel-bounce 2s infinite;
+        }
+        
+        @keyframes mouse-wheel-bounce {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(25px); }
+        }
+        
+        .scroll-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 5px;
+            animation: text-fade 2s ease-in-out infinite;
+        }
+        
+        @keyframes text-fade {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .scroll-arrows {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .scroll-arrows span {
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid var(--primary);
+            border-bottom: 2px solid var(--primary);
+            transform: rotate(45deg);
+            animation: arrow-bounce 2s infinite;
+            opacity: 0;
+        }
+        
+        .scroll-arrows span:nth-child(1) { animation-delay: 0s; }
+        .scroll-arrows span:nth-child(2) { animation-delay: 0.2s; }
+        .scroll-arrows span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes arrow-bounce {
+            0%, 100% { opacity: 0; transform: rotate(45deg) translateY(0); }
+            50% { opacity: 1; transform: rotate(45deg) translateY(10px); }
+        }
+        
+        /* Section Styles */
+        section {
+            position: relative;
+            padding: 150px 5%;
+            min-height: 100vh;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--primary);
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            cursor: none;
+            transition: all 0.3s;
+        }
+        
+        .section-badge:hover {
+            transform: scale(1.05);
+            background: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        .section-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
+            animation: badge-shine 3s infinite;
+        }
+        
+        @keyframes badge-shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 6vw, 5.5rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .section-title .accent {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            animation: underline-grow 1s var(--custom-expo) forwards;
+            transform-origin: left;
+            box-shadow: 0 0 15px var(--primary);
+        }
+        
+        @keyframes underline-grow {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* Services Section */
+        .services {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(0, 212, 255, 0.05) 50%, var(--bg-dark) 100%);
+            position: relative;
+        }
+        
+        .soap-bubbles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .soap-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(0,212,255,0.4), transparent);
+            box-shadow: inset 0 0 25px rgba(255,255,255,0.3), 0 0 30px rgba(0,212,255,0.2);
+            pointer-events: none;
+            animation: bubble-float-advanced 10s ease-in-out infinite;
+        }
+        
+        @keyframes bubble-float-advanced {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1) rotate(0deg); }
+            20% { transform: translateY(-40px) translateX(25px) scale(1.15) rotate(72deg); }
+            40% { transform: translateY(-70px) translateX(-15px) scale(0.9) rotate(144deg); }
+            60% { transform: translateY(-50px) translateX(35px) scale(1.1) rotate(216deg); }
+            80% { transform: translateY(-80px) translateX(-25px) scale(0.95) rotate(288deg); }
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            max-width: 1500px;
+            margin: 0 auto;
+            perspective: 2500px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .service-card {
+            position: relative;
+            height: 550px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            opacity: 0;
+            transform: translateY(100px) rotateX(20deg);
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .service-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 35px;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(145deg, rgba(26, 31, 46, 0.98), rgba(10, 15, 26, 0.98));
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.5s var(--custom-expo);
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(145deg, rgba(0, 212, 255, 0.2), rgba(10, 15, 26, 0.98));
+        }
+        
+        .card-front::before, .card-back::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary));
+            border-radius: 37px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s;
+            animation: border-rotate 4s linear infinite;
+        }
+        
+        .service-card:hover .card-front::before,
+        .service-card:hover .card-back::before {
+            opacity: 0.5;
+        }
+        
+        .card-icon-wrapper {
+            position: relative;
+            margin-bottom: 45px;
+        }
+        
+        .card-icon {
+            font-size: 6rem;
+            color: var(--primary);
+            position: relative;
+            filter: drop-shadow(0 20px 40px rgba(0, 212, 255, 0.5));
+            animation: icon-float-advanced 4s ease-in-out infinite;
+            transition: all 0.5s;
+        }
+        
+        @keyframes icon-float-advanced {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-20px) rotate(-10deg) scale(1.1); }
+            50% { transform: translateY(-10px) rotate(5deg) scale(1.05); }
+            75% { transform: translateY(-25px) rotate(-5deg) scale(1.08); }
+        }
+        
+        .service-card:hover .card-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 30px 60px rgba(0, 212, 255, 0.8));
+        }
+        
+        .icon-glow {
+            position: absolute;
+            inset: -30px;
+            background: radial-gradient(circle, var(--glow), transparent 70%);
+            opacity: 0.5;
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+        
+        .service-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.9;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 35px;
+        }
+        
+        .card-hover-car {
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            font-size: 8rem;
+            color: var(--primary);
+            opacity: 0;
+            transition: all 1s var(--custom-expo);
+            transform: rotate(-45deg);
+        }
+        
+        .service-card:hover .card-hover-car {
+            bottom: 40px;
+            right: 40px;
+            opacity: 0.12;
+            transform: rotate(0deg);
+        }
+        
+        .card-back h4 {
+            color: var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 40px;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+        
+        .card-back ul {
+            list-style: none;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .card-back li {
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: var(--text-muted);
+            transition: all 0.4s var(--custom-expo);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            cursor: pointer;
+        }
+        
+        .card-back li:hover {
+            color: var(--text);
+            transform: translateX(20px);
+            text-shadow: 0 0 15px var(--glow);
+            border-bottom-color: var(--primary);
+        }
+        
+        .card-back li i {
+            color: var(--accent);
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+        
+        .card-back li:hover i {
+            transform: scale(1.3);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        
+        .card-btn {
+            margin-top: 40px;
+            padding: 18px 50px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.6s var(--liquid-ease);
+            position: relative;
+            overflow: hidden;
+            border-radius: 35px;
+            letter-spacing: 3px;
+        }
+        
+        .card-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--custom-expo);
+            z-index: -1;
+        }
+        
+        .card-btn:hover {
+            color: var(--bg-dark);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px var(--glow);
+        }
+        
+        .card-btn:hover::before { transform: scaleX(1); }
+        
+        .card-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 35px;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 212, 255, 0.5) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .service-card:hover .card-glow { opacity: 1; }
+        
+        /* Gallery Section - SLOW ANIMATION */
+        .gallery {
+            background: var(--bg-darker);
+            padding: 150px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-container {
+            position: relative;
+            height: 800px;
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+        }
+        
+        .gallery-track {
+            display: flex;
+            gap: 60px;
+            position: absolute;
+            will-change: transform;
+        }
+        
+        /* SLOWED DOWN ANIMATION - 120s and 150s instead of 45s and 50s */
+        .track-1 { top: 100px; animation: scroll-left 120s linear infinite; }
+        .track-2 { bottom: 100px; animation: scroll-right 150s linear infinite; }
+        
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        @keyframes scroll-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        
+        .gallery-item {
+            position: relative;
+            width: 500px;
+            height: 320px;
+            border-radius: 25px;
+            overflow: hidden;
+            flex-shrink: 0;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.7s var(--custom-expo);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            opacity: 0;
+            z-index: 2;
+            transition: opacity 0.5s;
+            mix-blend-mode: overlay;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.7s var(--custom-expo);
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.1) translateZ(80px);
+            border-color: var(--primary);
+            box-shadow: 0 40px 100px rgba(0, 212, 255, 0.4), 0 0 80px rgba(0, 212, 255, 0.3);
+            z-index: 10;
+        }
+        
+        .gallery-item:hover::before { opacity: 0.3; }
+        
+        .gallery-item:hover img {
+            transform: scale(1.2);
+            filter: brightness(1.2) saturate(1.2);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 70%);
+            opacity: 0;
+            transition: all 0.6s var(--custom-expo);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 40px;
+            z-index: 3;
+        }
+        
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        
+        .gallery-overlay h4 {
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            margin-bottom: 12px;
+            transform: translateY(30px);
+            transition: transform 0.6s var(--custom-expo);
+            text-shadow: 0 0 20px var(--glow);
+        }
+        
+        .gallery-overlay p {
+            color: var(--accent);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            transform: translateY(30px);
+            transition: transform 0.6s var(--custom-expo) 0.1s;
+        }
+        
+        .gallery-item:hover .gallery-overlay h4,
+        .gallery-item:hover .gallery-overlay p {
+            transform: translateY(0);
+        }
+        
+        /* Water Drop Effect */
+        .water-drop {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), var(--primary));
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: drop-fall-advanced 1.2s ease-out forwards;
+            box-shadow: 0 0 20px var(--primary);
+        }
+        
+        @keyframes drop-fall-advanced {
+            0% { transform: translateY(-80px) scale(0); opacity: 1; }
+            30% { transform: translateY(0) scale(1.2); opacity: 1; }
+            60% { transform: translateY(30px) scale(1.5); opacity: 0.8; }
+            100% { transform: translateY(60px) scale(3); opacity: 0; }
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 50%, var(--bg-darker) 100%);
+            position: relative;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 2000px;
+        }
+        
+        .price-box {
+            position: relative;
+            background: linear-gradient(145deg, rgba(26, 31, 46, 0.95), rgba(10, 15, 26, 0.95));
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 35px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.7s var(--liquid-ease);
+            opacity: 0;
+            transform: translateX(-100px) rotateY(-20deg);
+            backdrop-filter: blur(15px);
+        }
+        
+        .price-box:nth-child(2) { transform: translateX(100px) rotateY(20deg); }
+        .price-box:nth-child(3) { transform: translateX(-100px) rotateY(-20deg); }
+        .price-box:nth-child(4) { transform: translateX(100px) rotateY(20deg); }
+        
+        .price-box::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary), var(--accent));
+            border-radius: 37px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s;
+            animation: border-glow 4s linear infinite;
+        }
+        
+        @keyframes border-glow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .price-box:hover::before { opacity: 1; }
+        
+        .price-box:hover {
+            transform: translateY(-30px) scale(1.05) rotateY(0deg) !important;
+            border-color: transparent;
+            box-shadow: 0 50px 100px rgba(0, 212, 255, 0.35), 0 0 80px rgba(0, 212, 255, 0.2);
+        }
+        
+        .price-box.featured {
+            border-color: var(--primary);
+            transform: scale(1.1) rotateY(0deg) !important;
+            box-shadow: 0 0 80px rgba(0, 212, 255, 0.4), inset 0 0 80px rgba(0, 212, 255, 0.08);
+            animation: featured-pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes featured-pulse {
+            0%, 100% { box-shadow: 0 0 80px rgba(0, 212, 255, 0.4), inset 0 0 80px rgba(0, 212, 255, 0.08); }
+            50% { box-shadow: 0 0 120px rgba(0, 212, 255, 0.6), inset 0 0 100px rgba(0, 212, 255, 0.12); }
+        }
+        
+        .price-box.featured:hover {
+            transform: scale(1.1) translateY(-30px) !important;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            padding: 10px 35px;
+            border-radius: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            animation: badge-bounce 2s ease-in-out infinite;
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5);
+        }
+        
+        @keyframes badge-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .price-car-icon {
+            font-size: 5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            opacity: 0.7;
+            transition: all 0.6s var(--liquid-ease);
+        }
+        
+        .price-box:hover .price-car-icon {
+            opacity: 1;
+            transform: scale(1.4) rotateY(360deg);
+            filter: drop-shadow(0 0 30px var(--glow));
+        }
+        
+        .price-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        
+        .car-type {
+            color: var(--text-muted);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            margin-bottom: 30px;
+        }
+        
+        .price-amount {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--primary);
+            margin: 30px 0;
+            text-shadow: 0 0 60px var(--glow);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .price-amount::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--accent), var(--primary), transparent);
+            box-shadow: 0 0 20px var(--primary);
+        }
+        
+        .currency {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            vertical-align: top;
+        }
+        
+        .price-sub {
+            color: var(--accent);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            margin-bottom: 40px;
+            padding: 18px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 18px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-weight: 600;
+        }
+        
+        .features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        
+        .features li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            transition: all 0.4s var(--custom-expo);
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            cursor: pointer;
+        }
+        
+        .features li:hover {
+            color: var(--text);
+            transform: translateX(12px);
+            border-bottom-color: var(--primary);
+        }
+        
+        .features i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .features li:hover i {
+            transform: scale(1.3);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        
+        .price-cta {
+            padding: 18px 50px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.6s var(--liquid-ease);
+            border-radius: 35px;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.6s var(--custom-expo);
+            z-index: -1;
+        }
+        
+        .price-cta:hover {
+            color: var(--bg-dark);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px var(--glow);
+        }
+        
+        .price-cta:hover::before { transform: scaleY(1); }
+        
+        .holographic-sheen {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 35%, rgba(0, 212, 255, 0.15) 45%, rgba(0, 255, 136, 0.15) 50%, rgba(0, 212, 255, 0.15) 55%, transparent 65%);
+            transform: translateX(-100%);
+            transition: transform 0s;
+            pointer-events: none;
+        }
+        
+        .price-box:hover .holographic-sheen {
+            animation: sheen-sweep 1.2s ease-out;
+        }
+        
+        @keyframes sheen-sweep {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .subscription-banner {
+            max-width: 1000px;
+            margin: 100px auto 0;
+            padding: 50px 60px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(0, 180, 216, 0.12));
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            animation: banner-glow 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .subscription-banner:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 100px rgba(0, 212, 255, 0.4);
+        }
+        
+        @keyframes banner-glow {
+            0%, 100% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.25); }
+            50% { box-shadow: 0 0 80px rgba(0, 212, 255, 0.5); }
+        }
+        
+        .banner-content h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px var(--glow);
+        }
+        
+        .banner-content p {
+            color: var(--text-muted);
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        }
+        
+        .banner-car {
+            font-size: 5rem;
+            color: var(--primary);
+            animation: car-drive-banner 5s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--glow));
+        }
+        
+        @keyframes car-drive-banner {
+            0%, 100% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(60px) scale(1.15); }
+        }
+        
+        /* Contact Section - Professional Design */
+        .contact {
+            background: var(--bg-darker);
+            min-height: auto;
+            padding-bottom: 150px;
+            position: relative;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+        
+        .contact-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .contact-info-card {
+            background: linear-gradient(145deg, rgba(26, 31, 46, 0.98), rgba(10, 15, 26, 0.98));
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 40px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s var(--liquid-ease);
+        }
+        
+        .contact-info-card::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 42px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s;
+            animation: border-rotate 4s linear infinite;
+        }
+        
+        .contact-info-card:hover::before { opacity: 0.4; }
+        
+        .contact-info-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 40px 100px rgba(0, 212, 255, 0.3);
+        }
+        
+        .contact-info-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            color: var(--primary);
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 20px var(--glow);
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 25px;
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.5s var(--custom-expo);
+            cursor: pointer;
+        }
+        
+        .contact-item:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--primary);
+            transform: translateX(15px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+        }
+        
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            transition: all 0.5s;
+        }
+        
+        .contact-item:hover i {
+            transform: scale(1.2) rotateY(360deg);
+            filter: drop-shadow(0 0 20px var(--glow));
+        }
+        
+        .contact-item-content h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        
+        .contact-item-content p {
+            color: var(--text-muted);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover .contact-item-content p {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--glow);
+        }
+        
+        /* Social Media Section */
+        .social-section {
+            text-align: center;
+        }
+        
+        .social-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            letter-spacing: 5px;
+        }
+        
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link-epic {
+            width: 90px;
+            height: 90px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2.2rem;
+            transition: all 0.6s var(--liquid-ease);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: rgba(0, 212, 255, 0.05);
+        }
+        
+        .social-link-epic::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scale(0);
+            transition: transform 0.6s var(--custom-expo);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .social-link-epic:hover {
+            color: var(--bg-dark);
+            transform: translateY(-15px) scale(1.2);
+            border-color: transparent;
+            box-shadow: 0 25px 60px rgba(0, 212, 255, 0.5);
+        }
+        
+        .social-link-epic:hover::before { transform: scale(1); }
+        
+        .social-link-epic i { transition: all 0.5s; }
+        
+        .social-link-epic:hover i { transform: rotate(360deg) scale(1.3); }
+        
+        /* Contact Visual */
+        .contact-visual {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-car-icon {
+            font-size: 15rem;
+            color: var(--primary);
+            opacity: 0.3;
+            animation: car-float-contact 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 50px var(--glow));
+        }
+        
+        @keyframes car-float-contact {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        .contact-tagline {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 30px;
+            letter-spacing: 3px;
+        }
+        
+        .contact-tagline span {
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--glow);
+        }
+        
+        /* CTA Buttons in Contact */
+        .contact-cta {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-contact {
+            padding: 20px 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.5s var(--liquid-ease);
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+        
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.4);
+        }
+        
+        .btn-whatsapp:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(37, 211, 102, 0.6);
+        }
+        
+        .btn-call {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-call:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.6);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-darker);
+            border-top: 2px solid rgba(0, 212, 255, 0.1);
+            padding: 100px 5% 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-road {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: repeating-linear-gradient(90deg, 
+                transparent 0px, transparent 80px, 
+                rgba(255,255,255,0.15) 80px, rgba(255,255,255,0.15) 160px);
+            animation: road-move 2s linear infinite;
+        }
+        
+        @keyframes road-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 160px 0; }
+        }
+        
+        .footer-car {
+            position: absolute;
+            bottom: 30px;
+            left: -150px;
+            font-size: 4rem;
+            color: var(--primary);
+            animation: footer-car-drive 10s linear infinite;
+            filter: drop-shadow(0 0 30px var(--glow));
+        }
+        
+        @keyframes footer-car-drive {
+            0% { left: -10%; }
+            100% { left: 110%; }
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logo-pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes logo-pulse {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--glow)); }
+            50% { filter: drop-shadow(0 0 50px var(--glow)); }
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-social-link {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.6rem;
+            transition: all 0.5s var(--liquid-ease);
+            cursor: pointer;
+            background: rgba(0, 212, 255, 0.05);
+        }
+        
+        .footer-social-link:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            transform: translateY(-10px) scale(1.15);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.5);
+            border-color: transparent;
+        }
+        
+        .footer-social-link:hover i {
+            transform: rotate(360deg);
+        }
+        
+        .footer-social-link i {
+            transition: all 0.5s;
+        }
+        
+        .copyright {
+            color: var(--text-muted);
+            font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+            letter-spacing: 3px;
+        }
+        
+        /* Sparkle Effect */
+        .sparkle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px var(--primary), 0 0 30px var(--accent);
+        }
+        
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        
+        /* Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9990;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg '%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.1;
+            animation: float-random 15s ease-in-out infinite;
+        }
+        
+        @keyframes float-random {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, -50px) rotate(90deg); }
+            50% { transform: translate(-30px, -80px) rotate(180deg); }
+            75% { transform: translate(-60px, -30px) rotate(270deg); }
+        }
+        
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .navbar.scrolled {
+                padding: 12px 20px;
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero { 
+                flex-direction: column; 
+                text-align: center; 
+                padding-top: 120px; 
+                padding-bottom: 80px;
+            }
+            .hero-car-stage { 
+                width: 100%; 
+                height: auto;
+                min-height: 350px;
+                margin-top: 40px;
+            }
+            .hero-content { 
+                max-width: 100%; 
+                padding-top: 60px;
+            }
+            .hero-buttons { 
+                justify-content: center; 
+            }
+            .contact-main { 
+                grid-template-columns: 1fr; 
+            }
+            .cursor-system { 
+                display: none; 
+            }
+            body { 
+                cursor: auto; 
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid { 
+                grid-template-columns: 1fr; 
+                gap: 40px;
+            }
+            .pricing-grid { 
+                grid-template-columns: 1fr; 
+                gap: 40px;
+            }
+            .price-box.featured { 
+                transform: scale(1) !important; 
+            }
+            .price-box.featured:hover { 
+                transform: scale(1) translateY(-30px) !important; 
+            }
+            section { 
+                padding: 80px 20px; 
+                min-height: auto;
+            }
+            .section-header {
+                margin-bottom: 60px;
+            }
+            .gallery-container {
+                height: 600px;
+            }
+            .gallery-item { 
+                width: 320px; 
+                height: 220px; 
+            }
+            .subscription-banner { 
+                flex-direction: column; 
+                gap: 30px; 
+                text-align: center; 
+                padding: 40px 30px;
+            }
+            .contact-car-icon { 
+                font-size: 8rem; 
+            }
+            .social-link-epic { 
+                width: 70px; 
+                height: 70px; 
+                font-size: 1.8rem; 
+            }
+            .contact-info-card {
+                padding: 40px 30px;
+            }
+            .contact-item {
+                padding: 20px;
+                gap: 15px;
+            }
+            .contact-item i {
+                font-size: 2rem;
+            }
+            .service-card {
+                height: 480px;
+            }
+            .card-front, .card-back {
+                padding: 40px 30px;
+            }
+            .card-icon {
+                font-size: 4rem;
+            }
+            .card-back li {
+                padding: 12px 0;
+                font-size: 0.9rem;
+            }
+            .footer-social {
+                gap: 20px;
+            }
+            .footer-social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: clamp(2rem, 12vw, 3rem);
+            }
+            .line-2::after {
+                height: 3px;
+                bottom: -10px;
+            }
+            .hero-badge {
+                padding: 10px 20px;
+                font-size: 0.7rem;
+                letter-spacing: 2px;
+            }
+            .btn-epic {
+                padding: 15px 30px;
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+            }
+            .section-title {
+                font-size: clamp(1.5rem, 8vw, 2rem);
+            }
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+            .gallery-container {
+                height: 500px;
+            }
+            .gallery-item {
+                width: 280px;
+                height: 190px;
+            }
+            .track-1 { top: 60px; }
+            .track-2 { bottom: 60px; }
+            .price-box {
+                padding: 40px 25px;
+            }
+            .features li {
+                font-size: 0.9rem;
+            }
+            .contact-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-contact {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            .social-grid {
+                gap: 20px;
+            }
+            .social-link-epic {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .cursor-system {
+                display: none !important;
+            }
+            body {
+                cursor: auto !important;
+            }
+            .service-card:hover .card-inner {
+                transform: none;
+            }
+            .price-box:hover {
+                transform: translateY(-15px) scale(1.02) !important;
+            }
+            .gallery-item:hover {
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Landscape Mode */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding-top: 100px;
+                padding-bottom: 60px;
+            }
+            .hero-car-stage {
+                height: 250px;
+            }
+            section {
+                min-height: auto;
+                padding: 60px 5%;
+            }
+            .service-card {
+                height: 400px;
+            }
+        }
+        
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .car-image {
+                image-rendering: -webkit-optimize-contrast;
+            }
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+  .access-link{
+    text-decoration: none;
+}
+
+/* DEFAULT STYLE (DESKTOP) */
+.Acess{
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    position: relative;
+    top: 50px;
+
+    color: white;
+    background: linear-gradient(120deg,#0077ff,#00c6ff,#00eaff,#0077ff);
+    background-size: 400% 400%;
+
+    padding: 8px 20px;
+    border-radius: 10px;
+
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+
+    box-shadow:
+    0 0 6px rgba(0,150,255,0.6),
+    0 0 12px rgba(0,150,255,0.5);
+
+    transition: all 0.4s ease;
+
+    animation:
+    gradientMove 6s ease infinite,
+    floatText 3s ease-in-out infinite;
+}
+
+/* WATER SHINE EFFECT */
+.Acess::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:60%;
+    height:100%;
+
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.6),
+        transparent
+    );
+
+    transform:skewX(-25deg);
+    animation: shine 4s infinite;
+}
+
+/* HOVER */
+.Acess:hover{
+    cursor:pointer;
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* ANIMATIONS */
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+@keyframes floatText{
+    0%{transform:translateX(-50%) translateY(0);}
+    50%{transform:translateX(-50%) translateY(-4px);}
+    100%{transform:translateX(-50%) translateY(0);}
+}
+
+@keyframes shine{
+    0%{left:-120%;}
+    100%{left:140%;}
+}
+
+/* TABLETS */
+@media (max-width: 1024px){
+    .Acess{
+        font-size:22px;
+        padding:7px 18px;
+        top:40px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+    .Acess{
+        font-size:20px;
+        padding:6px 16px;
+        top:10px;
+    }
+}
+
+
+
+/* SMALL PHONES */
+@media (max-width: 480px){
+    .Acess{
+        font-size:18px;
+        padding:6px 14px;
+        top:47px;
+    }
+}
+
+
+   
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  gap: 0.05em;
+}
+
+.title-line {
+  display: block;
+  font-family: 'Arial Black', 'Impact', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #00e5ff 0%, #00bcd4 60%, #00acc1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.hero-title {
+  width: 100%;
+  max-width: 100vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.05em;
+  padding: 0 12px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.title-line {
+  display: block;
+  line-height: 0.9;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.line-1 {
+  font-size: clamp(2rem, 12vw, 6rem);
+}
+
+.line-2 {
+  font-size: clamp(1.2rem, 7vw, 3rem);
+  letter-spacing: 0.18em;
+  margin-top: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    padding: 0 10px;
+  }
+
+  .title-line {
+    letter-spacing: -0.08em;
+  }
+
+  .line-1 {
+    font-size: clamp(1.8rem, 15vw, 4rem);
+  }
+
+  .line-2 {
+    font-size: clamp(1rem, 8vw, 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    gap: 0;
+  }
+
+  .line-1 {
+    font-size: clamp(1.5rem, 14vw, 3rem);
+  }
+
+  .line-2 {
+    font-size: clamp(0.9rem, 7vw, 1.6rem);
+    letter-spacing: 0.12em;
+  }
+}
+
+.hero-title {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif; /* sporty + modern */
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* First line (Detailers) */
+.line-1 {
+    display: block;
+    font-size: clamp(2rem, 6vw, 4rem); /* responsive */
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    animation: slideInLeft 1s ease-out;
+}
+
+/* Second line (INC) */
+.line-2 {
+    display: block;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    color: #00c3ff; /* car wash blue */
+    letter-spacing: 6px;
+    animation: slideInRight 1s ease-out;
+}
+
+/* Shine effect */
+.hero-title span {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-title span::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+    animation: shine 3s infinite;
+}
+
+/* Animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+
+.gallery {
+    padding: 80px 20px;
+    background: #0a0a0a;
+    color: white;
+    overflow: hidden;
+}
+
+/* header */
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-badge {
+    color: #00c3ff;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 10px 0;
+}
+
+.section-title .accent {
+    color: #00c3ff;
+}
+
+.section-subtitle {
+    opacity: 0.7;
+}
+
+/* wrapper */
+.gallery-wrapper {
+    overflow: hidden;
+}
+
+/* scrolling track */
+.gallery-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scrollLeft 25s linear infinite;
+}
+
+/* item */
+.gallery-item {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    border-radius: 15px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* media */
+.gallery-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-media {
+    transform: scale(1.1);
+}
+
+/* overlay */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.3s ease;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.overlay h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.overlay p {
+    margin: 4px 0 0;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+  section#gallery.gallery,
+  section#gallery.gallery * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+ 
+  section#gallery.gallery {
+    background: #0a0a0a !important;
+    padding: 90px 0 100px !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+ 
+  /* ── HEADER ── */
+  section#gallery.gallery .section-header {
+    text-align: center !important;
+    margin-bottom: 60px !important;
+    padding: 0 20px !important;
+    animation: gal-fadeUp 0.8s ease both !important;
+  }
+ 
+  section#gallery.gallery .section-badge {
+    display: inline-block !important;
+    background: linear-gradient(135deg, #ff6b00, #ff9500) !important;
+    color: #fff !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 3px !important;
+    padding: 6px 20px !important;
+    border-radius: 30px !important;
+    margin-bottom: 18px !important;
+  }
+ 
+  section#gallery.gallery .section-title {
+    color: #ffffff !important;
+    font-size: clamp(36px, 6vw, 56px) !important;
+    font-weight: 900 !important;
+    letter-spacing: -1.5px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 14px !important;
+  }
+ 
+  section#gallery.gallery .section-title .accent {
+    color: #ff6b00 !important;
+    position: relative !important;
+  }
+ 
+  section#gallery.gallery .section-title .accent::after {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    bottom: -4px !important;
+    width: 100% !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, #ff6b00, #ff9500) !important;
+    border-radius: 2px !important;
+    animation: gal-underline 1.2s ease 0.6s both !important;
+    transform-origin: left !important;
+  }
+ 
+  @keyframes gal-underline {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+ 
+  section#gallery.gallery .section-subtitle {
+    color: #888 !important;
+    font-size: 16px !important;
+    letter-spacing: 0.5px !important;
+  }
+ 
+  /* ── WRAPPER + FADE EDGES ── */
+  section#gallery.gallery .gallery-wrapper {
+    overflow: hidden !important;
+    position: relative !important;
+    padding: 20px 0 !important;
+  }
+ 
+  section#gallery.gallery .gallery-wrapper::before,
+  section#gallery.gallery .gallery-wrapper::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 120px !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+  }
+ 
+  section#gallery.gallery .gallery-wrapper::before {
+    left: 0 !important;
+    background: linear-gradient(to right, #0a0a0a, transparent) !important;
+  }
+ 
+  section#gallery.gallery .gallery-wrapper::after {
+    right: 0 !important;
+    background: linear-gradient(to left, #0a0a0a, transparent) !important;
+  }
+ 
+  /* ── SCROLLING TRACK ── */
+  section#gallery.gallery .gallery-track {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 22px !important;
+    width: max-content !important;
+    animation: gal-scroll 30s linear infinite !important;
+    padding: 10px 40px !important;
+  }
+ 
+  section#gallery.gallery .gallery-track:hover {
+    animation-play-state: paused !important;
+  }
+ 
+  @keyframes gal-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+ 
+  /* ── GALLERY ITEM ──
+     Key fix: no fixed height. Let the video/image define the height.
+     Width is fixed, height is auto so nothing gets cropped.
+  ── */
+  section#gallery.gallery .gallery-item {
+    position: relative !important;
+    width: 320px !important;       /* fixed width */
+    height: auto !important;       /* ← KEY: let content define height */
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    border: 1.5px solid rgba(255, 107, 0, 0.15) !important;
+    transform: scale(1) !important;
+    transition: transform 0.45s cubic-bezier(.25,.8,.25,1),
+                border-color 0.35s ease,
+                box-shadow 0.45s ease !important;
+    background: #111 !important;
+  }
+ 
+  section#gallery.gallery .gallery-item:hover {
+    transform: scale(1.04) !important;
+    border-color: rgba(255, 107, 0, 0.7) !important;
+    box-shadow: 0 20px 50px rgba(255, 107, 0, 0.2) !important;
+    z-index: 5 !important;
+  }
+ 
+  /* ── MEDIA ──
+     width: 100% to fill the card width.
+     height: auto so the natural aspect ratio is respected — no cropping.
+     display: block removes the inline gap under the element.
+  ── */
+  section#gallery.gallery .gallery-media {
+    width: 100% !important;
+    height: auto !important;       /* ← KEY: natural aspect ratio */
+    display: block !important;
+    transition: transform 0.65s ease !important;
+  }
+ 
+  section#gallery.gallery .gallery-item:hover .gallery-media {
+    transform: scale(1.04) !important;
+  }
+ 
+  /* ── OVERLAY ── */
+  section#gallery.gallery .overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(0, 0, 0, 0.2) 45%,
+      transparent 70%
+    ) !important;
+    opacity: 0 !important;
+    transition: opacity 0.4s ease !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    padding: 26px 22px !important;
+  }
+ 
+  section#gallery.gallery .gallery-item:hover .overlay {
+    opacity: 1 !important;
+  }
+ 
+  section#gallery.gallery .overlay h4 {
+    color: #ffffff !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    margin-bottom: 6px !important;
+    transform: translateY(14px) !important;
+    transition: transform 0.4s ease !important;
+  }
+ 
+  section#gallery.gallery .overlay p {
+    color: #ff9500 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    transform: translateY(14px) !important;
+    transition: transform 0.4s ease 0.06s !important;
+  }
+ 
+  section#gallery.gallery .gallery-item:hover .overlay h4,
+  section#gallery.gallery .gallery-item:hover .overlay p {
+    transform: translateY(0) !important;
+  }
+ 
+  /* ── MEDIA TYPE TAG ── */
+  section#gallery.gallery .gallery-item .media-tag {
+    position: absolute !important;
+    top: 14px !important;
+    right: 14px !important;
+    background: rgba(255, 107, 0, 0.92) !important;
+    color: #fff !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    z-index: 6 !important;
+  }
+ 
+  /* ── AUDIO HINT ── */
+  section#gallery.gallery .gallery-item .audio-hint {
+    position: absolute !important;
+    bottom: 14px !important;
+    right: 14px !important;
+    background: rgba(0, 0, 0, 0.65) !important;
+    color: #ddd !important;
+    font-size: 11px !important;
+    padding: 5px 12px !important;
+    border-radius: 20px !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+    pointer-events: none !important;
+    z-index: 7 !important;
+  }
+ 
+  section#gallery.gallery .gallery-item:hover .audio-hint {
+    opacity: 1 !important;
+  }
+ 
+  @keyframes gal-fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+    /* ── RESET (scoped) ── */
+  .fg-section,
+  .fg-section * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+ 
+  /* ── SECTION SHELL ── */
+  .fg-section {
+    background: #0a0a0a;
+    padding: 96px 0 110px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+ 
+  /* subtle radial glow behind header */
+  .fg-section::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(255,107,0,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+ 
+  /* ── HEADER ── */
+  .fg-header {
+    text-align: center;
+    padding: 0 24px;
+    margin-bottom: 64px;
+    animation: fg-rise 0.75s cubic-bezier(.22,1,.36,1) both;
+  }
+ 
+  .fg-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b00, #ff9a00);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    padding: 6px 22px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+ 
+  .fg-title {
+    color: #ffffff;
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 14px;
+  }
+ 
+  .fg-title-accent {
+    color: #ff6b00;
+    position: relative;
+    display: inline-block;
+  }
+ 
+  .fg-title-accent::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b00, #ff9a00);
+    border-radius: 3px;
+    transform-origin: left;
+    animation: fg-underline 1s cubic-bezier(.22,1,.36,1) 0.5s both;
+  }
+ 
+  .fg-subtitle {
+    color: #666;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+ 
+  /* ── VIEWPORT (clips + fades edges) ── */
+  .fg-viewport {
+    position: relative;
+    overflow: hidden;
+    padding: 16px 0;
+    /* fade left and right edges */
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+  }
+ 
+  /* ── TRACK ── */
+  .fg-track {
+    display: flex;
+    align-items: flex-start; /* let natural media height define card height */
+    gap: 24px;
+    width: max-content;
+    padding: 12px 48px;
+    animation: fg-scroll 32s linear infinite;
+    will-change: transform;
+    cursor: grab;
+  }
+ 
+  .fg-track:active {
+    cursor: grabbing;
+  }
+ 
+  /* pause on hover OR when JS adds .is-paused */
+  .fg-track:hover,
+  .fg-track.is-paused {
+    animation-play-state: paused;
+  }
+ 
+  @keyframes fg-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+ 
+  /* ── CARD ── */
+  .fg-card {
+    position: relative;
+    width: 320px;
+    height: auto;          /* natural aspect ratio — no crop */
+    flex-shrink: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1.5px solid rgba(255,107,0,0.14);
+    background: #111;
+    transition:
+      transform 0.45s cubic-bezier(.25,.8,.25,1),
+      border-color 0.35s ease,
+      box-shadow 0.45s ease;
+    cursor: pointer;
+  }
+ 
+  .fg-card:hover {
+    transform: scale(1.05) translateY(-4px);
+    border-color: rgba(255,107,0,0.75);
+    box-shadow: 0 24px 60px rgba(255,107,0,0.22), 0 0 0 1px rgba(255,107,0,0.18);
+    z-index: 5;
+  }
+ 
+  /* ── MEDIA (image or video) ── */
+  .fg-media {
+    display: block;
+    width: 100%;
+    height: auto;          /* preserve aspect ratio */
+    transition: transform 0.65s ease;
+  }
+ 
+  .fg-card:hover .fg-media {
+    transform: scale(1.05);
+  }
+ 
+  /* ── OVERLAY ── */
+  .fg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.90) 0%,
+      rgba(0,0,0,0.18) 45%,
+      transparent 68%
+    );
+    opacity: 0;
+    transition: opacity 0.38s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px 22px;
+    pointer-events: none;
+  }
+ 
+  .fg-card:hover .fg-overlay {
+    opacity: 1;
+  }
+ 
+  .fg-overlay-title {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    transform: translateY(12px);
+    transition: transform 0.38s ease;
+  }
+ 
+  .fg-overlay-sub {
+    color: #ff9a00;
+    font-size: 12px;
+    font-weight: 500;
+    transform: translateY(12px);
+    transition: transform 0.38s ease 0.06s;
+  }
+ 
+  .fg-card:hover .fg-overlay-title,
+  .fg-card:hover .fg-overlay-sub {
+    transform: translateY(0);
+  }
+ 
+  /* ── MEDIA TYPE BADGE ── */
+  .fg-badge-tag {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    background: rgba(255,107,0,0.92);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    z-index: 6;
+    text-transform: uppercase;
+  }
+ 
+  /* ── AUDIO HINT (video cards only) ── */
+  .fg-audio-hint {
+    position: absolute;
+    bottom: 13px;
+    right: 13px;
+    background: rgba(0,0,0,0.6);
+    color: #ccc;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 7;
+  }
+ 
+  .fg-card:hover .fg-audio-hint {
+    opacity: 1;
+  }
+ 
+  /* ── KEYFRAMES ── */
+  @keyframes fg-rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  @keyframes fg-underline {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* ===== MOBILE SCROLLBAR FOR GALLERY ===== */
+@media (max-width: 768px) {
+
+  .fg-viewport {
+    overflow-x: auto;      /* enable horizontal scroll */
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;   /* space for scrollbar */
+  }
+
+  .fg-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;     /* prevents shrinking */
+  }
+
+  .fg-card {
+    flex: 0 0 85%;          /* big cards for mobile viewing */
+    scroll-snap-align: start;
+  }
+
+  /* Visible scrollbar styling */
+  .fg-viewport::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .fg-viewport::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+
+  .fg-viewport::-webkit-scrollbar-thumb {
+    background: #ffcc00;   /* accent color */
+    border-radius: 10px;
+  }
+
+  /* Firefox scrollbar */
+  .fg-viewport {
+    scrollbar-color: #ffcc00 rgba(255, 255, 255, 0.1);
+    scrollbar-width: thin;
+  }
+}
+
+.fg-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  width: max-content;
+  padding: 12px 48px;
+  animation: fg-scroll 32s linear infinite;
+  will-change: transform;
+}
+        
+@media (max-width: 768px) {
+
+  /* stop auto animation on mobile (VERY IMPORTANT) */
+  .fg-track {
+    animation: none !important;
+    transform: none !important;
+
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 10px 18px;
+  }
+
+  /* viewport becomes scroll container */
+  .fg-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    mask-image: none;
+    -webkit-mask-image: none;
+    padding-bottom: 14px;
+  }
+
+  /* bigger, cleaner cards for mobile */
+  .fg-card {
+    flex: 0 0 88%;
+    scroll-snap-align: center;
+
+    width: auto;
+    border-radius: 16px;
+  }
+
+  /* better media scaling */
+  .fg-media {
+    width: 100%;
+    height: auto;
+  }
+
+  /* scrollbar styling (mobile visible) */
+  .fg-viewport::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  .fg-viewport::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+  }
+
+  .fg-viewport::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #ff6b00, #ff9a00);
+    border-radius: 20px;
+  }
+
+  .fg-viewport {
+    scrollbar-width: thin;
+    scrollbar-color: #ff6b00 rgba(255,255,255,0.08);
+  }
+
+  /* softer hover effect on mobile (no hover needed) */
+  .fg-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* reduce text clutter on small screens */
+  .fg-overlay-title {
+    font-size: 14px;
+  }
+
+  .fg-overlay-sub {
+    font-size: 11px;
+  }
+}
+
+.fg-card {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(240px, 28vw, 320px); /* responsive sizing */
+  aspect-ratio: 4 / 5;              /* keeps consistent shape */
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,107,0,0.14);
+  background: #111;
+  transition: transform 0.45s ease, box-shadow 0.45s ease;
+  cursor: pointer;
+}
+
+.fg-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* IMPORTANT for videos/images */
+  display: block;
+}
+
+.fg-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 24px);
+  width: max-content;
+  padding: 12px clamp(16px, 4vw, 48px);
+  animation: fg-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+
+@media (max-width: 768px) {
+
+  .fg-section {
+    padding: 60px 0 80px;
+  }
+
+  /* disable auto-scroll on mobile */
+  .fg-track {
+    animation: none !important;
+    transform: none !important;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    width: 100%;
+    padding: 10px 14px;
+    gap: 14px;
+  }
+
+  .fg-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  /* FULL WIDTH FEEL ON SMALL PHONES */
+  .fg-card {
+    flex: 0 0 85%;
+    aspect-ratio: 3 / 4;
+    scroll-snap-align: center;
+  }
+
+  /* better readability */
+  .fg-title {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .fg-subtitle {
+    font-size: 13px;
+  }
+
+  /* scrollbar visible */
+  .fg-viewport::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  .fg-viewport::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #ff6b00, #ff9a00);
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+
+  .fg-card {
+    width: clamp(260px, 40vw, 300px);
+  }
+
+  .fg-track {
+    animation-duration: 40s; /* slower for tablets */
+  }
+}
+
+.fg-card {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fg-media {
+  pointer-events: none; /* ensures click goes to card */
+}
+
+.fg-card {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.fg-media {
+  pointer-events: none;
+}
+
+.service-card {
+    perspective: 1000px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.card-front, 
+.card-back {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+/* KEY FIX */
+.card-back {
+    padding: 15px;
+    overflow-y: auto;
+}
+
+/* Optional: nicer scrollbar */
+.card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-back::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.card-back {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-back ul {
+    overflow-y: auto;
+    max-height: 260px; /* adjust based on your card size */
+    padding-right: 10px;
+}
+
+.card-back {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;   /* 👈 THIS FIXES YOUR ISSUE */
+}
+
+/* Optional: smooth scroll feel */
+.card-back {
+    scroll-behavior: smooth;
+}
+
+/* Make it look premium (no ugly scrollbar) */
+.card-back::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card-back::-webkit-scrollbar-thumb {
+    background: rgba(0,255,150,0.4);
+    border-radius: 10px;
+}
+
+
+.card-back {
+    overflow: hidden; /* keep design clean */
+}
+
+.card-back ul {
+    overflow-y: auto; /* only the list scrolls */
+}
+
+.service-card {
+    height: 450px; /* adjust based on your design */
+}
+
+
+.card-back::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 27px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    pointer-events: none;
+}
+
+.card-back::after {
+    content: "";
+    position: sticky;
+    bottom: 0;
+    height: 30px;
+    display: block;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.6));
+}
+
+.large-card {
+    max-width: 420px;
+    transform: scale(1.1);
+}
+
+.large-card .card-front,
+.large-card .card-back {
+    padding: 25px;
+}
+
+.large-card h3 {
+    font-size: 24px;
+}
+
+.large-card h4 {
+    font-size: 18px;
+}
+
+.large-card p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.large-card ul li {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.large-card .card-icon {
+    font-size: 36px;
+}
+
+.large-card .card-btn {
+    font-size: 14px;
+    padding: 10px 18px;
+}
+
+.large-card {
+    margin-top: 40px;
+}
+
+.service-card {
+    height: 520px; /* adjust to fit your content */
+}
+
+.card-inner {
+    height: 100%;
+}
+
+.card-front,
+.card-back {
+    height: 100%;
+}
+
+.card-back ul {
+    max-height: 260px;
+    overflow: hidden;
+}
+
+.service-card {
+    height: 520px; /* adjust if needed */
+    perspective: 1000px;
+}
+
+.card-inner {
+    height: 100%;
+}
+
+.card-front,
+.card-back {
+    height: 100%;
+    overflow: hidden; /* IMPORTANT */
+}
+
+.card-scroll {
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Optional: cleaner scrollbar */
+.card-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-scroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+
+/* Keep card stable */
+.service-card {
+    height: 520px;
+}
+
+.card-front,
+.card-back {
+    height: 100%;
+    overflow: hidden; /* prevents outer scroll */
+}
+
+.card-back {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-back ul {
+    max-height: 180px;   /* adjust if needed */
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Optional: nicer scrollbar */
+.card-back ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-back ul::-webkit-scrollbar-thumb {
+    background: #00ffcc;
+    border-radius: 10px;
+}
+
+.card-back ul::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Google Maps Section */
+.map-section {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 212, 255, 0.25);
+    box-shadow: 0 0 60px rgba(0, 212, 255, 0.15), 0 30px 80px rgba(0,0,0,0.5);
+    transition: all 0.6s var(--liquid-ease);
+}
+
+.map-section:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 80px rgba(0, 212, 255, 0.3), 0 40px 100px rgba(0,0,0,0.6);
+    transform: translateY(-8px);
+}
+
+.map-header {
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,255,136,0.1));
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.map-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.map-pulse-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse-dot 1.2s ease-in-out infinite;
+    box-shadow: 0 0 15px var(--accent);
+    flex-shrink: 0;
+}
+
+.map-header h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px var(--glow);
+}
+
+.map-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.map-open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 30px;
+    color: var(--bg-dark);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.4s var(--custom-expo);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.map-open-btn:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+}
+
+.map-iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background: var(--bg-darker);
+}
+
+.map-iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    filter: hue-rotate(180deg) invert(90%) saturate(0.7) brightness(0.85);
+    transition: filter 0.5s;
+}
+
+.map-iframe-wrapper:hover iframe {
+    filter: hue-rotate(180deg) invert(85%) saturate(0.9) brightness(0.9);
+}
+
+.map-overlay-tag {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(10, 15, 26, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+    pointer-events: none;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+    
+    <!-- Custom Cursor System -->
+    <div class="cursor-system cursor-core"></div>
+    <div class="cursor-system cursor-ring"></div>
+    <div class="cursor-system cursor-outer"></div>
+    <div class="cursor-system cursor-glow"></div>
+    
+    <!-- Epic Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-water-fill"></div>
+        <div class="loader-bubbles-container" id="loader-bubbles"></div>
+        <div class="loader-content">
+            <div class="loader-logo">DETAILERS INC</div>
+            <div class="loader-counter" id="loader-counter">0%</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+            <div class="loader-text">INITIALIZING HYDRO SYSTEM</div>
+        </div>
+    </div>
+    
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    <canvas id="particle-canvas"></canvas>
+    
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <a href="#home" class="mobile-nav-link" onclick="closeMobileNav(); scrollToSection('home')">Home</a>
+        <a href="#services" class="mobile-nav-link" onclick="closeMobileNav(); scrollToSection('services')">Services</a>
+        <a href="#fleet-gallery" class="mobile-nav-link" onclick="closeMobileNav(); scrollToSection('gallery')">Gallery</a>
+        <a href="#pricing" class="mobile-nav-link" onclick="closeMobileNav(); scrollToSection('pricing')">Pricing</a>
+        <a href="#contact" class="mobile-nav-link" onclick="closeMobileNav(); scrollToSection('contact')">Contact</a>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="logo" onclick="scrollToSection('home')">
+            <span class="logo-icon"><i class="fas fa-car"></i></span>
+            DETAILERS <span class="accent">INC.</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link" onclick="scrollToSection('home')">Home</a>
+            <a href="#services" class="nav-link" onclick="scrollToSection('services')">Services</a>
+            <a href="#fleet-gallery" class="nav-link" onclick="scrollToSection('gallery')">Gallery</a>
+            <a href="#pricing" class="nav-link" onclick="scrollToSection('pricing')">Pricing</a>
+            <a href="#contact" class="nav-link btn-nav" onclick="scrollToSection('contact')">Contact</a>
+        </div>
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-pulse"></span>
+                MOBILE CARWASH SERVICES
+            </div>
+            <h1 class="hero-title">
+    <span class="title-line line-1"id="data" >Detailers</span>
+    <span class="title-line line-2">INC</span>
+</h1>
+            <p class="hero-subtitle">Skip the queues. We bring the entire car wash experience to your doorstep with premium detailing that makes your vehicle showroom-ready.</p>
+            <div class="hero-buttons">
+                <button class="btn-epic btn-primary-epic" onclick="createRipple(event, this); scrollToSection('contact')">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="btn-text">BOOK NOW</span>
+                </button>
+                <button class="btn-epic btn-secondary-epic" onclick="createRipple(event, this); scrollToSection('services')">
+                    <i class="fas fa-spray-can"></i>
+                    <span class="btn-text">OUR SERVICES</span>
+                </button>
+            </div>
+        </div>
+        <div class="hero-car-stage">
+            <div class="car-container">
+                <div class="car-body" id="hero-car">
+                    <div class="car-glow"></div>
+                    <img src="hero-car.png" alt="Premium Car" class="car-image">
+                    <div class="car-reflection"></div>
+                    <div class="water-spray" id="water-spray"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator" onclick="scrollToSection('services')">
+            <div class="mouse-icon"><div class="mouse-wheel"></div></div>
+            <div class="scroll-text">SCROLL TO EXPLORE</div>
+            <div class="scroll-arrows">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+<section id="services" class="services">
+    <div class="soap-bubbles-container" id="soap-bubbles"></div>
+    <div class="section-header">
+        <span class="section-badge">WHAT WE OFFER</span>
+        <h2 class="section-title">PREMIUM <span class="accent">SERVICES</span></h2>
+        <p class="section-subtitle">From quick washes to full detailing, we deliver perfection right to your doorstep</p>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card" data-tilt>
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-icon-wrapper">
+                        <div class="icon-glow"></div>
+                        <i class="fas fa-spray-can card-icon"></i>
+                    </div>
+                    <h3>Full House Wash</h3>
+                    <p>Complete interior & exterior cleaning with snow foam, vacuum, and premium finishes that make your car sparkle.</p>
+                    <div class="card-hover-car"><i class="fas fa-car-side"></i></div>
+                </div>
+                <div class="card-back">
+                    <h4><i class="fas fa-list-check"></i> Includes:</h4>
+                    <div class="card-scroll">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Snow foam wash</li>
+                            <li><i class="fas fa-check"></i> Rim & arch cleaning</li>
+                            <li><i class="fas fa-check"></i> Interior vacuum</li>
+                            <li><i class="fas fa-check"></i> Dashboard treatment</li>
+                            <li><i class="fas fa-check"></i> Tyre gel application</li>
+                            <li><i class="fas fa-check"></i> Oil-based perfume</li>
+                        </ul>
+                    </div>
+                    <button class="card-btn" onclick="event.stopPropagation(); goToBooking('Full House Wash')">
+                        Book This Service
+                    </button>
+                </div>
+            </div>
+            <div class="card-glow"></div>
+        </div>
+
+        <div class="service-card" data-tilt>
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-icon-wrapper">
+                        <div class="icon-glow"></div>
+                        <i class="fas fa-gem card-icon"></i>
+                    </div>
+                    <h3>Vehicle Detailing</h3>
+                    <p>Premium deep clean with clay bar treatment, paint correction, and leather care for the ultimate finish.</p>
+                    <div class="card-hover-car"><i class="fas fa-car"></i></div>
+                </div>
+                <div class="card-back">
+                    <h4><i class="fas fa-list-check"></i> Includes:</h4>
+                    <div class="card-scroll">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Iron decontamination</li>
+                            <li><i class="fas fa-check"></i> Clay bar treatment</li>
+                            <li><i class="fas fa-check"></i> Paint correction and polish</li>
+                            <li><i class="fas fa-check"></i> Trye,trim and rubber decon</li>
+                            <li><i class="fas fa-check"></i> interior deep clean</li>
+                            <li><i class="fas fa-check"></i> interior antibacterial steam clean</li>
+                            <li><i class="fas fa-check"></i> Leather conditioning</li>
+                            <li><i class="fas fa-check"></i> Engine wash & dressing</li>
+                        </ul>
+                    </div>
+                    <button class="card-btn" onclick="event.stopPropagation(); goToBooking('Vehicle Detailing')">
+                        Book This Service
+                    </button>
+                </div>
+            </div>
+            <div class="card-glow"></div>
+        </div>
+
+        <div class="service-card" data-tilt>
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-icon-wrapper">
+                        <div class="icon-glow"></div>
+                        <i class="fas fa-star card-icon"></i>
+                    </div>
+                    <h3>Vehicle Polishing</h3>
+                    <p>Professional cut & polish to remove swirls and restore that showroom shine your car deserves.</p>
+                    <div class="card-hover-car"><i class="fas fa-tachometer-alt"></i></div>
+                </div>
+                <div class="card-back">
+                    <h4><i class="fas fa-list-check"></i> Includes:</h4>
+                    <div class="card-scroll">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Iron decontamination</li>
+                            <li><i class="fas fa-check"></i> Clay bar treatment</li>
+                            <li><i class="fas fa-check"></i> Paint correction and polish</li>
+                            <li><i class="fas fa-check"></i> One step cut & polish</li>
+                            <li><i class="fas fa-check"></i> 70-80% swirl reduction</li>
+                            <li><i class="fas fa-check"></i> Paint micron testing</li>
+                        </ul>
+                    </div>
+                    <button class="card-btn" onclick="event.stopPropagation(); goToBooking('Vehicle Polishing')">
+                        Book This Service
+                    </button>
+                </div>
+            </div>
+            <div class="card-glow"></div>
+        </div>
+    </div>
+
+    <div class="service-card large-card" data-tilt>
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="card-icon-wrapper">
+                    <div class="icon-glow"></div>
+                    <i class="fas fa-gem card-icon"></i>
+                </div>
+                <h3>Ceramic coating</h3>
+                <p>Ceramic coating provides a durable, high-gloss protective layer that shields your vehicle's paint from scratches, UV damage, and environmental contaminants.</p>
+                <div class="card-hover-car"><i class="fas fa-car"></i></div>
+            </div>
+            <div class="card-back">
+                <h4><i class="fas fa-list-check"></i> Includes:</h4>
+                <div class="card-scroll">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Application of ceramic coating</li>
+                        <li><i class="fas fa-check"></i> Polishing of high spots for even shine</li>
+                        <li><i class="fas fa-check"></i> Iron decontamination</li>
+                        <li><i class="fas fa-check"></i> Clay bar treatment</li>
+                        <li><i class="fas fa-check"></i> Paint correction and polish</li>
+                        <li><i class="fas fa-check"></i> One step cut & polish</li>
+                        <li><i class="fas fa-check"></i> 70–80% swirl reduction</li>
+                        <li><i class="fas fa-check"></i> Paint micron testing</li>
+                    </ul>
+                </div>
+                <button class="card-btn" onclick="event.stopPropagation(); goToBooking('Ceramic coating')">
+                    Book This Service
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="section-header">
+            <span class="section-badge">PRICING</span>
+            <h2 class="section-title">CHOOSE YOUR <span class="accent">PACKAGE</span></h2>
+            <p class="section-subtitle">Transparent pricing for every vehicle type - no hidden fees</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-box" data-size="small">
+                <div class="holographic-sheen"></div>
+                <div class="price-car-icon"><i class="fas fa-car-side"></i></div>
+                <div class="price-header">
+                    <h3>Small</h3>
+                    <div class="car-type">Hatchback / Sedan</div>
+                </div>
+                <div class="price-amount"><span class="currency">R</span><span class="number" data-target="649">0</span></div>
+                <div class="price-sub">Full House Wash</div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Full exterior wash</li>
+                    <li><i class="fas fa-check"></i> Interior vacuum</li>
+                    <li><i class="fas fa-check"></i> Dashboard wipe</li>
+                    <li><i class="fas fa-check"></i> Tyre dressing</li>
+                </ul>
+                <button class="price-cta"
+  onclick="event.stopPropagation(); sendPackageToWhatsApp(
+    'Small - Hatchback / Sedan',
+    'R649',
+    [
+      'Full exterior wash',
+      'Interior vacuum',
+      'Dashboard wipe',
+      'Tyre dressing'
+    ]
+  )">
+  Select Package
+</button>
+            </div>
+            
+            <div class="price-box featured" data-size="medium">
+                <div class="popular-badge">MOST POPULAR</div>
+                <div class="holographic-sheen"></div>
+                <div class="price-car-icon"><i class="fas fa-truck-pickup"></i></div>
+                <div class="price-header">
+                    <h3>Medium</h3>
+                    <div class="car-type">Mini SUV / Station Wagon</div>
+                </div>
+                <div class="price-amount"><span class="currency">R</span><span class="number" data-target="749">0</span></div>
+                <div class="price-sub">Full House Wash</div>
+                <ul class="features">
+                        <li><i class="fas fa-check"></i> Full exterior wash</li>
+                    <li><i class="fas fa-check"></i> Interior vacuum</li>
+                    <li><i class="fas fa-check"></i> Dashboard wipe</li>
+                    <li><i class="fas fa-check"></i> Tyre dressing</li>
+                </ul>
+                <button class="price-cta"
+  onclick="event.stopPropagation(); sendPackageToWhatsApp(
+    'Medium - Mini SUV / Station Wagon',
+    'R749',
+    [
+      'Full exterior wash',
+      'Interior vacuum',
+      'Dashboard wipe',
+      'Tyre dressing'
+    ]
+  )">
+  Select Package
+</button>
+            </div>
+            
+            <div class="price-box" data-size="large">
+                <div class="holographic-sheen"></div>
+                <div class="price-car-icon"><i class="fas fa-truck-monster"></i></div>
+                <div class="price-header">
+                    <h3>Large</h3>
+                    <div class="car-type">SUV / 4x4 / Panel Van</div>
+                </div>
+                <div class="price-amount"><span class="currency">R</span><span class="number" data-target="849">0</span></div>
+                <div class="price-sub">Full House Wash</div>
+                <ul class="features">
+                       <li><i class="fas fa-check"></i> Full exterior wash</li>
+                    <li><i class="fas fa-check"></i> Interior vacuum</li>
+                    <li><i class="fas fa-check"></i> Dashboard wipe</li>
+                    <li><i class="fas fa-check"></i> Tyre dressing</li>
+                </ul>
+                <button class="price-cta"
+  onclick="event.stopPropagation(); sendPackageToWhatsApp(
+    'Large - SUV / 4x4 / Panel Van',
+    'R849',
+    [
+      'Full exterior wash',
+      'Interior vacuum',
+      'Dashboard wipe',
+      'Tyre dressing'
+    ]
+  )">
+  Select Package
+</button>
+            </div>
+        </div>
+        
+        <div class="subscription-banner" onclick="scrollToSection('contact')">
+            <div class="banner-content">
+                <h4><i class="fas fa-crown"></i> Monthly Subscription Available!</h4>
+                <p>4 washes + FREE speed wax on last wash - Save up to 20%</p>
+                 <p>Call out fee may apply</p>
+            </div>
+            <div class="banner-car"><i class="fas fa-car"></i></div>
+        </div>
+    </section>
+    
+  <section id="fleet-gallery" class="fg-section">
+ 
+  <!-- Header -->
+  <header class="fg-header">
+    <span class="fg-badge">Our Work</span>
+    <h2 class="fg-title">THE <span class="fg-title-accent">FLEET</span></h2>
+    <p class="fg-subtitle">Real transformations. Real shine.</p>
+  </header>
+ 
+  <!-- Scrolling viewport -->
+  <div class="fg-viewport">
+    <div class="fg-track" id="fgTrack">
+ 
+      <!-- ── ORIGINAL ITEMS ── -->
+ 
+      <!-- Video 1 -->
+      <div class="fg-card" data-type="video">
+        <video class="fg-media" autoplay muted loop playsinline>
+          <source src="car_wash.mp4" type="video/mp4">
+        </video>
+        <span class="fg-badge-tag">Video</span>
+        <span class="fg-audio-hint">🔊 Click to unmute</span>
+        <div class="fg-overlay">
+          <p class="fg-overlay-title">Premium Detail</p>
+          <p class="fg-overlay-sub">Full exterior transformation</p>
+        </div>
+      </div>
+ 
+      <!-- Video 2 -->
+      <div class="fg-card" data-type="video">
+        <video class="fg-media" autoplay muted loop playsinline>
+          <source src="WhatsApp Video 2026-04-16 at 10.19.27.mp4" type="video/mp4">
+        </video>
+        <span class="fg-badge-tag">Video</span>
+        <span class="fg-audio-hint">🔊 Click to unmute</span>
+        <div class="fg-overlay">
+          <p class="fg-overlay-title">Deep Clean</p>
+          <p class="fg-overlay-sub">Interior + Exterior service</p>
+        </div>
+      </div>
+ 
+      <!-- Image 1 -->
+      <div class="fg-card" data-type="photo">
+        <img class="fg-media" src="WhatsApp Image 2026-04-16 at 10.19.24.jpeg" alt="Showroom finish detail" loading="lazy">
+        <span class="fg-badge-tag">Photo</span>
+        <div class="fg-overlay">
+          <p class="fg-overlay-title">Showroom Finish</p>
+          <p class="fg-overlay-sub">Final polish result</p>
+        </div>
+      </div>
+ 
+      <!-- ── CLONES for seamless loop (JS also builds these, but kept here as fallback) ── -->
+ 
+      <!-- Video 1 clone -->
+      <div class="fg-card fg-clone" data-type="video">
+        <video class="fg-media" autoplay muted loop playsinline>
+          <source src="1.mp4" type="video/mp4">
+        </video>
+        <span class="fg-badge-tag">Video</span>
+        <span class="fg-audio-hint">🔊 Click to unmute</span>
+        <div class="fg-overlay">
+          <p class="fg-overlay-title">Premium Detail</p>
+          <p class="fg-overlay-sub">Full exterior transformation</p>
+        </div>
+      </div>
+ 
+      <!-- Video 2 clone -->
+      <div class="fg-card fg-clone" data-type="video">
+        <video class="fg-media" autoplay muted loop playsinline>
+          <source src="2.mp4" type="video/mp4">
+        </video>
+        <span class="fg-badge-tag">Video</span>
+        <span class="fg-audio-hint">🔊 Click to unmute</span>
+        <div class="fg-overlay">
+          <p class="fg-overlay-title">Deep Clean</p>
+          <p class="fg-overlay-sub">Interior + Exterior service</p>
+        </div>
+      </div>
+ 
+      <!-- Image 1 clone -->
+      <div class="fg-card fg-clone" data-type="photo">
+        <img class="fg-media" src="WhatsApp Image 2026-04-17 at 07.32.34.jpeg" alt="Showroom finish detail" loading="lazy">
+        <span class="fg-badge-tag">Photo</span>
+        <div class="fg-overlay">
+          <p class="fg-overlay-title">Showroom Finish</p>
+          <p class="fg-overlay-sub">Final polish result</p>
+        </div>
+      </div>
+
+      <div class="fg-card fg-clone" data-type="photo">
+        <img class="fg-media" src="WhatsApp Image 2026-04-17 at 07.32.35.jpeg" alt="Showroom finish detail" loading="lazy">
+        <span class="fg-badge-tag">Photo</span>
+        <div class="fg-overlay">
+          <p class="fg-overlay-title">Showroom Finish</p>
+          <p class="fg-overlay-sub">Final polish result</p>
+        </div>
+      </div>
+ 
+ 
+    </div><!-- /fg-track -->
+  </div><!-- /fg-viewport -->
+ 
+</section>
+    
+    
+    <!-- Contact Section - Professional Design -->
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <span class="section-badge">GET IN TOUCH</span>
+            <h2 class="section-title">CONTACT <span class="accent">US</span></h2>
+            <p class="section-subtitle">Ready to give your car the premium treatment it deserves? Reach out to us!</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-main">
+                <div class="contact-info-card">
+                    <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+                    <div class="contact-details">
+                        <div class="contact-item" onclick="window.open('tel:+27848772847')">
+                            <i class="fas fa-phone-alt"></i>
+                            <div class="contact-item-content">
+                                <h4>Phone</h4>
+                                <p>+27848772847</p>
+                            </div>
+                        </div>
+                        <div class="contact-item" onclick="window.open('mailto:info@detailersinc.co.za')">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-item-content">
+                                <h4>Email</h4>
+                                <p>detailerswashes@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-item-content">
+                                <h4>Location</h4>
+                                <p>Mobile Service - We Come To You!</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="contact-item-content">
+                                <h4>Operating Hours</h4>
+                                <p>Mon - Sat: 8AM - 6PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-visual">
+                    <i class="fas fa-car contact-car-icon"></i>
+                    <p class="contact-tagline">More than <span>Clean, </span> its Detailed</p>
+                    <div class="contact-cta">
+                        <a href="https://wa.me/27848772847" class="btn-contact btn-whatsapp" target="_blank" onclick="createSparkles(event, this)">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp Us
+                        </a>
+                        <a href="tel:+27848772847" class="btn-contact btn-call" onclick="createSparkles(event, this)">
+                            <i class="fas fa-phone"></i>
+                            Call Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-section">
+                <div class="social-title">FOLLOW US ON SOCIAL MEDIA</div>
+                <div class="social-grid">
+                    <a href="https://www.instagram.com/detailersinc_/" class="social-link-epic" onclick="createSparkles(event, this)">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                   
+                    <a href="https://wa.me/27848772847" class="social-link-epic" target="_blank" onclick="createSparkles(event, this)">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@detailersinc" class="social-link-epic" onclick="createSparkles(event, this)">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+        
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+ <!-- ── LIVE GOOGLE MAP ── -->
+            <div class="map-section">
+                <div class="map-header">
+                    <div class="map-header-left">
+                        <div class="map-pulse-dot"></div>
+                        <div>
+                            <h4><i class="fas fa-map-marker-alt"></i> &nbsp;OUR LOCATION</h4>
+                            <p>Unit 5, King Fisher Office Park 2, Mount Edgecombe, Durban 4300</p>
+                        </div>
+                    </div>
+                    <div class="map-btn-group">
+                        <button class="map-open-btn btn-live" id="btnLiveMap" onclick="toggleLiveLocation()">
+                            <i class="fas fa-location-crosshairs"></i> Live Map
+                        </button>
+                        <button class="map-open-btn btn-directions" onclick="openInMaps()">
+                            <i class="fas fa-directions"></i> Open in Maps
+                        </button>
+                    </div>
+                </div>
+                <div class="map-iframe-wrapper">
+                    <!-- Default: Mount Edgecombe area, zoomed to show surroundings -->
+                    <iframe
+                        id="mapIframe"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28763.5!2d30.7035!3d-29.7180!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700e4eeeeeeef%3A0x0!2sMount+Edgecombe%2C+Durban%2C+KwaZulu-Natal%2C+4300!5e0!3m2!1sen!2sza!4v1714500000000!5m2!1sen!2sza"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Detailers Inc. - King Fisher Office Park, Mount Edgecombe">
+                    </iframe>
+                    <div class="map-loading-overlay" id="mapLoadingOverlay">
+                        <div class="map-loading-spinner"></div>
+                        <div class="map-loading-text">GETTING LOCATION...</div>
+                    </div>
+                    <div class="map-overlay-tag" id="mapTag">📍 MOUNT EDGECOMBE</div>
+                </div>
+            </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-road"></div>
+        <div class="footer-car"><i class="fas fa-car-side"></i></div>
+        <div class="footer-content">
+            <div class="footer-logo">DETAILERS <span class="accent">INC.</span></div>
+            
+            <p class="copyright">&copy; 2026 Detailers Inc. All rights reserved. | Premium Mobile Carwash Services</p>
+        </div>
+       
+    </footer>
+
+    <script>
+        // Mobile Navigation Functions
+        function toggleMobileNav() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const overlay = document.getElementById('mobile-nav-overlay');
+            toggle.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+        }
+        
+        function closeMobileNav() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const overlay = document.getElementById('mobile-nav-overlay');
+            toggle.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close mobile nav on resize if open
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMobileNav();
+            }
+        });
+        
+        // Close mobile nav on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMobileNav();
+            }
+        });
+        
+        // Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            smoothTouch: false,
+            touchMultiplier: 2
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // GSAP ScrollTrigger Integration
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Check if touch device
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+        // Custom Cursor System - Only on non-touch devices
+        if (!isTouchDevice) {
+            const cursorCore = document.querySelector('.cursor-core');
+            const cursorRing = document.querySelector('.cursor-ring');
+            const cursorOuter = document.querySelector('.cursor-outer');
+            const cursorGlow = document.querySelector('.cursor-glow');
+            
+            let mouseX = 0, mouseY = 0;
+            let ringX = 0, ringY = 0;
+            let outerX = 0, outerY = 0;
+            let glowX = 0, glowY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                cursorCore.style.left = mouseX + 'px';
+                cursorCore.style.top = mouseY + 'px';
+            });
+
+            function animateCursor() {
+                ringX += (mouseX - ringX) * 0.12;
+                ringY += (mouseY - ringY) * 0.12;
+                outerX += (mouseX - outerX) * 0.08;
+                outerY += (mouseY - outerY) * 0.08;
+                glowX += (mouseX - glowX) * 0.05;
+                glowY += (mouseY - glowY) * 0.05;
+                
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+                cursorOuter.style.left = outerX + 'px';
+                cursorOuter.style.top = outerY + 'px';
+                cursorGlow.style.left = glowX + 'px';
+                cursorGlow.style.top = glowY + 'px';
+                
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Cursor Hover Effects
+            const interactiveElements = document.querySelectorAll('a, button, .service-card, .price-box, .gallery-item, .contact-item, .social-link-epic, .footer-social-link, .scroll-indicator, .logo, .mobile-menu-toggle');
+            
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    document.body.classList.add('cursor-hover');
+                    cursorRing.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                    cursorOuter.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorGlow.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                    cursorGlow.style.opacity = '0.5';
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    document.body.classList.remove('cursor-hover');
+                    cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorOuter.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorGlow.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorGlow.style.opacity = '0.2';
+                });
+            });
+
+            // Click Effects
+            document.addEventListener('mousedown', () => {
+                document.body.classList.add('cursor-click');
+                cursorCore.style.transform = 'translate(-50%, -50%) scale(0.6)';
+            });
+
+            document.addEventListener('mouseup', () => {
+                document.body.classList.remove('cursor-click');
+                cursorCore.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        }
+
+        // Epic Loader
+        window.addEventListener('load', () => {
+            const bubbleContainer = document.getElementById('loader-bubbles');
+            
+            // Create loader bubbles
+            for (let i = 0; i < 30; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'loader-bubble';
+                bubble.style.left = Math.random() * 100 + '%';
+                const size = Math.random() * 50 + 15;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.animationDelay = Math.random() * 2.5 + 's';
+                bubble.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                bubbleContainer.appendChild(bubble);
+            }
+            
+            // Counter animation
+            let counter = { val: 0 };
+            gsap.to(counter, {
+                val: 100,
+                duration: 2.5,
+                ease: "power2.inOut",
+                onUpdate: () => {
+                    document.getElementById('loader-counter').textContent = Math.floor(counter.val) + '%';
+                }
+            });
+            
+            // Hide loader
+            gsap.to('.loader', {
+                y: '-100%',
+                duration: 1.5,
+                ease: "power4.inOut",
+                delay: 3,
+                onComplete: initHeroAnimation
+            });
+        });
+
+        // Hero Animation
+        function initHeroAnimation() {
+            const tl = gsap.timeline();
+            
+            tl.to('.navbar', { y: 0, duration: 1, ease: "power3.out" });
+            tl.to('.line-1', { opacity: 1, y: 0, rotateX: 0, duration: 1.4, ease: "back.out(1.7)" }, "-=0.5");
+            tl.to('.line-2', { opacity: 1, y: 0, rotateX: 0, duration: 1.4, ease: "back.out(1.7)" }, "-=1.1");
+            tl.to('.hero-subtitle', { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" }, "-=0.9");
+            tl.to('.hero-buttons', { opacity: 1, y: 0, duration: 1.2, ease: "back.out(1.7)" }, "-=0.7");
+            tl.to('#hero-car', { 
+                x: 0, 
+                opacity: 1, 
+                scale: 1, 
+                rotateY: 0, 
+                filter: "blur(0px)", 
+                duration: 2.5, 
+                ease: "power2.out" 
+            }, "-=1.8");
+            tl.to('.scroll-indicator', { opacity: 1, duration: 1 }, "-=0.8");
+            
+            // Initialize other systems
+            initBackgroundCanvas();
+            initParticleCanvas();
+            initSoapBubbles();
+        }
+
+        // Ripple Effect
+        function createRipple(e, btn) {
+            const ripple = document.createElement('span');
+            ripple.className = 'btn-ripple';
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height) * 1.5;
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 800);
+        }
+
+        // Scroll to Section
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) lenis.scrollTo(element, { offset: -80 });
+        }
+
+        // Navbar Scroll Effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // Service Cards - FIXED VERSION
+        const serviceCards = document.querySelectorAll('.service-card');
+        
+        serviceCards.forEach((card, index) => {
+            // Initialize card state
+            let isFlipped = false;
+            
+            // Click handler for flipping
+            card.addEventListener('click', function(e) {
+                // Don't flip if clicking the book button
+                if (e.target.closest('.card-btn')) {
+                    return;
+                }
+                
+                isFlipped = !isFlipped;
+                
+                if (isFlipped) {
+                    this.classList.add('flipped');
+                    // Reset tilt when flipped
+                    this.querySelector('.card-inner').style.transform = 'rotateY(180deg)';
+                } else {
+                    this.classList.remove('flipped');
+                    this.querySelector('.card-inner').style.transform = 'rotateY(0deg)';
+                }
+                
+                createSparkles(this);
+            });
+            
+            // 3D Tilt Effect - only on non-touch devices and when not flipped
+            if (!isTouchDevice) {
+                card.addEventListener('mousemove', function(e) {
+                    if (this.classList.contains('flipped')) return;
+                    
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -15;
+                    const rotateY = ((x - centerX) / centerX) * 15;
+                    
+                    this.querySelector('.card-inner').style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    
+                    this.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                    this.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    if (this.classList.contains('flipped')) {
+                        this.querySelector('.card-inner').style.transform = 'rotateY(180deg)';
+                    } else {
+                        this.querySelector('.card-inner').style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                    }
+                });
+            }
+            
+            // Scroll animation
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                y: 0,
+                rotateX: 0,
+                duration: 1.2,
+                delay: index * 0.2,
+                ease: "power3.out"
+            });
+        });
+
+        // Sparkles Effect
+        function createSparkles(element) {
+            const rect = element.getBoundingClientRect();
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = (rect.left + rect.width / 2) + 'px';
+                sparkle.style.top = (rect.top + rect.height / 2) + 'px';
+                document.body.appendChild(sparkle);
+                
+                const angle = (i / 20) * Math.PI * 2;
+                const velocity = 120 + Math.random() * 100;
+                
+                gsap.to(sparkle, {
+                    x: Math.cos(angle) * velocity,
+                    y: Math.sin(angle) * velocity,
+                    opacity: 0,
+                    scale: 0,
+                    duration: 1.2,
+                    ease: "power2.out",
+                    onComplete: () => sparkle.remove()
+                });
+            }
+        }
+
+        // Sparkles on social click
+        function createSparkles(e, element) {
+            e.preventDefault();
+            const rect = element.getBoundingClientRect();
+            for (let i = 0; i < 15; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = (rect.left + rect.width / 2) + 'px';
+                sparkle.style.top = (rect.top + rect.height / 2) + 'px';
+                document.body.appendChild(sparkle);
+                
+                const angle = (i / 15) * Math.PI * 2;
+                const velocity = 80 + Math.random() * 60;
+                
+                gsap.to(sparkle, {
+                    x: Math.cos(angle) * velocity,
+                    y: Math.sin(angle) * velocity,
+                    opacity: 0,
+                    scale: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    onComplete: () => sparkle.remove()
+                });
+            }
+        }
+
+        // Soap Bubbles
+        function initSoapBubbles() {
+            const container = document.getElementById('soap-bubbles');
+            if (!container) return;
+            
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'soap-bubble';
+                bubble.style.left = Math.random() * 100 + '%';
+                const size = Math.random() * 80 + 30;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.animationDelay = Math.random() * 10 + 's';
+                bubble.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                container.appendChild(bubble);
+            }
+        }
+
+        // Price Boxes Animation
+        const priceBoxes = document.querySelectorAll('.price-box');
+        priceBoxes.forEach((box, index) => {
+            gsap.to(box, {
+                scrollTrigger: {
+                    trigger: box,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                x: 0,
+                rotateY: 0,
+                duration: 1.4,
+                delay: index * 0.15,
+                ease: "power3.out"
+            });
+        });
+
+        // Number Counter Animation
+        gsap.utils.toArray('.number').forEach(num => {
+            const target = parseInt(num.dataset.target);
+            ScrollTrigger.create({
+                trigger: num,
+                start: "top 85%",
+                onEnter: () => {
+                    gsap.to(num, {
+                        innerHTML: target,
+                        duration: 3,
+                        snap: { innerHTML: 1 },
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+
+        // Gallery Water Drop Effect
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const drop = document.createElement('div');
+                        drop.className = 'water-drop';
+                        drop.style.left = (Math.random() * 70 + 15) + '%';
+                        drop.style.top = '15%';
+                        drop.style.setProperty('--y-offset', (Math.random() * 100 - 50) + 'px');
+                        item.appendChild(drop);
+                        setTimeout(() => drop.remove(), 1200);
+                    }, i * 120);
+                }
+            });
+        });
+
+        // Background Canvas - Water Waves
+        function initBackgroundCanvas() {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const waves = [];
+            const waveCount = 5;
+            
+            for (let i = 0; i < waveCount; i++) {
+                waves.push({
+                    y: canvas.height / 2,
+                    length: 0.005 + i * 0.002,
+                    amplitude: 30 + i * 15,
+                    speed: 0.02 + i * 0.01,
+                    offset: i * 100
+                });
+            }
+            
+            let time = 0;
+            
+            function animate() {
+                ctx.fillStyle = 'rgba(10, 15, 26, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                waves.forEach((wave, i) => {
+                    ctx.beginPath();
+                    ctx.moveTo(0, canvas.height);
+                    
+                    for (let x = 0; x < canvas.width; x++) {
+                        const y = wave.y + Math.sin(x * wave.length + time * wave.speed + wave.offset) * wave.amplitude;
+                        ctx.lineTo(x, y);
+                    }
+                    
+                    ctx.lineTo(canvas.width, canvas.height);
+                    ctx.closePath();
+                    
+                    const gradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, canvas.height);
+                    gradient.addColorStop(0, `rgba(0, 212, 255, ${0.03 + i * 0.01})`);
+                    gradient.addColorStop(1, 'transparent');
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                });
+                
+                time++;
+                requestAnimationFrame(animate);
+            }
+            animate();
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Particle Canvas
+        function initParticleCanvas() {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const particles = [];
+            const particleCount = isTouchDevice ? 40 : 80;
+            
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 5 + 1;
+                    this.speedX = (Math.random() - 0.5) * 1;
+                    this.speedY = (Math.random() - 0.5) * 1;
+                    this.opacity = Math.random() * 0.7 + 0.3;
+                    this.type = Math.random() > 0.6 ? 'sparkle' : 'dot';
+                    this.color = Math.random() > 0.5 ? '#00D4FF' : '#00FF88';
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                        this.reset();
+                    }
+                }
+                
+                draw() {
+                    if (this.type === 'sparkle') {
+                        ctx.save();
+                        ctx.translate(this.x, this.y);
+                        ctx.rotate(Date.now() * 0.003);
+                        ctx.fillStyle = this.color;
+                        ctx.globalAlpha = this.opacity;
+                        ctx.fillRect(-this.size, -this.size / 4, this.size * 2, this.size / 2);
+                        ctx.fillRect(-this.size / 4, -this.size, this.size / 2, this.size * 2);
+                        ctx.restore();
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.globalAlpha = this.opacity;
+                        ctx.fill();
+                    }
+                }
+            }
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                
+                // Draw connections
+                particles.forEach((p1, i) => {
+                    particles.slice(i + 1).forEach(p2 => {
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 150) {
+                            ctx.strokeStyle = `rgba(0, 212, 255, ${0.1 * (1 - distance / 150)})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    });
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Click Sparkles
+        document.addEventListener('click', (e) => {
+            // Don't create sparkles on mobile menu toggle
+            if (e.target.closest('.mobile-menu-toggle')) return;
+            
+            for (let i = 0; i < 12; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                document.body.appendChild(sparkle);
+                
+                const angle = (i / 12) * Math.PI * 2;
+                const velocity = 80 + Math.random() * 50;
+                
+                gsap.to(sparkle, {
+                    x: Math.cos(angle) * velocity,
+                    y: Math.sin(angle) * velocity,
+                    opacity: 0,
+                    scale: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    onComplete: () => sparkle.remove()
+                });
+            }
+        });
+
+        // Hero Car Parallax - only on non-touch devices
+        if (!isTouchDevice) {
+            document.addEventListener('mousemove', (e) => {
+                const car = document.getElementById('hero-car');
+                if (!car) return;
+                
+                const x = (window.innerWidth - e.pageX * 2) / 60;
+                const y = (window.innerHeight - e.pageY * 2) / 60;
+                
+                gsap.to(car, {
+                    rotationY: x,
+                    rotationX: y,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+            });
+        }
+
+        // Section Header Animations
+        gsap.utils.toArray('.section-header').forEach(header => {
+            gsap.from(header.children, {
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 80,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+        });
+
+        // Contact Section Animation
+        gsap.from('.contact-info-card', {
+            scrollTrigger: {
+                trigger: '.contact-info-card',
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            x: -100,
+            opacity: 0,
+            duration: 1.4,
+            ease: "power3.out"
+        });
+
+        gsap.from('.contact-visual', {
+            scrollTrigger: {
+                trigger: '.contact-visual',
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            x: 100,
+            opacity: 0,
+            duration: 1.4,
+            ease: "power3.out"
+        });
+
+        // Subscription Banner Animation
+        gsap.from('.subscription-banner', {
+            scrollTrigger: {
+                trigger: '.subscription-banner',
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            y: 80,
+            opacity: 0,
+            duration: 1.4,
+            ease: "power3.out"
+        });
+
+        // Floating Elements
+        function createFloatingElements() {
+            const symbols = ['fa-droplet', 'fa-soap', 'fa-spray-can', 'fa-star', 'fa-gem'];
+            const container = document.body;
+            
+            for (let i = 0; i < 10; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-element';
+                el.innerHTML = `<i class="fas ${symbols[Math.floor(Math.random() * symbols.length)]}"></i>`;
+                el.style.left = Math.random() * 100 + '%';
+                el.style.top = Math.random() * 100 + '%';
+                el.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                el.style.color = Math.random() > 0.5 ? 'var(--primary)' : 'var(--accent)';
+                el.style.animationDelay = Math.random() * 15 + 's';
+                el.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(el);
+            }
+        }
+        createFloatingElements();
+
+        // Water Spray Effect on Car Hover - only on non-touch devices
+        if (!isTouchDevice) {
+            const heroCar = document.getElementById('hero-car');
+            if (heroCar) {
+                heroCar.addEventListener('mouseenter', () => {
+                    const spray = document.getElementById('water-spray');
+                    spray.style.opacity = '1';
+                    
+                    for (let i = 0; i < 30; i++) {
+                        setTimeout(() => {
+                            const particle = document.createElement('div');
+                            particle.className = 'spray-particle';
+                            particle.style.top = (Math.random() * 100) + '%';
+                            particle.style.setProperty('--y-offset', (Math.random() * 200 - 100) + 'px');
+                            particle.style.animationDelay = (Math.random() * 0.5) + 's';
+                            spray.appendChild(particle);
+                            setTimeout(() => particle.remove(), 1000);
+                        }, i * 30);
+                    }
+                    
+                    setTimeout(() => {
+                        spray.style.opacity = '0';
+                    }, 1500);
+                });
+            }
+        }
+
+        // Pause gallery on hover
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.closest('.gallery-track').style.animationPlayState = 'paused';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.closest('.gallery-track').style.animationPlayState = 'running';
+            });
+        });
+
+        // Magnetic Button Effect - only on non-touch devices
+        if (!isTouchDevice) {
+            document.querySelectorAll('.btn-epic, .card-btn, .price-cta, .btn-contact').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    gsap.to(btn, {
+                        x: x * 0.2,
+                        y: y * 0.2,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "elastic.out(1, 0.3)"
+                    });
+                });
+            });
+        }
+
+        // Text Scramble Effect for Hero Title
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            
+            update() {
+                let output = '';
+                let complete = 0;
+                
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span style="color: var(--primary)">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                
+                this.el.innerHTML = output;
+                
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // Initialize Text Scramble on Hero Title
+        setTimeout(() => {
+            const line2 = document.querySelector('.line-2');
+            if (line2) {
+                const fx = new TextScramble(line2);
+                fx.setText('INC');
+            }
+        }, 4000);
+
+        // Contact items click animation
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('click', () => {
+                createSparkles(item);
+            });
+        });
+        function createSparkles(e, element) {
+    // ✅ REMOVED e.preventDefault() — links now open normally
+    const rect = element.getBoundingClientRect();
+    for (let i = 0; i < 15; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = (rect.left + rect.width / 2) + 'px';
+        sparkle.style.top = (rect.top + rect.height / 2) + 'px';
+        document.body.appendChild(sparkle);
+        
+        const angle = (i / 15) * Math.PI * 2;
+        const velocity = 80 + Math.random() * 60;
+        
+        gsap.to(sparkle, {
+            x: Math.cos(angle) * velocity,
+            y: Math.sin(angle) * velocity,
+            opacity: 0,
+            scale: 0,
+            duration: 1,
+            ease: "power2.out",
+            onComplete: () => sparkle.remove()
+        });
+    }
+}
+
+(function () {
+  'use strict';
+ 
+  const ANIM_DURATION = 32;   // must match CSS fg-scroll duration in seconds
+  const DRAG_THRESHOLD = 6;   // px of movement before we treat it as a drag
+ 
+  const track = document.getElementById('fgTrack');
+  if (!track) return;
+ 
+  /* ── helper: read current translateX from computed style ── */
+  function getTranslateX() {
+    const matrix = new DOMMatrixReadOnly(window.getComputedStyle(track).transform);
+    return matrix.m41;
+  }
+ 
+  /* ── helper: resume CSS animation from a given pixel offset ── */
+  function resumeAnimFrom(currentX) {
+    const totalWidth = track.scrollWidth / 2;   // one full set of cards
+    const progress   = (Math.abs(currentX) % totalWidth) / totalWidth;
+    track.style.transform     = '';
+    track.style.animation     = '';
+    track.style.animationDelay = `-${(progress * ANIM_DURATION).toFixed(3)}s`;
+  }
+ 
+  /* ══════════════════════════════════════════════════════════
+     1. MOUSE DRAG + CLICK
+     We only commit to "drag mode" once the pointer moves
+     more than DRAG_THRESHOLD px. A smaller movement is a click.
+  ══════════════════════════════════════════════════════════ */
+  let mouseDownX   = null;
+  let dragStartX   = 0;    // track translateX when drag began
+  let dragging     = false;
+ 
+  track.addEventListener('mousedown', function (e) {
+    // Only primary button
+    if (e.button !== 0) return;
+    mouseDownX = e.clientX;
+    dragging   = false;
+    e.preventDefault();   // prevents text selection while dragging
+  });
+ 
+  window.addEventListener('mousemove', function (e) {
+    if (mouseDownX === null) return;
+ 
+    const moved = Math.abs(e.clientX - mouseDownX);
+ 
+    if (!dragging && moved > DRAG_THRESHOLD) {
+      // Commit to drag: freeze animation at its current position
+      dragging   = true;
+      dragStartX = getTranslateX();
+      track.style.animation = 'none';
+      track.style.transform = 'translateX(' + dragStartX + 'px)';
+      track.classList.add('is-paused');
+      track.style.cursor = 'grabbing';
+    }
+ 
+    if (dragging) {
+      const dx = e.clientX - mouseDownX;
+      track.style.transform = 'translateX(' + (dragStartX + dx) + 'px)';
+    }
+  });
+ 
+  window.addEventListener('mouseup', function (e) {
+    if (mouseDownX === null) return;
+ 
+    if (dragging) {
+      // End drag — resume animation from current visual position
+      const currentX = getTranslateX();
+      track.classList.remove('is-paused');
+      track.style.cursor = '';
+      resumeAnimFrom(currentX);
+    }
+    // If NOT dragging, it was a clean click — handled below via 'click' event
+ 
+    mouseDownX = null;
+    dragging   = false;
+  });
+ 
+  /* ══════════════════════════════════════════════════════════
+     2. CLICK → UNMUTE / MUTE VIDEO
+     Only fires when the mouse didn't drag (native click event
+     is suppressed during drag by the preventDefault above, but
+     we guard with the `dragging` flag just in case).
+  ══════════════════════════════════════════════════════════ */
+  track.addEventListener('click', function (e) {
+    // Ignore if this click was the tail-end of a drag
+    if (dragging) return;
+ 
+    const card = e.target.closest('.fg-card[data-type="video"]');
+    if (!card) return;
+ 
+    const video = card.querySelector('video');
+    const hint  = card.querySelector('.fg-audio-hint');
+    if (!video) return;
+ 
+    if (video.muted) {
+      video.muted = false;
+      // Some browsers need an explicit play() after unmuting
+      video.play().catch(function () { video.muted = true; });
+      if (hint) hint.textContent = '🔇 Click to mute';
+    } else {
+      video.muted = true;
+      if (hint) hint.textContent = '🔊 Click to unmute';
+    }
+  });
+ 
+  /* ══════════════════════════════════════════════════════════
+     3. TOUCH DRAG + TAP
+     Same drag-threshold logic for mobile.
+  ══════════════════════════════════════════════════════════ */
+  let touchStartX   = 0;
+  let touchDragX    = 0;
+  let touchDragging = false;
+ 
+  track.addEventListener('touchstart', function (e) {
+    touchStartX   = e.touches[0].clientX;
+    touchDragX    = getTranslateX();
+    touchDragging = false;
+  }, { passive: true });
+ 
+  track.addEventListener('touchmove', function (e) {
+    const dx = e.touches[0].clientX - touchStartX;
+ 
+    if (!touchDragging && Math.abs(dx) > DRAG_THRESHOLD) {
+      touchDragging = true;
+      track.style.animation = 'none';
+      track.style.transform = 'translateX(' + touchDragX + 'px)';
+    }
+ 
+    if (touchDragging) {
+      track.style.transform = 'translateX(' + (touchDragX + dx) + 'px)';
+    }
+  }, { passive: true });
+ 
+  track.addEventListener('touchend', function (e) {
+    if (touchDragging) {
+      const currentX = getTranslateX();
+      resumeAnimFrom(currentX);
+    } else {
+      // It was a tap — fire unmute logic manually
+      const touch = e.changedTouches[0];
+      const el    = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (!el) return;
+      const card  = el.closest('.fg-card[data-type="video"]');
+      if (!card) return;
+      const video = card.querySelector('video');
+      const hint  = card.querySelector('.fg-audio-hint');
+      if (!video) return;
+ 
+      if (video.muted) {
+        video.muted = false;
+        video.play().catch(function () { video.muted = true; });
+        if (hint) hint.textContent = '🔇 Tap to mute';
+      } else {
+        video.muted = true;
+        if (hint) hint.textContent = '🔊 Tap to unmute';
+      }
+    }
+    touchDragging = false;
+  });
+ 
+  /* ══════════════════════════════════════════════════════════
+     4. LAZY VIDEO PLAYBACK
+     Pause videos that scroll off-screen to save resources.
+  ══════════════════════════════════════════════════════════ */
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(function () {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+ 
+    track.querySelectorAll('video').forEach(function (v) {
+      io.observe(v);
+    });
+  }
+ 
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const cards = document.querySelectorAll(".fg-card[data-type='video']");
+  let activeVideo = null;
+
+  const setMutedAllExcept = (video) => {
+    document.querySelectorAll(".fg-card[data-type='video'] video").forEach(v => {
+      if (v !== video) {
+        v.muted = true;
+      }
+    });
+  };
+
+  cards.forEach(card => {
+    const video = card.querySelector("video");
+    const hint = card.querySelector(".fg-audio-hint");
+
+    if (!video) return;
+
+    // SAFE defaults (important for mobile browsers)
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
+    const toggleAudio = async (e) => {
+      e.preventDefault();
+      e.stopPropagation(); // prevents drag system conflict
+
+      try {
+
+        // CASE 1: clicking same active video → mute it
+        if (activeVideo === video && !video.muted) {
+          video.muted = true;
+          activeVideo = null;
+
+          if (hint) hint.textContent = "🔊 Tap to unmute";
+          card.classList.remove("audio-on");
+          return;
+        }
+
+        // CASE 2: switching to new video
+        setMutedAllExcept(video);
+
+        const playPromise = video.play();
+        if (playPromise) await playPromise.catch(() => {});
+
+        video.muted = false;
+        activeVideo = video;
+
+        if (hint) hint.textContent = "🔇 Tap to mute";
+        card.classList.add("audio-on");
+
+      } catch (err) {
+        console.log("Audio lock error:", err);
+        video.muted = true;
+        activeVideo = null;
+      }
+    };
+
+    card.addEventListener("click", toggleAudio, { passive: false });
+  });
+
+});
+
+function sendToWhatsApp(serviceName, includes) {
+    const phone = "27848772847";
+
+    // Build AI-style message
+    let message = `Hello 👋\n\nI would like to book a service:\n\n` +
+                  `🧼 Service: ${serviceName}\n\n` +
+                  `📋 Includes:\n`;
+
+    includes.forEach(item => {
+      message += `• ${item}\n`;
+    });
+
+    message += `\nPlease confirm availability and pricing.`;
+
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Open WhatsApp
+    window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+  }
+
+
+  function sendPackageToWhatsApp(packageName, price, features) {
+    const phone = "27848772847";
+
+    let message = `Hello 👋\n\nI would like to book a package:\n\n`;
+    message += `📦 Package: ${packageName}\n`;
+    message += `💰 Price: ${price}\n\n`;
+    message += `📋 Includes:\n`;
+
+    features.forEach(item => {
+      message += `• ${item}\n`;
+    });
+
+    message += `\nPlease confirm availability.`;
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+  }
+
+  function sendCardToWhatsApp(button) {
+    const phone = "27848772847";
+
+    // Find the card container
+    const card = button.closest(".card");
+
+    if (!card) return;
+
+    // Get service title
+    const title = card.querySelector("h3")?.innerText || "Service";
+
+    // Get description
+    const description = card.querySelector("p")?.innerText || "";
+
+    // Get all list items
+    const features = Array.from(card.querySelectorAll(".card-back ul li"))
+      .map(li => li.innerText.trim());
+
+    let message = `Hello 👋\n\nI would like to book a service:\n\n`;
+    message += `🧼 Service: ${title}\n\n`;
+
+    if (description) {
+      message += `📝 Details: ${description}\n\n`;
+    }
+
+    message += `📋 Includes:\n`;
+
+    features.forEach(item => {
+      message += `• ${item}\n`;
+    });
+
+    message += `\nPlease confirm availability.`;
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+  }
+
+  document.querySelector('.card-btn').addEventListener('click', function () {
+    document.querySelector('.features').classList.toggle('active');
+});
+
+   /* ══════════════════════════════════════════════════
+           GOOGLE MAP — MOUNT EDGECOMBE / LIVE LOCATION
+        ══════════════════════════════════════════════════ */
+        (function() {
+ 
+            // ── Detailers Inc. exact coordinates ──
+            var SHOP_LAT  = -29.7183;
+            var SHOP_LNG  = 30.7197;
+            var SHOP_NAME = "King+Fisher+Office+Park+2+Siphosethu+Rd+Mount+Edgecombe+Durban+4300";
+ 
+            // Default embed — Mount Edgecombe + surroundings (zoom 14 shows the whole area)
+            var DEFAULT_SRC = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28763.5!2d30.7035!3d-29.7180!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700e4eeeeeeef%3A0x0!2sMount+Edgecombe%2C+Durban%2C+KwaZulu-Natal%2C+4300!5e0!3m2!1sen!2sza!4v1714500000000!5m2!1sen!2sza";
+ 
+            // Pinpoint embed — zooms right into King Fisher Office Park (zoom 17)
+            var PINPOINT_SRC = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3459.6!2d30.7197!3d-29.7183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700e4eeeeeeef%3A0xabcdef1234567890!2sKing+Fisher+Office+Park+2%2C+28+Siphosethu+Rd%2C+Mount+Edgecombe%2C+4300!5e0!3m2!1sen!2sza!4v1714500000001!5m2!1sen!2sza";
+ 
+            var liveActive = false;
+ 
+            // ── Toggle Live Location button ──
+            window.toggleLiveLocation = function() {
+                var iframe  = document.getElementById('mapIframe');
+                var overlay = document.getElementById('mapLoadingOverlay');
+                var tag     = document.getElementById('mapTag');
+                var btn     = document.getElementById('btnLiveMap');
+ 
+                if (!iframe || !overlay || !tag || !btn) return;
+ 
+                // If live is already active — reset back to default area view
+                if (liveActive) {
+                    iframe.src  = DEFAULT_SRC;
+                    tag.textContent = '📍 MOUNT EDGECOMBE';
+                    btn.innerHTML   = '<i class="fas fa-location-crosshairs"></i> Live Map';
+                    btn.classList.remove('active');
+                    liveActive = false;
+                    return;
+                }
+ 
+                // Show loading spinner
+                overlay.classList.add('visible');
+                tag.textContent = '⏳ LOCATING...';
+ 
+                if (!navigator.geolocation) {
+                    // No geolocation support — just zoom into the shop pinpoint
+                    overlay.classList.remove('visible');
+                    iframe.src = PINPOINT_SRC;
+                    tag.textContent = '📍 KING FISHER OFFICE PARK';
+                    btn.innerHTML   = '<i class="fas fa-map-pin"></i> Reset View';
+                    btn.classList.add('active');
+                    liveActive = true;
+                    return;
+                }
+ 
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        // SUCCESS — build a directions embed from user's location to the shop
+                        var uLat = pos.coords.latitude;
+                        var uLng = pos.coords.longitude;
+ 
+                        // Directions embed URL (origin = user, destination = King Fisher)
+                        var dirSrc = "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d57500!2d" + SHOP_LNG + "!3d" + SHOP_LAT
+                            + "!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1"
+                            + "!4m13!3e0"
+                            + "!4m5!1s!2sYour+Location!3m2!1d" + uLat + "!2d" + uLng
+                            + "!4m5!1s0x1ef700e4eeeeeeef%3A0xabcdef1234567890!2sKing+Fisher+Office+Park+2+Mount+Edgecombe!3m2!1d" + SHOP_LAT + "!2d" + SHOP_LNG
+                            + "!5e0!3m2!1sen!2sza!4v1714500000002";
+ 
+                        overlay.classList.remove('visible');
+                        iframe.src = dirSrc;
+                        tag.textContent = '🧭 LIVE DIRECTIONS';
+                        btn.innerHTML   = '<i class="fas fa-xmark"></i> Reset View';
+                        btn.classList.add('active');
+                        liveActive = true;
+                    },
+                    function(err) {
+                        // DENIED or FAILED — fall back to shop pinpoint
+                        overlay.classList.remove('visible');
+                        iframe.src = PINPOINT_SRC;
+                        tag.textContent = '📍 KING FISHER OFFICE PARK';
+                        btn.innerHTML   = '<i class="fas fa-map-pin"></i> Reset View';
+                        btn.classList.add('active');
+                        liveActive = true;
+ 
+                        if (err.code === 1) {
+                            console.info('Location permission denied — showing shop pinpoint instead.');
+                        }
+                    },
+                    { timeout: 10000, enableHighAccuracy: true, maximumAge: 0 }
+                );
+            };
+ 
+            // ── Open in Maps button ──
+            window.openInMaps = function() {
+                var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+ 
+                var googleUrl = "https://www.google.com/maps/search/?api=1&query=" + SHOP_NAME + "&center=" + SHOP_LAT + "," + SHOP_LNG;
+                var appleUrl  = "https://maps.apple.com/?q=" + SHOP_NAME + "&ll=" + SHOP_LAT + "," + SHOP_LNG + "&z=17";
+ 
+                window.open(isIOS ? appleUrl : googleUrl, '_blank');
+            };
+ 
+        })();
+
+function goToBooking(serviceName) {
+    window.location.href = "booking.html?service=" + encodeURIComponent(serviceName);
+}
+        console.log('%c Detailers Inc. ', 'background: linear-gradient(135deg, #00D4FF, #00FF88); color: #000; font-size: 24px; font-weight: bold; padding: 10px 20px; border-radius: 10px;');
+        console.log('%c Premium Mobile Carwash Experience ', 'color: #00D4FF; font-size: 14px;');
+    </script>
+</body>
+</html>

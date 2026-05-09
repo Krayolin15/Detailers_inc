@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailers Inc - Book Your Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .particles-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(100,200,255,0.3), rgba(0,150,255,0.1));
+            box-shadow: 0 0 20px rgba(100,200,255,0.3), inset 0 0 20px rgba(255,255,255,0.3);
+            animation: float-up linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+
+        .water-drop {
+            position: absolute;
+            width: 4px;
+            height: 12px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(0,200,255,0.6));
+            border-radius: 50%;
+            animation: rain-fall linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rain-fall {
+            0% { transform: translateY(-50px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .foam-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+            animation: foam-float ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes foam-float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+            50% { transform: translateY(-30px) scale(1.2); opacity: 1; }
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo-container h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff, #0099cc, #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0,212,255,0.3);
+            letter-spacing: 4px;
+        }
+
+        .logo-container p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .booking-container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(10,15,30,0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 0 60px rgba(0,150,255,0.15), inset 0 0 60px rgba(0,100,200,0.05);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-container::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #00d4ff, transparent, #00ffcc, transparent, #00d4ff);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: border-rotate 4s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes border-rotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .service-banner {
+            background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,255,200,0.1));
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: pulse-glow 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .service-banner:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 30px rgba(0,212,255,0.2);
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.1); }
+            50% { box-shadow: 0 0 40px rgba(0,212,255,0.25); }
+        }
+
+        .service-banner i {
+            font-size: 2rem;
+            color: #00d4ff;
+            animation: icon-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes icon-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .service-banner .service-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: #00d4ff;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .service-banner .service-info p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .service-banner .change-service {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .service-banner .change-service:hover {
+            color: #00d4ff;
+        }
+
+        .form-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .form-title span {
+            color: #00d4ff;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+        .form-group:nth-child(8) { animation-delay: 0.8s; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .form-group:focus-within label {
+            color: #00d4ff;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.4);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group:focus-within .input-wrapper i {
+            color: #00d4ff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea {
+            padding-left: 15px;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #00d4ff;
+            background: rgba(0,212,255,0.05);
+            box-shadow: 0 0 20px rgba(0,212,255,0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00d4ff, #00a3cc);
+            border: none;
+            border-radius: 14px;
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out 0.9s both;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0,212,255,0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.2);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .submit-btn:hover::after {
+            left: 100%;
+        }
+
+        .submit-btn i {
+            margin-left: 10px;
+            animation: arrow-move 1s ease-in-out infinite;
+        }
+
+        @keyframes arrow-move {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loader-car {
+            font-size: 4rem;
+            color: #00d4ff;
+            animation: car-wash-bounce 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes car-wash-bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-15px) scale(1.05); }
+            50% { transform: translateY(0) scale(1); }
+            75% { transform: translateY(-10px) scale(1.02); }
+        }
+
+        .loader-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            color: #00d4ff;
+            animation: text-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes text-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1001;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .success-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .success-content {
+            background: rgba(10,20,40,0.95);
+            border: 1px solid rgba(0,255,150,0.3);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 0 60px rgba(0,255,150,0.15);
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-content i {
+            font-size: 4rem;
+            color: #00ff88;
+            margin-bottom: 20px;
+            animation: success-bounce 0.6s ease-out;
+        }
+
+        @keyframes success-bounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .success-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .success-content p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .success-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .success-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(0,255,136,0.3);
+        }
+
+        .spinner-ring {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0,212,255,0.2);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .logo-container h1 {
+                font-size: 2rem;
+            }
+            .booking-container {
+                padding: 25px;
+            }
+        }
+
+        /* Add this inside your <style> tag */
+
+/* Fix dropdown options visibility */
+.form-group select option {
+    background: #0a0f1e;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Ensure select dropdown itself is styled properly */
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300d4ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+/* Hover state for options */
+.form-group select option:hover,
+.form-group select option:focus,
+.form-group select option:checked {
+    background: #00d4ff;
+    color: #000;
+}
+    </style>
+</head>
+<body>
+
+<div id="canvas-container"></div>
+<div class="particles-overlay" id="particles"></div>
+
+<div class="overlay">
+    <div class="logo-container">
+        <h1>DETAILERS INC</h1>
+        <p>Premium Mobile Car Care</p>
+    </div>
+
+    <div class="booking-container">
+        <div class="service-banner" id="serviceBanner">
+            <i class="fas fa-spray-can"></i>
+            <div class="service-info">
+                <h3 id="serviceName">FULL HOUSE WASH</h3>
+                <p id="serviceDesc">Selected Service</p>
+            </div>
+            <button type="button" class="change-service" onclick="window.location.href='index.html'">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </div>
+
+        <h2 class="form-title">BOOK <span>YOUR</span> DETAIL</h2>
+
+        <form id="bookingForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="firstName" placeholder="Krayolin" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="lastName" placeholder="Kisten" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="phone" placeholder="012 345 6789" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Krayolinkisten@gmail.com" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Car Model</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-car"></i>
+                        <input type="text" id="carModel" placeholder="BMW 3 Series" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Registration</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="regNumber" placeholder="ABC 123 GP" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Service Address</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" id="address" placeholder="King Fisher Office Park" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Preferred Date</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-calendar"></i>
+                        <input type="date" id="prefDate" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Time</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-clock"></i>
+                        <select id="prefTime" required>
+                            <option value="">Select Time</option>
+                            <option value="08:00 AM">08:00 AM</option>
+                            <option value="09:00 AM">09:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="01:00 PM">01:00 PM</option>
+                            <option value="02:00 PM">02:00 PM</option>
+                            <option value="03:00 PM">03:00 PM</option>
+                            <option value="04:00 PM">04:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Special Requests</label>
+                <textarea id="notes" placeholder="Any specific requirements or notes for our detailers..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Submit Booking <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner-ring"></div>
+    <div class="loader-text">GENERATING YOUR BOOKING...</div>
+</div>
+
+<div class="success-modal" id="successModal">
+    <div class="success-content">
+        <i class="fas fa-check-circle"></i>
+        <h2>BOOKING SENT!</h2>
+        <p>Your booking has been submitted successfully. A PDF confirmation has been generated and sent via WhatsApp to our team.</p>
+        <button class="success-btn" onclick="closeSuccess()">AWESOME!</button>
+    </div>
+</div>
+
+<script>
+// ========================
+// SERVICE DATA FROM URL
+// ========================
+const urlParams = new URLSearchParams(window.location.search);
+const serviceName = urlParams.get('service') || 'Full House Wash';
+
+const serviceDescriptions = {
+    'Full House Wash': 'Complete interior & exterior cleaning',
+    'Vehicle Detailing': 'Premium deep clean & paint correction',
+    'Vehicle Polishing': 'Professional cut & polish treatment',
+    'Ceramic coating': 'Long-lasting paint protection shield'
+};
+
+const serviceIcons = {
+    'Full House Wash': 'fa-spray-can',
+    'Vehicle Detailing': 'fa-gem',
+    'Vehicle Polishing': 'fa-star',
+    'Ceramic coating': 'fa-shield-alt'
+};
+
+document.getElementById('serviceName').textContent = serviceName.toUpperCase();
+document.getElementById('serviceDesc').textContent = serviceDescriptions[serviceName] || 'Selected Service';
+document.querySelector('.service-banner i').className = `fas ${serviceIcons[serviceName] || 'fa-spray-can'}`;
+
+// Set minimum date to today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('prefDate').setAttribute('min', today);
+
+// ========================
+// THREE.JS 3D CAR WASH SCENE
+// ========================
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x000510, 0.02);
+
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.toneMapping = THREE.ReinhardToneMapping;
+container.appendChild(renderer.domElement);
+
+camera.position.set(0, 3, 8);
+camera.lookAt(0, 1, 0);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0x001133, 0.5);
+scene.add(ambientLight);
+
+const mainLight = new THREE.PointLight(0x00d4ff, 2, 50);
+mainLight.position.set(5, 8, 5);
+scene.add(mainLight);
+
+const secondLight = new THREE.PointLight(0x00ffcc, 1.5, 40);
+secondLight.position.set(-5, 6, -5);
+scene.add(secondLight);
+
+const rimLight = new THREE.SpotLight(0x0088ff, 3, 30, Math.PI / 4, 0.5);
+rimLight.position.set(0, 10, -8);
+rimLight.lookAt(0, 0, 0);
+scene.add(rimLight);
+
+// Floor - reflective wet floor
+const floorGeometry = new THREE.PlaneGeometry(40, 40);
+const floorMaterial = new THREE.MeshStandardMaterial({
+    color: 0x001122,
+    roughness: 0.1,
+    metalness: 0.8,
+    envMapIntensity: 1
+});
+const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.rotation.x = -Math.PI / 2;
+floor.position.y = -0.5;
+scene.add(floor);
+
+// Grid on floor
+const gridHelper = new THREE.GridHelper(40, 40, 0x00d4ff, 0x003355);
+gridHelper.position.y = -0.48;
+gridHelper.material.opacity = 0.3;
+gridHelper.material.transparent = true;
+scene.add(gridHelper);
+
+// ========================
+// BUILD 3D CAR
+// ========================
+const carGroup = new THREE.Group();
+
+// Car body materials
+const carBodyMat = new THREE.MeshPhysicalMaterial({
+    color: 0x00aaff,
+    metalness: 0.7,
+    roughness: 0.2,
+    clearcoat: 1,
+    clearcoatRoughness: 0.1,
+    reflectivity: 1
+});
+
+const carGlassMat = new THREE.MeshPhysicalMaterial({
+    color: 0x112233,
+    metalness: 0.9,
+    roughness: 0.05,
+    transparent: true,
+    opacity: 0.7
+});
+
+const wheelMat = new THREE.MeshStandardMaterial({
+    color: 0x111111,
+    roughness: 0.8
+});
+
+const rimMat = new THREE.MeshStandardMaterial({
+    color: 0xcccccc,
+    metalness: 0.9,
+    roughness: 0.1
+});
+
+const lightMat = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    emissive: 0x00d4ff,
+    emissiveIntensity: 2
+});
+
+const tailLightMat = new THREE.MeshStandardMaterial({
+    color: 0xff0000,
+    emissive: 0xff0000,
+    emissiveIntensity: 1.5
+});
+
+// Main body
+const bodyGeom = new THREE.BoxGeometry(2.2, 0.7, 4.5);
+const body = new THREE.Mesh(bodyGeom, carBodyMat);
+body.position.y = 0.6;
+carGroup.add(body);
+
+// Cabin
+const cabinGeom = new THREE.BoxGeometry(1.8, 0.6, 2.5);
+const cabin = new THREE.Mesh(cabinGeom, carGlassMat);
+cabin.position.y = 1.2;
+cabin.position.z = -0.3;
+carGroup.add(cabin);
+
+// Roof
+const roofGeom = new THREE.BoxGeometry(1.9, 0.1, 2.6);
+const roof = new THREE.Mesh(roofGeom, carBodyMat);
+roof.position.y = 1.55;
+roof.position.z = -0.3;
+carGroup.add(roof);
+
+// Hood
+const hoodGeom = new THREE.BoxGeometry(2, 0.1, 1.2);
+const hood = new THREE.Mesh(hoodGeom, carBodyMat);
+hood.position.y = 0.96;
+hood.position.z = 1.5;
+carGroup.add(hood);
+
+// Trunk
+const trunkGeom = new THREE.BoxGeometry(2, 0.1, 0.8);
+const trunk = new THREE.Mesh(trunkGeom, carBodyMat);
+trunk.position.y = 0.96;
+trunk.position.z = -1.8;
+carGroup.add(trunk);
+
+// Wheels
+function createWheel(x, z) {
+    const wheelGroup = new THREE.Group();
+    const tireGeom = new THREE.CylinderGeometry(0.35, 0.35, 0.25, 24);
+    tireGeom.rotateZ(Math.PI / 2);
+    const tire = new THREE.Mesh(tireGeom, wheelMat);
+    
+    const rimGeom = new THREE.CylinderGeometry(0.22, 0.22, 0.26, 16);
+    rimGeom.rotateZ(Math.PI / 2);
+    const rim = new THREE.Mesh(rimGeom, rimMat);
+    
+    // Spokes
+    for (let i = 0; i < 5; i++) {
+        const spokeGeom = new THREE.BoxGeometry(0.04, 0.3, 0.02);
+        const spoke = new THREE.Mesh(spokeGeom, rimMat);
+        spoke.rotation.z = (i / 5) * Math.PI * 2;
+        spoke.position.x = 0;
+        rim.add(spoke);
+    }
+    
+    wheelGroup.add(tire);
+    wheelGroup.add(rim);
+    wheelGroup.position.set(x, 0.35, z);
+    return wheelGroup;
+}
+
+carGroup.add(createWheel(1.1, 1.4));
+carGroup.add(createWheel(-1.1, 1.4));
+carGroup.add(createWheel(1.1, -1.4));
+carGroup.add(createWheel(-1.1, -1.4));
+
+// Headlights
+const headlightGeom = new THREE.BoxGeometry(0.5, 0.2, 0.1);
+const headlightL = new THREE.Mesh(headlightGeom, lightMat);
+headlightL.position.set(0.6, 0.7, 2.26);
+carGroup.add(headlightL);
+
+const headlightR = new THREE.Mesh(headlightGeom, lightMat);
+headlightR.position.set(-0.6, 0.7, 2.26);
+carGroup.add(headlightR);
+
+// Taillights
+const taillightGeom = new THREE.BoxGeometry(0.5, 0.2, 0.1);
+const taillightL = new THREE.Mesh(taillightGeom, tailLightMat);
+taillightL.position.set(0.6, 0.7, -2.26);
+carGroup.add(taillightL);
+
+const taillightR = new THREE.Mesh(taillightGeom, tailLightMat);
+taillightR.position.set(-0.6, 0.7, -2.26);
+carGroup.add(taillightR);
+
+// Grill
+const grillGeom = new THREE.BoxGeometry(1.2, 0.3, 0.05);
+const grillMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8 });
+const grill = new THREE.Mesh(grillGeom, grillMat);
+grill.position.set(0, 0.5, 2.27);
+carGroup.add(grill);
+
+// Side mirrors
+const mirrorGeom = new THREE.BoxGeometry(0.3, 0.15, 0.1);
+const mirrorL = new THREE.Mesh(mirrorGeom, carBodyMat);
+mirrorL.position.set(1.15, 1.0, 0.8);
+carGroup.add(mirrorL);
+
+const mirrorR = new THREE.Mesh(mirrorGeom, carBodyMat);
+mirrorR.position.set(-1.15, 1.0, 0.8);
+carGroup.add(mirrorR);
+
+scene.add(carGroup);
+
+// ========================
+// CAR WASH BRUSHES (3D)
+// ========================
+const brushGroup = new THREE.Group();
+
+function createBrush(x, y, z, rotationY) {
+    const group = new THREE.Group();
+    
+    // Brush cylinder
+    const brushGeom = new THREE.CylinderGeometry(0.6, 0.6, 1.5, 16);
+    const brushMat = new THREE.MeshStandardMaterial({
+        color: 0x0066aa,
+        roughness: 0.9,
+        metalness: 0.1
+    });
+    const brush = new THREE.Mesh(brushGeom, brushMat);
+    brush.rotation.z = Math.PI / 2;
+    group.add(brush);
+    
+    // Bristles - small cones around the brush
+    for (let i = 0; i < 20; i++) {
+        const angle = (i / 20) * Math.PI * 2;
+        const bristleGeom = new THREE.ConeGeometry(0.05, 0.3, 4);
+        const bristle = new THREE.Mesh(bristleGeom, new THREE.MeshStandardMaterial({ color: 0x0088cc }));
+        bristle.position.set(Math.cos(angle) * 0.6, Math.sin(angle) * 0.6, 0);
+        bristle.rotation.z = angle;
+        group.add(bristle);
+    }
+    
+    group.position.set(x, y, z);
+    group.rotation.y = rotationY;
+    return group;
+}
+
+const brush1 = createBrush(2.5, 1.5, 0, 0);
+const brush2 = createBrush(-2.5, 1.5, 0, 0);
+const brush3 = createBrush(0, 3, 0, Math.PI / 2);
+
+brushGroup.add(brush1);
+brushGroup.add(brush2);
+brushGroup.add(brush3);
+scene.add(brushGroup);
+
+// ========================
+// WATER SPRAY PARTICLES
+// ========================
+const waterParticles = [];
+const waterGeom = new THREE.SphereGeometry(0.03, 6, 6);
+const waterMat = new THREE.MeshBasicMaterial({
+    color: 0x00d4ff,
+    transparent: true,
+    opacity: 0.6
+});
+
+for (let i = 0; i < 200; i++) {
+    const particle = new THREE.Mesh(waterGeom, waterMat.clone());
+    particle.position.set(
+        (Math.random() - 0.5) * 8,
+        Math.random() * 6 + 1,
+        (Math.random() - 0.5) * 8
+    );
+    particle.userData = {
+        velocity: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.05,
+            -Math.random() * 0.1 - 0.05,
+            (Math.random() - 0.5) * 0.05
+        ),
+        initialY: particle.position.y
+    };
+    scene.add(particle);
+    waterParticles.push(particle);
+}
+
+// ========================
+// SOAP BUBBLES (3D)
+// ========================
+const bubbles = [];
+const bubbleGeom = new THREE.SphereGeometry(0.15, 16, 16);
+const bubbleMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.3,
+    roughness: 0,
+    metalness: 0.1,
+    clearcoat: 1,
+    transmission: 0.9
+});
+
+for (let i = 0; i < 50; i++) {
+    const bubble = new THREE.Mesh(bubbleGeom, bubbleMat.clone());
+    bubble.position.set(
+        (Math.random() - 0.5) * 10,
+        Math.random() * 5,
+        (Math.random() - 0.5) * 10
+    );
+    bubble.scale.setScalar(Math.random() * 0.5 + 0.5);
+    bubble.userData = {
+        speed: Math.random() * 0.02 + 0.01,
+        wobble: Math.random() * Math.PI * 2,
+        wobbleSpeed: Math.random() * 2 + 1
+    };
+    scene.add(bubble);
+    bubbles.push(bubble);
+}
+
+// ========================
+// FOAM SYSTEM
+// ========================
+const foamParticles = [];
+const foamGeom = new THREE.SphereGeometry(0.08, 8, 8);
+const foamMat = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.4
+});
+
+for (let i = 0; i < 150; i++) {
+    const foam = new THREE.Mesh(foamGeom, foamMat.clone());
+    foam.position.set(
+        (Math.random() - 0.5) * 6,
+        Math.random() * 0.5,
+        (Math.random() - 0.5) * 6
+    );
+    foam.userData = {
+        growSpeed: Math.random() * 0.002 + 0.001,
+        maxScale: Math.random() * 2 + 1
+    };
+    scene.add(foam);
+    foamParticles.push(foam);
+}
+
+// ========================
+// CAR WASH TUNNEL ARCHES
+// ========================
+const tunnelGroup = new THREE.Group();
+
+function createArch(z) {
+    const group = new THREE.Group();
+    
+    // Arch frame
+    const frameMat = new THREE.MeshStandardMaterial({
+        color: 0x004466,
+        metalness: 0.8,
+        roughness: 0.2,
+        emissive: 0x001133,
+        emissiveIntensity: 0.5
+    });
+    
+    // Left pillar
+    const pillarGeom = new THREE.BoxGeometry(0.3, 4, 0.3);
+    const leftPillar = new THREE.Mesh(pillarGeom, frameMat);
+    leftPillar.position.set(-3, 2, 0);
+    group.add(leftPillar);
+    
+    // Right pillar
+    const rightPillar = new THREE.Mesh(pillarGeom, frameMat);
+    rightPillar.position.set(3, 2, 0);
+    group.add(rightPillar);
+    
+    // Top bar
+    const topGeom = new THREE.BoxGeometry(6.3, 0.3, 0.3);
+    const topBar = new THREE.Mesh(topGeom, frameMat);
+    topBar.position.set(0, 4, 0);
+    group.add(topBar);
+    
+    // Neon strip on arch
+    const neonGeom = new THREE.BoxGeometry(6, 0.05, 0.05);
+    const neonMat = new THREE.MeshBasicMaterial({
+        color: 0x00d4ff,
+        emissive: 0x00d4ff,
+        emissiveIntensity: 3
+    });
+    const neon = new THREE.Mesh(neonGeom, neonMat);
+    neon.position.set(0, 3.9, 0.2);
+    group.add(neon);
+    
+    group.position.z = z;
+    return group;
+}
+
+for (let i = 0; i < 5; i++) {
+    tunnelGroup.add(createArch(-6 + i * 3));
+}
+
+scene.add(tunnelGroup);
+
+// ========================
+// SPINNING FANS
+// ========================
+const fans = [];
+function createFan(x, y, z) {
+    const group = new THREE.Group();
+    const bladeGeom = new THREE.BoxGeometry(1.2, 0.05, 0.2);
+    const bladeMat = new THREE.MeshStandardMaterial({ color: 0x0088aa, metalness: 0.5 });
+    
+    for (let i = 0; i < 3; i++) {
+        const blade = new THREE.Mesh(bladeGeom, bladeMat);
+        blade.rotation.y = (i / 3) * Math.PI * 2;
+        group.add(blade);
+    }
+    
+    const centerGeom = new THREE.CylinderGeometry(0.15, 0.15, 0.2, 16);
+    const center = new THREE.Mesh(centerGeom, new THREE.MeshStandardMaterial({ color: 0x333333 }));
+    center.rotation.x = Math.PI / 2;
+    group.add(center);
+    
+    group.position.set(x, y, z);
+    return group;
+}
+
+const fan1 = createFan(0, 4.5, 0);
+scene.add(fan1);
+fans.push(fan1);
+
+// ========================
+// ANIMATION LOOP
+// ========================
+const clock = new THREE.Clock();
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = clock.getElapsedTime();
+
+    // Rotate car on platform
+    carGroup.rotation.y = time * 0.3;
+    carGroup.position.y = Math.sin(time * 0.5) * 0.1;
+
+    // Animate brushes
+    brush1.rotation.x = time * 3;
+    brush2.rotation.x = -time * 3;
+    brush3.rotation.z = time * 2;
+
+    // Animate water particles
+    waterParticles.forEach(p => {
+        p.position.add(p.userData.velocity);
+        p.material.opacity = Math.max(0, p.material.opacity - 0.005);
+        
+        if (p.position.y < -0.5 || p.material.opacity <= 0) {
+            p.position.set(
+                (Math.random() - 0.5) * 8,
+                Math.random() * 3 + 3,
+                (Math.random() - 0.5) * 8
+            );
+            p.material.opacity = 0.6;
+        }
+    });
+
+    // Animate bubbles
+    bubbles.forEach(b => {
+        b.position.y += b.userData.speed;
+        b.position.x += Math.sin(time * b.userData.wobbleSpeed + b.userData.wobble) * 0.01;
+        b.position.z += Math.cos(time * b.userData.wobbleSpeed + b.userData.wobble) * 0.01;
+        
+        if (b.position.y > 8) {
+            b.position.y = -1;
+            b.position.x = (Math.random() - 0.5) * 10;
+            b.position.z = (Math.random() - 0.5) * 10;
+        }
+    });
+
+    // Animate foam
+    foamParticles.forEach(f => {
+        f.scale.addScalar(f.userData.growSpeed);
+        f.material.opacity -= 0.002;
+        
+        if (f.scale.x > f.userData.maxScale || f.material.opacity <= 0) {
+            f.scale.setScalar(1);
+            f.material.opacity = 0.4;
+            f.position.set(
+                (Math.random() - 0.5) * 6,
+                0,
+                (Math.random() - 0.5) * 6
+            );
+        }
+    });
+
+    // Spin fans
+    fans.forEach(f => {
+        f.rotation.z = time * 2;
+    });
+
+    // Pulse lights
+    mainLight.intensity = 2 + Math.sin(time * 2) * 0.5;
+    secondLight.intensity = 1.5 + Math.cos(time * 1.5) * 0.5;
+
+    // Move tunnel
+    tunnelGroup.position.z = (time * 0.3) % 3;
+
+    // Subtle camera movement
+    camera.position.x = Math.sin(time * 0.2) * 0.5;
+    camera.position.y = 3 + Math.sin(time * 0.3) * 0.3;
+    camera.lookAt(0, 1, 0);
+
+    renderer.render(scene, camera);
+}
+
+animate();
+
+// Resize handler
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ========================
+// 2D PARTICLE EFFECTS
+// ========================
+const particlesContainer = document.getElementById('particles');
+
+// Create CSS bubbles
+function createCSSBubble() {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    const size = Math.random() * 60 + 20;
+    bubble.style.width = size + 'px';
+    bubble.style.height = size + 'px';
+    bubble.style.left = Math.random() * 100 + '%';
+    bubble.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    bubble.style.animationDelay = Math.random() * 5 + 's';
+    particlesContainer.appendChild(bubble);
+    
+    setTimeout(() => bubble.remove(), 15000);
+}
+
+// Create water drops
+function createWaterDrop() {
+    const drop = document.createElement('div');
+    drop.className = 'water-drop';
+    drop.style.left = Math.random() * 100 + '%';
+    drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+    drop.style.animationDelay = Math.random() * 2 + 's';
+    particlesContainer.appendChild(drop);
+    
+    setTimeout(() => drop.remove(), 3000);
+}
+
+// Create foam
+function createFoam() {
+    const foam = document.createElement('div');
+    foam.className = 'foam-particle';
+    const size = Math.random() * 30 + 10;
+    foam.style.width = size + 'px';
+    foam.style.height = size + 'px';
+    foam.style.left = Math.random() * 100 + '%';
+    foam.style.bottom = Math.random() * 20 + '%';
+    foam.style.animationDuration = (Math.random() * 4 + 3) + 's';
+    particlesContainer.appendChild(foam);
+    
+    setTimeout(() => foam.remove(), 8000);
+}
+
+// Spawn particles
+setInterval(createCSSBubble, 800);
+setInterval(createWaterDrop, 200);
+setInterval(createFoam, 1000);
+
+// Initial burst
+for (let i = 0; i < 15; i++) createCSSBubble();
+for (let i = 0; i < 30; i++) createWaterDrop();
+for (let i = 0; i < 20; i++) createFoam();
+
+// ========================
+// FORM HANDLING
+// ========================
+const form = document.getElementById('bookingForm');
+const loadingOverlay = document.getElementById('loadingOverlay');
+const successModal = document.getElementById('successModal');
+
+form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        carModel: document.getElementById('carModel').value,
+        regNumber: document.getElementById('regNumber').value,
+        address: document.getElementById('address').value,
+        prefDate: document.getElementById('prefDate').value,
+        prefTime: document.getElementById('prefTime').value,
+        notes: document.getElementById('notes').value,
+        service: serviceName
+    };
+    
+    // Show loading
+    loadingOverlay.classList.add('active');
+    
+    // Generate PDF
+    await generatePDF(formData);
+    
+    // Send WhatsApp message
+    sendWhatsApp(formData);
+    
+    // Hide loading, show success
+    loadingOverlay.classList.remove('active');
+    successModal.classList.add('active');
+});
+
+function generatePDF(data) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Header styling
+            doc.setFillColor(0, 10, 30);
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(0, 212, 255);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text('DETAILERS INC', 105, 20, { align: 'center' });
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Premium Mobile Car Care', 105, 28, { align: 'center' });
+            
+            // Decorative line
+            doc.setDrawColor(0, 212, 255);
+            doc.setLineWidth(0.5);
+            doc.line(20, 35, 190, 35);
+            
+            // Booking title
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('BOOKING CONFIRMATION', 105, 50, { align: 'center' });
+            
+            doc.setDrawColor(0, 212, 255);
+            doc.setLineWidth(0.3);
+            doc.line(60, 53, 150, 53);
+            
+            // Details
+            const startY = 65;
+            const lineHeight = 10;
+            let currentY = startY;
+            
+            doc.setFontSize(11);
+            
+            const details = [
+                ['Client Name:', `${data.firstName} ${data.lastName}`],
+                ['Service:', data.service],
+                ['Phone:', data.phone],
+                ['Email:', data.email],
+                ['Car Model:', data.carModel],
+                ['Registration:', data.regNumber],
+                ['Address:', data.address],
+                ['Date:', data.prefDate],
+                ['Time:', data.prefTime],
+            ];
+            
+            details.forEach(([label, value]) => {
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(0, 150, 200);
+                doc.text(label, 25, currentY);
+                
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(60, 60, 60);
+                doc.text(value, 70, currentY);
+                
+                currentY += lineHeight;
+            });
+            
+            // Notes section
+            if (data.notes) {
+                currentY += 5;
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(0, 150, 200);
+                doc.text('Special Requests:', 25, currentY);
+                currentY += 6;
+                
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(80, 80, 80);
+                const splitNotes = doc.splitTextToSize(data.notes, 160);
+                doc.text(splitNotes, 25, currentY);
+            }
+            
+            // Footer
+            const footerY = 270;
+            doc.setFillColor(0, 10, 30);
+            doc.rect(0, 260, 210, 30, 'F');
+            
+            doc.setTextColor(0, 212, 255);
+            doc.setFontSize(10);
+            doc.text('Thank you for choosing Detailers Inc!', 105, footerY, { align: 'center' });
+            doc.setTextColor(200, 200, 200);
+            doc.setFontSize(9);
+            doc.text('WhatsApp: 084 877 2847 | Premium Mobile Car Care Services', 105, footerY + 6, { align: 'center' });
+            
+            // Save PDF
+            doc.save(`${data.firstName}_${data.lastName}_Booking.pdf`);
+            
+            resolve();
+        }, 1500);
+    });
+}
+
+function sendWhatsApp(data) {
+    const message = `*NEW BOOKING - DETAILERS INC*%0A%0A` +
+        `*Client:* ${data.firstName} ${data.lastName}%0A` +
+        `*Service:* ${data.service}%0A` +
+        `*Phone:* ${data.phone}%0A` +
+        `*Email:* ${data.email}%0A` +
+        `*Car:* ${data.carModel}%0A` +
+        `*Registration:* ${data.regNumber}%0A` +
+        `*Address:* ${data.address}%0A` +
+        `*Date:* ${data.prefDate}%0A` +
+        `*Time:* ${data.prefTime}%0A` +
+        (data.notes ? `*Notes:* ${data.notes}%0A` : '');
+    
+    const whatsappUrl = `https://wa.me/27848772847?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+function closeSuccess() {
+    successModal.classList.remove('active');
+    form.reset();
+    document.getElementById('serviceName').textContent = serviceName.toUpperCase();
+}
+
+// Form field animations
+const inputs = document.querySelectorAll('input, select, textarea');
+inputs.forEach(input => {
+    input.addEventListener('focus', () => {
+        input.parentElement.parentElement.style.transform = 'scale(1.02)';
+        input.parentElement.parentElement.style.transition = 'transform 0.3s';
+    });
+    input.addEventListener('blur', () => {
+        input.parentElement.parentElement.style.transform = 'scale(1)';
+    });
+});
+</script>
+
+</body>
+</html>
