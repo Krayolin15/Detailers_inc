@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detailers Inc. | Book Your Service</title>
+<meta name="description" content="Book professional car detailing with Detailers Inc. Choose your service, see your exact price instantly, then confirm your booking.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  :root{
+    --primary:#00D4FF; --accent:#00FF88; --bg-dark:#0A0F1A; --bg-darker:#050810;
+    --card:rgba(26,31,46,.95); --line:rgba(0,212,255,.25); --text:#fff; --muted:#8B92A8;
+  }
+  body{
+    font-family:'Rajdhani',sans-serif;color:var(--text);min-height:100vh;padding:26px 16px 70px;
+    background:
+      radial-gradient(1200px 600px at 20% -10%,rgba(0,120,180,.35),transparent 60%),
+      radial-gradient(900px 500px at 110% 10%,rgba(0,255,136,.14),transparent 60%),
+      var(--bg-darker);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:840px;margin:0 auto}
+  header{text-align:center;margin-bottom:24px}
+  header h1{font-family:'Orbitron',sans-serif;font-size:clamp(22px,6vw,40px);font-weight:900;
+    letter-spacing:2px;text-shadow:0 0 18px rgba(0,212,255,.6)}
+  header p{color:var(--muted);letter-spacing:3px;text-transform:uppercase;font-size:12px;margin-top:8px}
+  .back{display:inline-block;margin-bottom:18px;color:var(--primary);text-decoration:none;font-size:14px;letter-spacing:1px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;
+    backdrop-filter:blur(8px);box-shadow:0 0 40px rgba(0,150,255,.12)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+  label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--primary)}
+  input,select,textarea{background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;color:var(--text);font-family:inherit;font-size:16px;outline:none;width:100%}
+  input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,212,255,.15)}
+  select option,select optgroup{background:#0A0F1A;color:#fff}
+  .price-box{margin-top:8px;border:1px solid var(--line);border-radius:14px;padding:18px;
+    background:linear-gradient(140deg,rgba(0,212,255,.12),rgba(0,0,0,.35))}
+  .price-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-size:15px}
+  .price-row span:last-child{font-weight:700;text-align:right}
+  .total{border-top:1px dashed var(--line);margin-top:10px;padding-top:12px;
+    font-family:'Orbitron',sans-serif;font-size:22px}
+  .incl{margin-top:12px;font-size:14px;color:var(--muted)}
+  .incl li{list-style:none;padding:3px 0}
+  .incl i{color:var(--accent);margin-right:8px}
+  .btn{width:100%;margin-top:16px;padding:16px;border:none;border-radius:12px;cursor:pointer;
+    font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;font-weight:700;color:#00232e;
+    background:linear-gradient(90deg,var(--primary),var(--accent));transition:.2s;box-shadow:0 0 24px rgba(0,212,255,.35)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.ghost{background:none;border:1px solid var(--line);color:var(--text);box-shadow:none}
+  .btn.whatsapp{background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;margin-top:10px}
+  .note{color:var(--muted);font-size:13px;margin-top:12px;text-align:center}
+  .err{color:#ff6b6b;font-size:13px;margin-top:8px;min-height:18px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(140px);
+    background:#0b1622;border:1px solid var(--line);padding:14px 20px;border-radius:12px;transition:.35s;z-index:99}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .modal{position:fixed;inset:0;background:rgba(3,6,12,.85);display:none;align-items:center;justify-content:center;
+    padding:18px;z-index:100;overflow:auto}
+  .modal.show{display:flex}
+  .modal-inner{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;max-width:520px;width:100%;
+    box-shadow:0 0 60px rgba(0,212,255,.25)}
+  .modal-inner h2{font-family:'Orbitron',sans-serif;font-size:18px;letter-spacing:1px;margin-bottom:4px}
+  .modal-inner .ref{color:var(--muted);font-size:13px;margin-bottom:16px}
+  .big{font-family:'Orbitron',sans-serif;font-size:34px;color:var(--accent);text-align:center;margin:14px 0}
+  .sum{font-size:15px}
+  .sum div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+  .sum div span:last-child{text-align:right;font-weight:600}
+  .history{margin-top:22px}
+  .history h3{font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:2px;color:var(--primary);margin-bottom:10px}
+  .hitem{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:14px;
+    display:flex;justify-content:space-between;gap:10px;background:rgba(0,0,0,.3)}
+  .hitem small{color:var(--muted);display:block}
+  .link{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:12px}
+  .modal-actions{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+  @media(min-width:480px){.modal-actions{flex-direction:row}.modal-actions .btn{width:auto;flex:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html"><i class="fas fa-arrow-left"></i> Back to site</a>
+  <header>
+    <h1>DETAILERS INC</h1>
+    <p>Book Your Service</p>
+  </header>
+
+  <div class="card">
+    <form id="bookingForm" novalidate>
+      <div class="grid">
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input id="name" type="text" placeholder="Krayolin Kisten" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input id="phone" type="tel" placeholder="123 456 7890" required>
+        </div>
+        <div class="field">
+          <label for="email">Email (optional)</label>
+          <input id="email" type="email" placeholder="Krayolin@email.com">
+        </div>
+        <div class="field">
+          <label for="vehicle">Vehicle Make &amp; Model</label>
+          <input id="vehicle" type="text" placeholder="VW Golf 7" required>
+        </div>
+        <div class="field">
+          <label for="category">Service</label>
+          <select id="category" required></select>
+        </div>
+        <div class="field">
+          <label for="package">Package</label>
+          <select id="package" required></select>
+        </div>
+        <div class="field">
+          <label for="vehicleType">Vehicle Type</label>
+          <select id="vehicleType" required></select>
+        </div>
+        <div class="field">
+          <label for="date">Preferred Date</label>
+          <input id="date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="time">Preferred Time</label>
+          <select id="time" required>
+            <option value="08:00">08:00</option><option value="09:00">09:00</option>
+            <option value="10:00">10:00</option><option value="11:00">11:00</option>
+            <option value="12:00">12:00</option><option value="13:00">13:00</option>
+            <option value="14:00">14:00</option><option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="address">Address / Location</label>
+        <input id="address" type="text" placeholder="Street, Suburb, City" required>
+      </div>
+
+      <div class="field">
+        <label for="notes">Notes (optional)</label>
+        <textarea id="notes" rows="3" placeholder="Anything we should know?"></textarea>
+      </div>
+
+      <div class="price-box">
+        <div class="price-row"><span>Service</span><span id="pService">—</span></div>
+        <div class="price-row"><span>Package</span><span id="pPackage">—</span></div>
+        <div class="price-row"><span>Vehicle Type</span><span id="pType">—</span></div>
+        <div class="price-row"><span>Duration</span><span id="pDuration">—</span></div>
+        <div class="price-row total"><span>TOTAL</span><span id="pTotal">R 0</span></div>
+        <ul class="incl" id="pIncludes"></ul>
+      </div>
+
+      <div class="err" id="errBox"></div>
+      <button class="btn" type="submit">CONFIRM BOOKING</button>
+      <p class="note">Prices are per vehicle and include all products &amp; labour.</p>
+    </form>
+
+    <div class="history">
+      <h3>Your Bookings</h3>
+      <div id="historyList"></div>
+      <button class="link" id="clearBtn" type="button">Clear saved bookings</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-inner">
+    <h2>Booking Confirmed</h2>
+    <div class="ref" id="mRef"></div>
+    <div class="big" id="mTotal">R 0</div>
+    <div class="sum" id="mSum"></div>
+    <div class="modal-actions">
+      <button class="btn whatsapp" type="button" id="mWhatsApp">
+        <i class="fab fa-whatsapp"></i> Send to WhatsApp
+      </button>
+      <button class="btn ghost" type="button" id="mClose">DONE</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================================
+   1) SERVICE + PRICING DATA (aligned with index.html services)
+      Prices per vehicle type: sedan / suv / large
+   ========================================================================= */
+const VEHICLE_TYPES = [
+  { id:"sedan", label:"Sedan / Hatch" },
+  { id:"suv",   label:"Mini SUV / Crossover" },
+  { id:"large", label:"Large SUV / 4x4" }
+];
+
+const SERVICES = [
+  {
+    id:"maintenance_wash",
+    name:"Full Maintenance Wash",
+    includes:["Snow foam wash","Rim & arch cleaning","Interior vacuum","Dashboard treatment","Tyre gel application","Oil-based perfume"],
+    packages:[
+      { id:"mw_standard", name:"Full Maintenance Wash", duration:"45 - 60 min", prices:{ sedan:349, suv:449, large:529 } }
+    ]
+  },
+  {
+    id:"detailing",
+    name:"Vehicle Detailing",
+    includes:["Iron decontamination","Clay bar treatment","Paint correction and polish","Tyre, trim and rubber decon","Interior deep clean","Antibacterial steam clean","Leather conditioning","Engine wash & dressing"],
+    packages:[
+      { id:"interior_detail", name:"Interior Detail",      duration:"3 - 4 hrs",   prices:{ sedan:1999, suv:2499, large:2999 } },
+      { id:"full_s1",         name:"Stage 1 Full Detail",  duration:"1 day",       prices:{ sedan:3999, suv:4699, large:5499 } },
+      { id:"full_s2",         name:"Stage 2 Full Detail",  duration:"1 - 2 days",  prices:{ sedan:6199, suv:6999, large:7999 } }
+    ]
+  },
+  {
+    id:"polishing",
+    name:"Vehicle Polishing",
+    includes:["Iron decontamination","Clay bar treatment","Paint correction and polish","One step cut & polish","70-80% swirl reduction","Paint micron testing"],
+    packages:[
+      { id:"polish_s1", name:"Stage 1 Polish (Finish)",       duration:"4 - 5 hrs", prices:{ sedan:2299, suv:2499, large:2999 } },
+      { id:"polish_s2", name:"Stage 2 Polish (Cut & Polish)", duration:"6 - 8 hrs", prices:{ sedan:3299, suv:3499, large:4999 } }
+    ]
+  },
+  {
+    id:"ceramic",
+    name:"Ceramic Coating",
+    includes:["Application of ceramic coating","Polishing of high spots for even shine","Iron decontamination","Clay bar treatment","Paint correction and polish","70-80% swirl reduction","Paint micron testing"],
+    packages:[
+      { id:"ceramic_s1",  name:"Stage 1 Ceramic Coating",          duration:"1 - 2 days", prices:{ sedan:5999, suv:7499, large:8598 } },
+      { id:"ceramic_s2",  name:"Stage 2 Ceramic Coating",          duration:"2 days",     prices:{ sedan:7298, suv:8499, large:10598 } },
+      { id:"combo_s1",    name:"Stage 1 Combo (Detail + Ceramic)", duration:"2 days",     prices:{ sedan:6999, suv:8499, large:10499 } },
+      { id:"combo_skin",  name:"Stage 1 Combo (CarPro Skin)",      duration:"2 days",     prices:{ sedan:6999, suv:8499, large:10499 } },
+      { id:"combo_s2",    name:"Stage 2 Combo (Cut + Ceramic)",    duration:"2 - 3 days", prices:{ sedan:9499, suv:9999, large:12999 } }
+    ]
+  }
+];
+
+const STORAGE_KEY = "detailersinc_bookings";
+const WHATSAPP_NUMBER = "27848772847"; // PRIMARY booking line: 084 877 2847 (secondary WhatsApp: 062 890 4914)
+
+/* =========================================================================
+   2) HELPERS
+   ========================================================================= */
+const $ = (id) => document.getElementById(id);
+const money = (n) => "R " + Number(n || 0).toLocaleString("en-ZA");
+const getService = (id) => SERVICES.find(s => s.id === id) || null;
+const getPackage = (sid, pid) => {
+  const s = getService(sid);
+  return s ? (s.packages.find(p => p.id === pid) || null) : null;
+};
+const getTypeLabel = (id) => (VEHICLE_TYPES.find(t => t.id === id) || {}).label || "";
+const getPrice = (sid, pid, tid) => {
+  const p = getPackage(sid, pid);
+  return p && tid ? (p.prices[tid] || 0) : 0;
+};
+
+function toast(msg){
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(window.__tt);
+  window.__tt = setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+/* =========================================================================
+   3) BUILD DROPDOWNS
+   ========================================================================= */
+function buildServiceOptions(){
+  $("category").innerHTML = '<option value="">Select a service</option>' +
+    SERVICES.map(s => '<option value="' + s.id + '">' + s.name + '</option>').join("");
+
+  $("vehicleType").innerHTML = '<option value="">Select vehicle type</option>' +
+    VEHICLE_TYPES.map(t => '<option value="' + t.id + '">' + t.label + '</option>').join("");
+
+  buildPackageOptions();
+}
+
+function buildPackageOptions(){
+  const s = getService($("category").value);
+  const sel = $("package");
+  if (!s){
+    sel.innerHTML = '<option value="">Select a service first</option>';
+    return;
+  }
+  sel.innerHTML = (s.packages.length > 1 ? '<option value="">Select a package</option>' : '') +
+    s.packages.map(p => '<option value="' + p.id + '">' + p.name + ' — from ' + money(p.prices.sedan) + '</option>').join("");
+}
+
+/* =========================================================================
+   4) LIVE PRICE DISPLAY
+   ========================================================================= */
+function updatePrice(){
+  const sid = $("category").value, pid = $("package").value, tid = $("vehicleType").value;
+  const s = getService(sid), p = getPackage(sid, pid);
+  const total = getPrice(sid, pid, tid);
+
+  $("pService").textContent  = s ? s.name : "—";
+  $("pPackage").textContent  = p ? p.name : "—";
+  $("pType").textContent     = tid ? getTypeLabel(tid) : "—";
+  $("pDuration").textContent = p ? p.duration : "—";
+  $("pTotal").textContent    = money(total);
+  $("pIncludes").innerHTML   = s
+    ? s.includes.map(i => '<li><i class="fas fa-check"></i>' + i + '</li>').join("")
+    : "";
+  return total;
+}
+
+/* =========================================================================
+   5) COLLECT + VALIDATE
+   ========================================================================= */
+function collectBooking(){
+  const sid = $("category").value, pid = $("package").value, tid = $("vehicleType").value;
+  const s = getService(sid), p = getPackage(sid, pid);
+  return {
+    ref: "DI-" + Date.now().toString(36).toUpperCase(),
+    name: $("name").value.trim(),
+    phone: $("phone").value.trim(),
+    email: $("email").value.trim(),
+    vehicle: $("vehicle").value.trim(),
+    vehicleType: tid,
+    vehicleTypeLabel: getTypeLabel(tid),
+    serviceId: sid,
+    serviceName: s ? s.name : "",
+    packageId: pid,
+    packageName: p ? p.name : "",
+    duration: p ? p.duration : "",
+    date: $("date").value,
+    time: $("time").value,
+    address: $("address").value.trim(),
+    notes: $("notes").value.trim(),
+    price: getPrice(sid, pid, tid),
+    createdAt: new Date().toISOString()
+  };
+}
+
+function validate(b){
+  if (!b.name) return "Please enter your full name.";
+  if (!/^[0-9+\s()-]{9,15}$/.test(b.phone)) return "Please enter a valid phone number.";
+  if (b.email && !/^\S+@\S+\.\S+$/.test(b.email)) return "Please enter a valid email address.";
+  if (!b.vehicle) return "Please enter your vehicle make and model.";
+  if (!b.serviceId) return "Please select a service.";
+  if (!b.packageId) return "Please select a package.";
+  if (!b.vehicleType) return "Please select your vehicle type.";
+  if (!b.date) return "Please choose a date.";
+  if (!b.address) return "Please enter your address / location.";
+  return "";
+}
+
+/* =========================================================================
+   6) LOCAL STORAGE
+   ========================================================================= */
+function loadBookings(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch (e) { return []; }
+}
+function saveBooking(b){
+  try {
+    const all = loadBookings();
+    all.unshift(b);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all.slice(0, 50)));
+    return true;
+  } catch (e) { return false; }
+}
+function renderHistory(){
+  const list = loadBookings();
+  $("historyList").innerHTML = list.length
+    ? list.map(b => '<div class="hitem"><div><strong>' + b.packageName + '</strong><small>' +
+        b.vehicle + ' • ' + b.date + ' at ' + b.time + ' • Ref ' + b.ref +
+        '</small></div><div>' + money(b.price) + '</div></div>').join("")
+    : '<div class="note" style="text-align:left">No bookings saved yet.</div>';
+}
+
+/* =========================================================================
+   7) CONFIRMATION MODAL
+   ========================================================================= */
+let lastBooking = null;
+
+function showConfirmation(b){
+  lastBooking = b;
+  $("mRef").textContent   = "Reference " + b.ref;
+  $("mTotal").textContent = money(b.price);
+  $("mSum").innerHTML = [
+    ["Name", b.name],
+    ["Phone", b.phone],
+    ["Vehicle", b.vehicle + " (" + b.vehicleTypeLabel + ")"],
+    ["Service", b.serviceName],
+    ["Package", b.packageName],
+    ["Duration", b.duration],
+    ["Date & Time", b.date + " at " + b.time],
+    ["Location", b.address],
+    b.notes ? ["Notes", b.notes] : null
+  ].filter(Boolean).map(r => '<div><span>' + r[0] + '</span><span>' + r[1] + '</span></div>').join("");
+  $("modal").classList.add("show");
+}
+
+function sendWhatsApp(){
+  if(!lastBooking) return;
+  const b = lastBooking;
+  const lines = [
+    "Hello Detailers Inc,",
+    "",
+    "I would like to book a service:",
+    "",
+    "*Name:* " + b.name,
+    "*Phone:* " + b.phone,
+    "*Vehicle:* " + b.vehicle + " (" + b.vehicleTypeLabel + ")",
+    "*Service:* " + b.serviceName,
+    "*Package:* " + b.packageName,
+    "*Date:* " + b.date + " at " + b.time,
+    "*Location:* " + b.address,
+    b.notes ? "*Notes:* " + b.notes : "",
+    "*Price:* " + money(b.price),
+    "*Reference:* " + b.ref,
+    "",
+    "Please confirm my booking."
+  ].filter(Boolean);
+
+  const text = encodeURIComponent(lines.join("\n"));
+  window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + text, "_blank");
+}
+
+/* =========================================================================
+   8) EVENTS
+   ========================================================================= */
+function handleSubmit(e){
+  e.preventDefault();
+  const b = collectBooking();
+  const err = validate(b);
+  $("errBox").textContent = err;
+  if (err){ toast(err); return; }
+
+  if(!saveBooking(b)){
+    toast("Could not save booking. Storage may be full.");
+    return;
+  }
+
+  renderHistory();
+  showConfirmation(b);
+  $("bookingForm").reset();
+  buildPackageOptions();
+  updatePrice();
+}
+
+function preselectFromUrl(){
+  const q = new URLSearchParams(window.location.search).get("service");
+  if (!q) return;
+  const key = q.toLowerCase().trim();
+  const match = SERVICES.find(s => s.name.toLowerCase() === key) ||
+                SERVICES.find(s => key.indexOf(s.name.toLowerCase()) > -1) ||
+                SERVICES.find(s => key.indexOf("wash") > -1 && s.id === "maintenance_wash") ||
+                SERVICES.find(s => key.indexOf("detail") > -1 && s.id === "detailing") ||
+                SERVICES.find(s => key.indexOf("polish") > -1 && s.id === "polishing") ||
+                SERVICES.find(s => key.indexOf("ceramic") > -1 && s.id === "ceramic");
+  if (match){
+    $("category").value = match.id;
+    buildPackageOptions();
+    if (match.packages.length === 1) $("package").value = match.packages[0].id;
+    updatePrice();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  buildServiceOptions();
+  preselectFromUrl();
+  $("date").min = new Date().toISOString().split("T")[0];
+  $("category").addEventListener("change", function(){ buildPackageOptions(); updatePrice(); });
+  $("package").addEventListener("change", updatePrice);
+  $("vehicleType").addEventListener("change", updatePrice);
+  $("bookingForm").addEventListener("submit", handleSubmit);
+  $("mClose").addEventListener("click", function(){ $("modal").classList.remove("show"); lastBooking = null; });
+  $("mWhatsApp").addEventListener("click", sendWhatsApp);
+  $("modal").addEventListener("click", function(e){ if (e.target === $("modal")) $("modal").classList.remove("show"); });
+  $("clearBtn").addEventListener("click", function(){
+    localStorage.removeItem(STORAGE_KEY);
+    renderHistory();
+    toast("Saved bookings cleared.");
+  });
+  updatePrice();
+  renderHistory();
+});
+</script>
+</body>
+</html>
