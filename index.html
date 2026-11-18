@@ -67,19 +67,20 @@
 </script>
 </head>
 <body>
-<a class="skip" href="#story">Skip to content</a>
+<a class="skip" href="#craft">Skip to content</a>
 <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
 <nav class="chapters" id="chapters" aria-label="Chapters">
   <ol>
     <li><a href="#top" data-ch="top"><span>01</span><b>Reveal</b></a></li>
-    <li><a href="#story" data-ch="story"><span>02</span><b>Story</b></a></li>
-    <li><a href="#angles" data-ch="angles"><span>03</span><b>Angles</b></a></li>
-    <li><a href="#film" data-ch="film"><span>04</span><b>The film</b></a></li>
-    <li><a href="#services" data-ch="services"><span>05</span><b>Services</b></a></li>
-    <li><a href="#result" data-ch="result"><span>06</span><b>Result</b></a></li>
-    <li><a href="#gallery" data-ch="gallery"><span>07</span><b>Gallery</b></a></li>
-    <li><a href="#book" data-ch="book"><span>08</span><b>Book</b></a></li>
-    <li><a href="#contact" data-ch="contact"><span>09</span><b>Contact</b></a></li>
+    <li><a href="#craft" data-ch="craft"><span>02</span><b>The process</b></a></li>
+    <li><a href="#story" data-ch="story"><span>03</span><b>Story</b></a></li>
+    <li><a href="#angles" data-ch="angles"><span>04</span><b>Angles</b></a></li>
+    <li><a href="#film" data-ch="film"><span>05</span><b>The film</b></a></li>
+    <li><a href="#services" data-ch="services"><span>06</span><b>Services</b></a></li>
+    <li><a href="#result" data-ch="result"><span>07</span><b>Result</b></a></li>
+    <li><a href="#gallery" data-ch="gallery"><span>08</span><b>Gallery</b></a></li>
+    <li><a href="#book" data-ch="book"><span>09</span><b>Book</b></a></li>
+    <li><a href="#contact" data-ch="contact"><span>10</span><b>Contact</b></a></li>
   </ol>
 </nav>
 
@@ -90,6 +91,7 @@
   </a>
   <nav class="nav__links" aria-label="Primary">
     <a href="#story">About</a>
+    <a href="#craft">Process</a>
     <a href="#services">Services</a>
     <a href="#film">Our work</a>
     <a href="#gallery">Gallery</a>
@@ -102,13 +104,14 @@
 
 <div class="menu" id="menu" hidden>
   <nav aria-label="Mobile">
-    <a href="#story"><small>02</small>About</a>
-    <a href="#film"><small>03</small>Our work</a>
-    <a href="#services"><small>02</small>Services</a>
-    <a href="#gallery"><small>04</small>Gallery</a>
-    <a href="#book"><small>05</small>Book</a>
+    <a href="#craft"><small>02</small>Process</a>
+    <a href="#story"><small>03</small>About</a>
+    <a href="#film"><small>05</small>Our work</a>
+    <a href="#services"><small>06</small>Services</a>
+    <a href="#gallery"><small>08</small>Gallery</a>
+    <a href="#book"><small>09</small>Book</a>
     <a href="#faq"><small>—</small>FAQ</a>
-    <a href="#contact"><small>06</small>Contact</a>
+    <a href="#contact"><small>10</small>Contact</a>
   </nav>
   <div class="menu__foot">
     <a href="https://wa.me/27848772847" target="_blank" rel="noopener">WhatsApp +27 84 877 2847</a>
@@ -134,18 +137,129 @@
     </h1>
     <p class="hero__sub" data-intro>Premium automotive detailing. Meticulous craftsmanship. A showroom finish delivered to you.</p>
     <div class="hero__cta" data-intro>
-      <a class="btn btn--light" href="#story"><span>Discover the experience</span></a>
+      <a class="btn btn--light" href="#craft"><span>Explore the process</span></a>
       <a class="btn btn--ghost" href="#book"><span>Book your detail</span></a>
     </div>
   </div>
   <div class="hero__meta" aria-hidden="true"><span>Real footage — VW Golf GTI</span><span class="scrollcue"><i></i>Scroll</span><span>Mon – Sat, 8AM – 6PM</span></div>
 </section>
 
-<!-- 02 STORY -->
+<!-- 02 THE DETAILERS INC. PROCESS — pinned, scroll-scrubbed cinematic sequence -->
+<section class="craft craft--sequence" id="craft" data-chapter="craft" aria-label="A cinematic, scroll-controlled Detailers Inc. detailing film">
+  <div class="craft__stage" id="craftStage">
+    <div class="craft__picture" id="craftPicture">
+      <video id="craftScrollVideo" class="craft__video" muted playsinline preload="auto"
+        poster="assets/video/detailers-scroll-porsche-poster.webp"
+        aria-label="A black performance coupé revealed in a dark studio, followed by close-ups of the headlight, water on the paint, machine polishing, moving light reflections and the finished side profile.">
+        <source src="assets/video/detailers-scroll-porsche.mp4" type="video/mp4">
+      </video>
+      <div class="craft__vignette" aria-hidden="true"></div>
+
+      <!-- A small Detailers Inc. masthead covers the unrelated source-site wordmark. -->
+      <div class="craft__brandbar" aria-label="Detailers Inc. — Premium vehicle detailing in Durban">
+        <span class="craft__brandbar-mark">D<span>I.</span></span>
+        <span class="craft__brandbar-name">DETAILERS INC.</span>
+        <span class="craft__brandbar-sub">PREMIUM VEHICLE DETAILING</span>
+      </div>
+
+      <div class="craft__phase-hud" aria-live="off">
+        <span id="craftPhaseNo">01</span><i>/</i><b id="craftPhaseName">THE REVEAL</b>
+      </div>
+
+      <!-- This replaces the AXON mark visible on the final car shot. -->
+      <div class="craft__stamp" id="craftStamp" aria-hidden="true">
+        <img src="assets/img/logo.webp" width="520" height="360" alt="">
+      </div>
+
+      <!-- Final product-page-style scene, rebuilt around Detailers Inc. services. -->
+      <div class="craft__closing" id="craftClosing" aria-hidden="true">
+        <div class="craft__closing-lights" aria-hidden="true"></div>
+        <div class="craft__closing-inner">
+          <div class="craft__closing-copy">
+            <p class="craft__closing-kicker">DETAILERS INC. <span>/</span> DURBAN, SOUTH AFRICA</p>
+            <h2>5 STEPS.<br><em>ONE GOAL.</em><br>PERFECTION.</h2>
+            <p>From the first pass to the final reflection, every stage is carried out with precision. A finish that speaks for itself.</p>
+            <a class="btn btn--blue" href="#services"><span>Explore our detailing</span></a>
+            <div class="craft__closing-foot"><span>DETAILERS INC.</span><span>THE STANDARD IS IN THE DETAIL.</span></div>
+          </div>
+          <div class="craft__closing-services" aria-label="Detailers Inc. detailing services">
+            <article class="craft__closing-card">
+              <img src="assets/img/g-foam.webp" width="1920" height="972" alt="Snow foam covering a vehicle before a deep clean" loading="eager">
+              <span>01 / PREP</span><b>Deep clean</b>
+            </article>
+            <article class="craft__closing-card">
+              <img src="assets/img/g-polish.webp" width="1080" height="1920" alt="Machine polishing paintwork" loading="eager">
+              <span>02 / CORRECT</span><b>Paint correction</b>
+            </article>
+            <article class="craft__closing-card">
+              <img src="assets/img/g-steam.webp" width="1080" height="1920" alt="Careful interior steam cleaning" loading="eager">
+              <span>03 / REFINE</span><b>Interior detail</b>
+            </article>
+            <article class="craft__closing-card">
+              <img src="assets/img/g-ceramic-suv.webp" width="1920" height="972" alt="A vehicle with a glossy ceramic-protected finish" loading="eager">
+              <span>04 / PROTECT</span><b>Ceramic coating</b>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="craft__top" aria-hidden="true">
+      <p class="eyebrow"><span>02</span><span>The Detailers Inc. standard</span></p>
+      <p class="craft__counter"><b id="craftCount">01</b><span> / 05</span></p>
+    </div>
+
+    <div class="craft__bottom" aria-hidden="true">
+      <div class="craft__stepper">
+        <span class="craft__step is-active" data-craft-step><b>01</b><i>Reveal</i></span>
+        <span class="craft__step" data-craft-step><b>02</b><i>Detail</i></span>
+        <span class="craft__step" data-craft-step><b>03</b><i>Correct</i></span>
+        <span class="craft__step" data-craft-step><b>04</b><i>Reflect</i></span>
+        <span class="craft__step" data-craft-step><b>05</b><i>Perfect</i></span>
+      </div>
+      <p class="craft__scroll">Scroll to control the finish <span>↓</span></p>
+    </div>
+    <div class="craft__progress" aria-hidden="true"><i id="craftProgressFill"></i></div>
+    <p class="craft__fallback-note">Play the detailing film, or continue to our services.</p>
+  </div>
+</section>
+
+
+<!-- REAL DETAILERS INC. FOOTAGE — original Full HD source, preserved without re-encoding -->
+<section class="real-film" id="real-footage" data-chapter="real-footage" aria-labelledby="realFilmTitle">
+  <div class="real-film__inner">
+    <div class="real-film__copy">
+      <p class="eyebrow"><span>THE REAL THING</span><span>Detailers Inc. / Durban, KZN</span></p>
+      <h2 class="display" id="realFilmTitle">Real work.<br><em>Real finish.</em></h2>
+      <p>See the Detailers Inc. team at work. This is original on-site footage of our detailing process, kept in its full 1080p quality — from the first rinse and snow foam to the final clean finish.</p>
+      <div class="real-film__specs" aria-label="Video specifications">
+        <span>FULL HD <b>1080 × 1920</b></span>
+        <span>FRAME RATE <b>30 FPS</b></span>
+        <span>DURATION <b>00:59</b></span>
+      </div>
+      <p class="real-film__note">Original camera footage · No video re-encoding</p>
+    </div>
+    <div class="real-film__media">
+    <img
+    class="real-film__video"
+    src="assets/video/detailers-inc-full-hd-poster.jpg"
+    alt="Detailers Inc. black BMW being professionally washed and detailed"
+    width="1080"
+    height="1920"
+    loading="lazy"
+    decoding="async"
+>
+      <div class="real-film__media-label"><span>DETAILERS INC.</span><span>ORIGINAL FULL HD FOOTAGE</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 03 STORY -->
 <section class="story lightsec curtain" id="story" data-chapter="story">
   <div class="curtain__edge" aria-hidden="true"></div>
   <div class="wrap story__lead">
-    <p class="eyebrow"><span>02</span><span>Who we are</span></p>
+    <p class="eyebrow"><span>03</span><span>Who we are</span></p>
     <h2 class="display story__h" data-words>Your vehicle deserves more.</h2>
     <p class="story__p" data-fill>Detailers Inc. is not a car wash you queue for. We are a mobile detailing team that brings the whole process to your door: snow foam, steam, machine polish and ceramic coating, carried out by people who treat every panel as the only one that matters.</p>
   </div>
@@ -165,7 +279,7 @@
   </div>
 </section>
 
-<!-- 03 ANGLES -->
+<!-- 04 ANGLES -->
 <section class="angles" id="angles" data-chapter="angles">
   <div class="angles__stage" id="anglesStage">
     <video id="anglesVideo" data-autoplay muted loop playsinline preload="none" poster="assets/img/poster-angles.webp" aria-label="A white Golf GTI Clubsport filmed from several angles after detailing."><source src="assets/video/clubsport.mp4" type="video/mp4"></video>
@@ -178,7 +292,7 @@
   </div>
 </section>
 
-<!-- 04 THE FILM -->
+<!-- 05 THE FILM -->
 <section class="film" id="film" data-chapter="film">
   <div class="film__word" aria-hidden="true" id="filmWord">The art of detailing</div>
   <div class="wrap film__grid">
@@ -190,7 +304,7 @@
       </div>
     </div>
     <div class="film__side">
-      <p class="eyebrow"><span>04</span><span>Our work, on film</span></p>
+      <p class="eyebrow"><span>05</span><span>Our work, on film</span></p>
       <h2 class="display" aria-label="The art of detailing."><span class="m" aria-hidden="true"><i>The art of</i></span><span class="m" aria-hidden="true"><i><em>detailing.</em></i></span></h2>
       <div class="film__steps" id="filmSteps">
         <button type="button" data-t="0"><span>01</span><b>The vehicle</b><em>A white Golf GTI, wet from the rinse.</em></button>
@@ -205,13 +319,13 @@
   </div>
 </section>
 
-<!-- 05 SERVICES -->
+<!-- 06 SERVICES -->
 <section class="svc" id="services" data-chapter="services" aria-labelledby="svcH">
   <div class="svc__tint" aria-hidden="true"></div>
   <div class="svc__bigno" id="svcBigNo" aria-hidden="true">01</div>
   <div class="wrap svc__grid">
     <div class="svc__col">
-      <p class="eyebrow"><span>05</span><span>Services &amp; prices</span></p>
+      <p class="eyebrow"><span>06</span><span>Services &amp; prices</span></p>
       <h2 class="sr-only" id="svcH">Our services</h2>
       <div class="svc__tabs" role="tablist" aria-label="Services" id="svcTabs"></div>
       <p class="svc__hint">Click a service, or use the arrow keys.</p>
@@ -221,11 +335,11 @@
   </div>
 </section>
 
-<!-- 06 RESULT -->
+<!-- 07 RESULT -->
 <section class="result" id="result" data-chapter="result">
   <div class="wrap result__grid">
     <div>
-      <p class="eyebrow"><span>06</span><span>Same car. Same session.</span></p>
+      <p class="eyebrow"><span>07</span><span>Same car. Same session.</span></p>
       <h2 class="display" data-words>Under the foam.</h2>
       <p class="result__p">Two unedited frames from our own footage of a Golf 8 GTI: the snow foam stage, and the finished car minutes later. Drag the handle to compare.</p>
     </div>
@@ -239,11 +353,11 @@
   </div>
 </section>
 
-<!-- 07 GALLERY -->
+<!-- 08 GALLERY -->
 <section class="gal" id="gallery" data-chapter="gallery" aria-labelledby="galH">
   <div class="wrap gal__head">
     <div>
-      <p class="eyebrow"><span>07</span><span>Gallery</span></p>
+      <p class="eyebrow"><span>08</span><span>Gallery</span></p>
       <h2 class="display" id="galH" data-words>The work.</h2>
     </div>
     <p>Clips from our own shoots. Every vehicle here was washed, detailed, polished or coated by Detailers Inc. Open a video to watch it in full, with sound.</p>
@@ -263,12 +377,12 @@
 
 
 
-<!-- 08 BOOK -->
+<!-- 09 BOOK -->
 <section class="book lightsec curtain" id="book" data-chapter="book">
   <div class="curtain__edge" aria-hidden="true"></div>
   <div class="wrap book__grid">
     <aside class="book__aside">
-      <p class="eyebrow"><span>08</span><span>Book your detail</span></p>
+      <p class="eyebrow"><span>09</span><span>Book your detail</span></p>
       <h2 class="display" data-words>Five steps. Then we come to you.</h2>
       <ol class="steps" id="steps">
         <li data-step="1"><i></i><b>Choose your service</b></li>
@@ -367,7 +481,7 @@
   </div>
 </section>
 
-<!-- 09 CONTACT -->
+<!-- 10 CONTACT -->
 <section class="contact" id="contact" data-chapter="contact">
   <div class="contact__bg" id="contactBg"><img src="assets/img/poster-finale.webp" width="1920" height="972" loading="lazy" alt=""></div>
   <div class="wrap contact__inner">

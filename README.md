@@ -1,9 +1,9 @@
 # Detailers Inc. — website
 
 The cinematic Detailers Inc. site (mobile car detailing, Mount Edgecombe, Durban): dark, film-led,
-oversized type, scroll-driven motion. The page scrolls natively from top to bottom. Nothing is
-pinned and there is no scroll-jacking: scroll position only drives parallax and reveals on things
-that are already moving past.
+oversized type, scroll-driven motion. The page scrolls natively from top to bottom; the cinematic
+Detailers Inc. process chapter is the exception: it pins a full-screen stage and scrubs the reference
+car film directly from scroll position. There is no wheel hijacking or forced smooth-scroll library.
 
 Plain HTML, CSS and vanilla JavaScript. One animation library (GSAP + ScrollTrigger, bundled).
 
@@ -18,8 +18,8 @@ cd detailers-inc
 python3 -m http.server 8000     # then open http://localhost:8000
 ```
 
-(Python's test server cannot seek inside videos, so the film chapter buttons only work when the
-page is opened from disk or on real hosting.)
+The cinematic process chapter needs efficient video seeking (HTTP byte-range support). Some simple
+development servers do not support that; verify the scroll scrub on the deployed static host.
 
 ## Deploy
 
@@ -38,11 +38,11 @@ css/style.css         tokens, components, scenes
 css/animations.css    pre-animation states, accordion, form steps, reduced-motion rules
 css/responsive.css    tablet and phone layouts
 js/data.js            ALL business data: backend, contacts, services, packages, prices, vehicle sizes
-js/site.js            navigation, services stage, video playback, film chapters, gallery strip,
-                      comparison slider, and all scroll-driven motion
+js/site.js            navigation, services stage, video playback, scroll-scrubbed process film, gallery,
+                      comparison slider, and all other scroll-driven motion
 js/gallery.js         gallery video clips + full-screen viewer
 js/booking.js         4-step booking -> pre-written WhatsApp message
-assets/video/         1080p masters: hero, detail film, Clubsport film, four service clips (+ posters)
+assets/video/         original video masters, service clips and posters; includes the cropped reference Porsche film
 assets/img/           1080p stills, posters, logo
 assets/vendor/        GSAP 3.15 + ScrollTrigger
 tools/                the scripts used to prepare the footage (reference)
@@ -50,20 +50,22 @@ tools/                the scripts used to prepare the footage (reference)
 
 ## Video and image quality
 
-Every video and still on the site is delivered at **1080p** (1920x1080 landscape, 1080x1920
-portrait; the hero is 1920x972 because the corner watermark was cropped off).
+Most supplied master footage is delivered at 1080p (1920x1080 landscape, 1080x1920 portrait;
+the hero is 1920x972). Some gallery sources are lower-resolution and are preserved as supplied.
 
-Be aware of what that means: **all twelve files supplied are 720p** (1280x720 / 720x1280), which is
-what Instagram and WhatsApp export. The 1080p masters are high-quality Lanczos upscales with light
-sharpening, encoded at high bitrate (H.264 CRF 17-18) so nothing further is lost. They look cleaner
-on large screens, but upscaling cannot add detail that was never recorded.
+The reference Porsche process film is a special case: it is 1280 × 800, cropped from the supplied
+phone recording of a laptop display. The visible screen source is approximately 512 × 320, so this
+file is an upscale and does not contain native HD detail. It preserves the exact car movement and
+shot order from the reference; higher-detail footage would require the original website/video export.
 
 For true 1080p or 4K, export the films from the editing project or the camera at full resolution
 and send those files (as documents or via Drive, not through WhatsApp). They drop straight into
 `assets/video/` under the same names.
 
-Total size is about 90 MB. Only the hero video (6 MB) loads up front; every other video loads when
-it is scrolled to.
+The reference Porsche process film is saved as a 1280 × 800 H.264 clip. It was extracted from the
+supplied phone recording of a laptop display; the visible screen source is approximately 512 × 320,
+so the delivered file is an upscale and does not contain native HD detail. The existing vehicle and
+service footage remains unchanged. The process film is preloaded for reliable scroll seeking.
 
 ## Booking
 

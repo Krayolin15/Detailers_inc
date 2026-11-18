@@ -226,6 +226,99 @@ if (fx) {
   gsap.to('.hero__light', { opacity: 0.85, ease: 'none', scrollTrigger: on('#top', 'top top', 'bottom top') });
   gsap.to('.hero__meta', { autoAlpha: 0, ease: 'none', scrollTrigger: on('#top', 'top top', '20% top') });
 
+
+  // 02 cinematic Detailers Inc. film: scrub the exact Porsche sequence with page scroll.
+  const craft = $('#craft');
+  if (craft) {
+    const craftVideo = $('#craftScrollVideo');
+    const craftSteps = $$('[data-craft-step]', craft);
+    const craftCount = $('#craftCount');
+    const craftPhaseNo = $('#craftPhaseNo');
+    const craftPhaseName = $('#craftPhaseName');
+    const craftProgress = $('#craftProgressFill');
+    const craftStamp = $('#craftStamp');
+    const craftClosing = $('#craftClosing');
+    const stepRanges = [
+      { end: 2.8, label: 'THE REVEAL' },
+      { end: 5.1, label: 'THE DETAIL' },
+      { end: 8.9, label: 'PAINT CORRECTION' },
+      { end: 11.3, label: 'LIGHT & REFLECTION' },
+      { end: Infinity, label: 'THE FINISH' }
+    ];
+    let craftActive = -1;
+    let craftDuration = 16.433;
+    if (craftVideo) {
+      craftVideo.pause();
+      craftVideo.controls = rm || !fx;
+      craftVideo.addEventListener('loadedmetadata', () => {
+        if (Number.isFinite(craftVideo.duration) && craftVideo.duration > 0) craftDuration = craftVideo.duration;
+        if (craftVideo.dataset.pendingTime) {
+          craftVideo.currentTime = Math.min(craftDuration - .04, Number(craftVideo.dataset.pendingTime));
+          delete craftVideo.dataset.pendingTime;
+        }
+        if (fx) ScrollTrigger.refresh();
+      }, { once: true });
+    }
+
+    if (fx && craftVideo) {
+      // Hold the end of the car film briefly, then blend into the Detailers Inc. service finish.
+      const VIDEO_END_PROGRESS = .92;
+      const OUTRO_START = .88;
+      const OUTRO_END = .99;
+      const clamp = (v, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
+      // Ease the video toward the scroll position so scrubbing glides instead of jumping.
+      let scrubTarget = 0, scrubCur = 0, scrubRun = false;
+      const scrubStep = () => {
+        if (craftVideo.seeking) { requestAnimationFrame(scrubStep); return; }
+        const d = scrubTarget - scrubCur;
+        if (Math.abs(d) < .008) { scrubCur = scrubTarget; craftVideo.currentTime = scrubCur; scrubRun = false; return; }
+        scrubCur += d * .16;
+        craftVideo.currentTime = scrubCur;
+        requestAnimationFrame(scrubStep);
+      };
+      const scrubKick = () => { if (!scrubRun) { scrubRun = true; requestAnimationFrame(scrubStep); } };
+      ScrollTrigger.create({
+        trigger: craft,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate(self) {
+          const pageProgress = self.progress;
+          const videoProgress = clamp(pageProgress / VIDEO_END_PROGRESS);
+          const targetTime = clamp(videoProgress * craftDuration, 0, craftDuration - .04);
+          scrubTarget = targetTime;
+          if (craftVideo.readyState >= 2) scrubKick();
+          else craftVideo.dataset.pendingTime = String(targetTime);
+
+          const activeIndex = stepRanges.findIndex((step) => targetTime < step.end);
+          const next = activeIndex < 0 ? stepRanges.length - 1 : activeIndex;
+          if (next !== craftActive) {
+            craftActive = next;
+            if (craftCount) craftCount.textContent = String(next + 1).padStart(2, '0');
+            if (craftPhaseNo) craftPhaseNo.textContent = String(next + 1).padStart(2, '0');
+            if (craftPhaseName) craftPhaseName.textContent = stepRanges[next].label;
+            craftSteps.forEach((step, i) => step.classList.toggle('is-active', i === next));
+          }
+
+          if (craftProgress) craftProgress.style.transform = `scaleX(${pageProgress})`;
+          if (craftStamp) craftStamp.style.opacity = clamp((targetTime - 13.55) / .45).toFixed(3);
+          if (craftClosing) {
+            const closeProgress = clamp((pageProgress - OUTRO_START) / (OUTRO_END - OUTRO_START));
+            craftClosing.style.opacity = closeProgress.toFixed(3);
+            craftClosing.style.visibility = closeProgress > .005 ? 'visible' : 'hidden';
+            craftClosing.style.pointerEvents = closeProgress > .82 ? 'auto' : 'none';
+            craftClosing.setAttribute('aria-hidden', String(closeProgress < .8));
+          }
+        }
+      });
+    } else if (craftVideo) {
+      // Reduced-motion / no-GSAP fallback: an accessible, user-playable copy of the same film.
+      craftVideo.controls = true;
+      craftVideo.removeAttribute('autoplay');
+      craftVideo.currentTime = 0;
+      if (craftClosing) craftClosing.setAttribute('aria-hidden', 'true');
+    }
+  }
+
   // curtains: the curved edge flattens as the light section rises
   $$('.curtain').forEach((sec) => gsap.fromTo($('.curtain__edge', sec), { scaleY: 1 }, { scaleY: 0, ease: 'none', scrollTrigger: on(sec, 'top bottom', 'top 25%') }));
 
@@ -233,7 +326,17 @@ if (fx) {
   $$('[data-words]').forEach((h) => gsap.fromTo($$('.w > i', h), { yPercent: 108, y: 0 }, { yPercent: 0, y: 0, stagger: 0.08, ease: 'power3.out', scrollTrigger: on(h, 'top 94%', 'top 58%') }));
   $$('h2').filter((h) => $('.m', h)).forEach((h) => gsap.fromTo($$('.m > i', h), { yPercent: 108, y: 0 }, { yPercent: 0, y: 0, stagger: 0.12, ease: 'power3.out', scrollTrigger: on(h, 'top 96%', 'top 72%') }));
 
-  // 02 story: the paragraph inks in; images wipe open and drift inside their frames
+  // Original Full HD footage: reveal the copy and portrait video as the section enters.
+  gsap.fromTo('.real-film__copy > *', { y: 34, opacity: 0 }, {
+    y: 0, opacity: 1, stagger: 0.08, ease: 'power2.out',
+    scrollTrigger: on('#real-footage', 'top 78%', 'top 38%')
+  });
+  gsap.fromTo('.real-film__media', { y: 60, opacity: 0, scale: .97 }, {
+    y: 0, opacity: 1, scale: 1, ease: 'none',
+    scrollTrigger: on('#real-footage', 'top 88%', 'top 30%')
+  });
+
+  // 03 story: the paragraph inks in; images wipe open and drift inside their frames
   const p = $('.story__p'), words = $$('.w', p);
   ScrollTrigger.create({ trigger: p, start: 'top 85%', end: 'bottom 50%', scrub: true, onUpdate(self) { const n = Math.round(self.progress * words.length); words.forEach((w, i) => w.classList.toggle('is-on', i < n)); } });
   $$('[data-reveal]').forEach((m) => {
@@ -242,18 +345,18 @@ if (fx) {
   });
   $$('.row__text').forEach((t) => gsap.fromTo(t.children, { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, ease: 'power2.out', scrollTrigger: on(t, 'top 90%', 'top 60%') }));
 
-  // 03 angles: a framed film on paper opens to full screen as it arrives
+  // 04 angles: a framed film on paper opens to full screen as it arrives
   gsap.to('#anglesStage', { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: on('#angles', 'top 85%', 'top top') });
   gsap.fromTo('#angles', { backgroundColor: '#f1f0ec' }, { backgroundColor: '#000000', ease: 'none', scrollTrigger: on('#angles', 'top 60%', 'top top') });
   gsap.fromTo('#anglesVideo', { yPercent: -4, scale: 1.1 }, { yPercent: 4, scale: 1, ease: 'none', scrollTrigger: on('#angles', 'top bottom', 'bottom top') });
   gsap.fromTo('.angles__list li', { y: 30, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.06, ease: 'power2.out', scrollTrigger: on('#angles', 'top 40%', 'top top') });
 
-  // 04 film: the gate turns in space and the title word travels behind it
+  // 05 film: the gate turns in space and the title word travels behind it
   if (!mobile) gsap.fromTo('#filmGate', { rotationY: 14, rotationX: 5, y: 60 }, { rotationY: -10, rotationX: -3, y: -60, ease: 'none', scrollTrigger: on('#film', 'top bottom', 'bottom top') });
   gsap.fromTo('#filmWord', { x: () => innerWidth * 0.35 }, { x: () => -($('#filmWord').offsetWidth - innerWidth * 0.5), ease: 'none', scrollTrigger: on('#film', 'top bottom', 'bottom top', { invalidateOnRefresh: true }) });
   gsap.fromTo('#filmSteps button', { x: 40, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.05, ease: 'power2.out', scrollTrigger: on('#filmSteps', 'top 92%', 'top 55%') });
 
-  // 05 services + 06 result + 07 gallery + 09 contact
+  // 06 services + 07 result + 08 gallery + 10 contact
   gsap.fromTo('#svcBigNo', { yPercent: 18 }, { yPercent: -18, ease: 'none', scrollTrigger: on('#services', 'top bottom', 'bottom top') });
   gsap.fromTo('#svcMedia', { y: 70, scale: 0.92 }, { y: 0, scale: 1, ease: 'none', scrollTrigger: on('#services', 'top 90%', 'top 30%') });
   ScrollTrigger.create({ trigger: '#compare', start: 'top 80%', end: 'bottom 35%', scrub: true, onUpdate(self) { if (!cmpTouched) setCmp(86 - self.progress * 72); } });

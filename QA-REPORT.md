@@ -1,3 +1,29 @@
+# QA addendum — 18 Nov 2026 (reference Porsche scroll film)
+
+## Implemented
+
+- Replaced the earlier five-still crossfade process with a pinned, scroll-scrubbed 16.43-second film.
+- Isolated the laptop display from the newly supplied vertical phone recording so the exact car/action sequence is used without showing the laptop or room.
+- Kept the reference choreography: dark reveal, headlight close-up, water on the paint, machine-polisher passes, moving reflections, side profile and the perfection headline.
+- Covered the unrelated AXON marks with Detailers Inc. branding and rebuilt the clip's final product-page-style screen as a Detailers Inc. services finish.
+- Added a reduced-motion / no-GSAP fallback with native video controls.
+
+## Checks completed in this revision
+
+- `node --check` passed for `js/site.js`.
+- `index.html` parsed successfully.
+- `style.css` and `responsive.css` parsed without CSS syntax errors.
+- The new process video was probed as H.264, 1280 × 800, 30 fps, 16.43 seconds.
+- All newly referenced local video, poster and image assets exist.
+
+## Not verified in this revision
+
+- The interactive scroll/seek experience was not browser-verified in this run; the local browser harness blocked navigation to the local preview server and file URL. The final website should be tested on its deployed static host, which must support HTTP byte-range requests for smooth video seeking.
+- The phone recording captures the source laptop display at roughly 512 × 320. The 1280 × 800 process asset is an upscale of that screen crop, not native HD footage. The exact motion and car are retained, but the available source limits fine detail.
+- Real mobile devices, Safari, Firefox, low-end-device frame rate and mobile-data load time still require testing.
+
+---
+
 # QA report — 14 Nov 2026 (fourth build: cinematic, no pinning, 1080p media)
 
 Tested in headless Google Chrome via Playwright, opened from disk (`file://`) and over HTTP.
@@ -55,3 +81,14 @@ The existing media files were preserved without recompression, replacement or ar
 ### Booking and backend limitation
 
 The booking flow creates a pre-written WhatsApp enquiry for the customer to send. It does not save bookings to a live database. This update does not change that existing behaviour or verify the live backend.
+
+
+## Third-section black BMW video repair — 18 Nov 2026
+
+- The `#real-footage` section referenced `assets/video/detailers-inc-full-hd.mp4`, but that file was missing from the supplied website archive.
+- Added the newly supplied video at that exact path. It is H.264/AAC, 1080 × 1920, 30 fps, and 59.58 seconds.
+- Remuxed for progressive playback with `+faststart` using stream copy only. The decoded video-stream and audio-stream packet hashes match the uploaded source; no re-encoding or quality reduction was performed.
+- Regenerated `detailers-inc-full-hd-poster.jpg` from the supplied clip and changed the video element to `preload="metadata"`. Native controls and inline playback remain enabled.
+- `node --check js/site.js` passed, and the MP4 metadata, expected asset path and updated HTML reference were verified.
+- A live browser/device playback test was not performed in this environment.
+- **GitHub Pages limitation:** this source MP4 is about 109.6 MiB, larger than GitHub's 100 MiB ordinary Git file limit. Git LFS is not supported for GitHub Pages. See `INSTALL_FULL_HD_VIDEO.txt` for the deployment route that preserves the original video.

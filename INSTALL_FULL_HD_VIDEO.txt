@@ -1,0 +1,25 @@
+DETAILERS INC. — THIRD-SECTION VIDEO FIX
+
+This updated website package includes the missing Full HD video for the third section,
+“Real work. Real finish.” No separate video archive is required when using the
+complete fixed website ZIP.
+
+Video path:
+assets/video/detailers-inc-full-hd.mp4
+
+Video details:
+1080 × 1920 (portrait), 30 fps, H.264 video + AAC audio, 59.58 seconds.
+The uploaded video streams were copied without re-encoding or quality reduction.
+The MP4 metadata was moved to the beginning of the file to support progressive
+web playback. The poster image was regenerated from the supplied video.
+
+If applying the small patch ZIP instead of using the complete website ZIP, extract it
+into the folder containing the existing Detailers_inc-main folder and allow the files
+to merge/overwrite.
+
+GITHUB PAGES DEPLOYMENT NOTE
+The original video file is approximately 109.6 MiB. GitHub blocks ordinary Git files
+larger than 100 MiB, and Git LFS is not supported for GitHub Pages sites. Do not add
+an LFS pointer as the website video source. To publish this exact-quality original on
+GitHub Pages, host the MP4 on an external video/CDN storage service and point the
+<source> element in index.html to that public MP4 URL.

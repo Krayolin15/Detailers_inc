@@ -609,6 +609,79 @@ figcaption {
 }
 
 /* Accessibility: retain readable content and avoid motion-triggered clipping. */
+
+
+/* Cinematic reference-film sequence — responsive framing and controls */
+@media (max-width: 1180px) {
+  .craft__phase-hud { left: var(--pad); }
+  .craft__top,
+  .craft__bottom { left: var(--pad); }
+  .craft__closing-inner { gap: 2rem; }
+}
+@media (max-width: 900px) {
+  .craft { height: 720svh; }
+  .craft__top { left: var(--pad); right: var(--pad); top: calc(var(--safe-top) + 1rem); }
+  .craft__top .eyebrow { display: none; }
+  .craft__phase-hud { top: calc(var(--safe-top) + 4.2rem); left: var(--pad); font-size: .55rem; }
+  .craft__bottom { left: var(--pad); right: var(--pad); bottom: calc(1.25rem + var(--safe-bottom)); display: block; }
+  .craft__stepper { gap: .5rem; justify-content: space-between; }
+  .craft__step { min-width: 0; flex: 1 1 0; gap: .3rem; }
+  .craft__step i { font-size: .46rem; letter-spacing: .025em; }
+  .craft__step b { font-size: .55rem; }
+  .craft__scroll { display: none; }
+  .craft__closing { padding: 5.4rem 1.5rem 5.7rem; }
+  .craft__closing-inner { grid-template-columns: minmax(0, .9fr) minmax(0, 1.35fr); gap: 1.2rem; }
+  .craft__closing-copy h2 { font-size: clamp(2.6rem, 6vw, 4.5rem); }
+  .craft__closing-copy > p:not(.craft__closing-kicker) { font-size: .82rem; line-height: 1.4; }
+  .craft__closing-card { min-height: clamp(180px, 30vh, 300px); padding: .55rem; }
+  .craft__closing-card span { font-size: .46rem; }
+  .craft__closing-card b { font-size: .72rem; }
+}
+@media (max-width: 600px) {
+  .craft { height: 700svh; }
+  .craft__stage { min-height: 520px; }
+  .craft__video { width: 100vw; }
+  .craft__brandbar { top: calc(var(--safe-top) + .55rem); padding: .34rem .58rem; gap: .35rem; }
+  .craft__brandbar-mark { font-size: .68rem; }
+  .craft__brandbar-name { font-size: .5rem; letter-spacing: .13em; }
+  .craft__brandbar-sub { display: none; }
+  .craft__phase-hud { top: auto; bottom: calc(50% + 10.4rem); left: 1rem; padding: .4rem .55rem; font-size: .49rem; }
+  .craft__counter b { font-size: 1.2rem; }
+  .craft__bottom { left: 1rem; right: 1rem; bottom: calc(1rem + var(--safe-bottom)); }
+  .craft__stepper { gap: .32rem; }
+  .craft__step { gap: .25rem; }
+  .craft__step i { font-size: .4rem; letter-spacing: 0; }
+  .craft__step b { font-size: .5rem; }
+  .craft__stamp { width: 86px; bottom: 11%; }
+  .craft__closing { padding: 5.3rem .9rem 5rem; }
+  .craft__closing-inner { grid-template-columns: 1fr; gap: 1rem; }
+  .craft__closing-copy { max-width: none; text-align: center; }
+  .craft__closing-kicker { margin-bottom: .65rem; font-size: .5rem; }
+  .craft__closing-copy h2 { font-size: clamp(2.25rem, 10.4vw, 3.6rem); line-height: .86; }
+  .craft__closing-copy > p:not(.craft__closing-kicker) { display: none; }
+  .craft__closing-copy .btn { min-height: 42px; margin-top: .8rem; padding: .55rem 1rem; font-size: .68rem; }
+  .craft__closing-foot { display: none; }
+  .craft__closing-services { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem; }
+  .craft__closing-card { min-height: clamp(112px, 18vh, 170px); padding: .42rem; }
+  .craft__closing-card span { font-size: .38rem; letter-spacing: .04em; }
+  .craft__closing-card b { font-size: .59rem; line-height: 1.05; }
+}
+
+/* Without GSAP or when reduced motion is requested, keep the source film user-playable. */
+html:not(.fx) .craft { height: auto; min-height: 0; }
+html:not(.fx) .craft__stage { position: relative; top: auto; height: auto; min-height: 0; overflow: hidden; padding: 3.5rem 0 1rem; }
+html:not(.fx) .craft__picture { position: relative; inset: auto; display: block; overflow: hidden; background: #020407; }
+html:not(.fx) .craft__picture::before { display: none; }
+html:not(.fx) .craft__video { width: 100%; max-height: none; height: auto; aspect-ratio: 16 / 10; }
+html:not(.fx) .craft__brandbar,
+html:not(.fx) .craft__phase-hud,
+html:not(.fx) .craft__stamp,
+html:not(.fx) .craft__top,
+html:not(.fx) .craft__bottom,
+html:not(.fx) .craft__progress,
+html:not(.fx) .craft__closing { display: none; }
+html:not(.fx) .craft__fallback-note { display: block; padding: 1rem var(--pad); color: rgba(255,255,255,.65); text-align: center; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero__bg,

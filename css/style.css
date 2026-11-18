@@ -159,7 +159,354 @@ fieldset { border: 0; min-width: 0; }
 .scrollcue i { width: 1px; height: 26px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; }
 .scrollcue i::after { content: ''; position: absolute; inset: 0; background: var(--blue); animation: cue 2s var(--ease) infinite; }
 
-/* 02 story */
+
+
+/* 02 THE DETAILERS INC. — exact reference film, controlled by scroll */
+.craft {
+  position: relative;
+  height: 760vh;
+  background: #020407;
+  color: #fff;
+  isolation: isolate;
+}
+.craft__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: #020407;
+  isolation: isolate;
+}
+.craft__picture {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #020407 url('../assets/video/detailers-scroll-porsche-poster.webp') center / cover no-repeat;
+}
+.craft__picture::before {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  background: url('../assets/video/detailers-scroll-porsche-poster.webp') center / cover no-repeat;
+  filter: blur(34px) brightness(.42) saturate(.82);
+  transform: scale(1.12);
+  opacity: .62;
+}
+.craft__video {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(100vw, 160vh);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 16 / 10;
+  height: auto;
+  object-fit: contain;
+  background: #020407;
+  box-shadow: 0 28px 100px rgba(0,0,0,.46);
+  filter: contrast(1.025) saturate(.96);
+}
+.craft__vignette {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.2), transparent 18%, transparent 72%, rgba(0,0,0,.43)),
+    radial-gradient(ellipse at center, transparent 48%, rgba(0,0,0,.22) 100%);
+}
+.craft__brandbar {
+  position: absolute;
+  z-index: 4;
+  top: clamp(.85rem, 2.1vh, 1.6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: .48rem;
+  padding: .48rem .85rem .44rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 2px;
+  background: rgba(2,5,8,.88);
+  box-shadow: 0 5px 22px rgba(0,0,0,.35);
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+.craft__brandbar-mark {
+  color: #fff;
+  font-family: var(--f-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: -.08em;
+}
+.craft__brandbar-mark span { color: var(--blue); }
+.craft__brandbar-name {
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+.craft__brandbar-sub {
+  margin-left: .42rem;
+  padding-left: .68rem;
+  border-left: 1px solid rgba(255,255,255,.22);
+  color: rgba(255,255,255,.58);
+  font-family: var(--f-mono);
+  font-size: .48rem;
+  letter-spacing: .1em;
+}
+.craft__phase-hud {
+  position: absolute;
+  z-index: 4;
+  top: clamp(1.35rem, 4.8vh, 3.4rem);
+  left: calc(var(--pad) + var(--rail));
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .55rem .78rem;
+  border-left: 2px solid var(--blue);
+  background: rgba(0,0,0,.42);
+  color: rgba(255,255,255,.68);
+  font-family: var(--f-mono);
+  font-size: .62rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+.craft__phase-hud span { color: var(--blue); }
+.craft__phase-hud i { color: rgba(255,255,255,.35); font-style: normal; }
+.craft__phase-hud b { color: #fff; font-weight: 500; }
+.craft__stamp {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 6.4%;
+  width: clamp(88px, 9vw, 142px);
+  aspect-ratio: 520 / 360;
+  padding: .28rem .42rem;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 3px;
+  background: rgba(1,3,6,.86);
+  box-shadow: 0 8px 30px rgba(0,0,0,.42);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s linear;
+}
+.craft__stamp img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.craft__top,
+.craft__bottom {
+  position: absolute;
+  z-index: 5;
+  left: calc(var(--pad) + var(--rail));
+  right: var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.craft__top { top: clamp(1.5rem, 4vh, 3.2rem); }
+.craft__top .eyebrow { display: none; }
+.craft__counter {
+  display: flex;
+  align-items: baseline;
+  gap: .45rem;
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.48);
+}
+.craft__counter b { color: #fff; font-size: 1.45rem; font-weight: 500; }
+.craft__bottom { bottom: 2rem; gap: 2rem; align-items: flex-end; }
+.craft__stepper { display: flex; align-items: flex-start; gap: clamp(.7rem, 2.5vw, 2.6rem); }
+.craft__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto;
+  gap: .38rem;
+  min-width: 3.7rem;
+  color: rgba(255,255,255,.36);
+  font-family: var(--f-mono);
+  transition: color .25s ease;
+}
+.craft__step::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-bottom: .2rem;
+  background: rgba(255,255,255,.23);
+  transition: background .25s ease;
+}
+.craft__step b { font-size: .62rem; font-weight: 400; letter-spacing: .1em; }
+.craft__step i { font-size: .52rem; font-style: normal; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.craft__step.is-active { color: #fff; }
+.craft__step.is-active::before { background: var(--blue); box-shadow: 0 0 12px rgba(0,168,228,.8); }
+.craft__scroll {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  flex: 0 0 auto;
+  color: rgba(255,255,255,.55);
+  font-family: var(--f-mono);
+  font-size: .57rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.craft__scroll span { color: var(--blue); font-size: 1rem; }
+.craft__progress {
+  position: absolute;
+  z-index: 8;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(255,255,255,.15);
+}
+.craft__progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  box-shadow: 0 0 18px rgba(0,168,228,.8);
+}
+.craft__fallback-note { display: none; }
+
+/* The reference clip ends on a product page; this is its Detailers Inc. version. */
+.craft__closing {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  padding: clamp(5rem, 9vh, 8rem) clamp(1.4rem, 7vw, 8rem) clamp(5rem, 10vh, 8rem);
+  overflow: hidden;
+  background: #030609;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  will-change: opacity;
+}
+.craft__closing-lights {
+  position: absolute;
+  inset: -10% -5%;
+  pointer-events: none;
+  background:
+    radial-gradient(32% 75% at 78% 10%, rgba(214,226,255,.17), transparent 70%),
+    radial-gradient(24% 90% at 58% 12%, rgba(0,168,228,.12), transparent 73%),
+    linear-gradient(180deg, rgba(255,255,255,.035), transparent 50%);
+  filter: blur(20px);
+}
+.craft__closing-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(250px, .82fr) minmax(0, 1.35fr);
+  align-items: center;
+  gap: clamp(2.4rem, 6vw, 7rem);
+  width: min(100%, 1680px);
+  margin: 0 auto;
+}
+.craft__closing-copy { max-width: 38rem; }
+.craft__closing-kicker {
+  margin-bottom: 1.3rem;
+  color: rgba(255,255,255,.56);
+  font-family: var(--f-mono);
+  font-size: .64rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.craft__closing-kicker span { color: var(--blue); padding: 0 .35rem; }
+.craft__closing-copy h2 {
+  font-size: clamp(3.1rem, 6.3vw, 7.8rem);
+  line-height: .84;
+  letter-spacing: -.065em;
+  font-weight: 600;
+}
+.craft__closing-copy h2 em { color: var(--blue); font-style: normal; }
+.craft__closing-copy > p:not(.craft__closing-kicker) {
+  max-width: 38ch;
+  margin-top: 1.35rem;
+  color: rgba(255,255,255,.67);
+  font-size: clamp(.9rem, 1.05vw, 1.08rem);
+  line-height: 1.55;
+}
+.craft__closing-copy .btn { margin-top: 1.6rem; }
+.craft__closing-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem 1.1rem;
+  margin-top: clamp(2rem, 6vh, 4.5rem);
+  padding-top: .9rem;
+  border-top: 1px solid rgba(255,255,255,.17);
+  color: rgba(255,255,255,.44);
+  font-family: var(--f-mono);
+  font-size: .53rem;
+  letter-spacing: .13em;
+}
+.craft__closing-services {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(.5rem, 1vw, 1rem);
+  min-width: 0;
+}
+.craft__closing-card {
+  position: relative;
+  display: flex;
+  min-height: clamp(230px, 37vh, 470px);
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding: .9rem;
+  border: 1px solid rgba(255,255,255,.17);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.8));
+  box-shadow: 0 22px 55px rgba(0,0,0,.32);
+}
+.craft__closing-card::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2,5,8,.08) 5%, rgba(2,5,8,.22) 42%, rgba(2,5,8,.94) 100%);
+}
+.craft__closing-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .72;
+  filter: saturate(.72) contrast(1.08);
+  transition: transform .8s cubic-bezier(.2,.75,.2,1);
+}
+.craft__closing-card span,
+.craft__closing-card b { position: relative; z-index: 2; }
+.craft__closing-card span {
+  margin-bottom: .45rem;
+  color: var(--blue);
+  font-family: var(--f-mono);
+  font-size: .55rem;
+  letter-spacing: .11em;
+}
+.craft__closing-card b {
+  color: #fff;
+  font-size: clamp(.78rem, .95vw, 1.1rem);
+  font-weight: 550;
+  line-height: 1.1;
+}
+.craft__closing-card:hover img { transform: scale(1.07); }
+
+/* 03 story */
 .story { padding: clamp(5rem, 13vh, 9rem) 0 clamp(4rem, 10vh, 8rem); }
 .story__lead { display: grid; gap: 2rem; }
 .story__h { font-size: clamp(2.6rem, 9vw, 9.5rem); max-width: 12ch; }
@@ -175,6 +522,96 @@ fieldset { border: 0; min-width: 0; }
 .row__text .n { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .14em; color: var(--blue-ink); }
 .row__text h3 { font-stretch: 112%; font-weight: 700; font-size: clamp(1.9rem, 4.4vw, 4.4rem); line-height: .98; letter-spacing: -.03em; }
 .row__text p { max-width: 38ch; color: #3d424a; font-size: clamp(1rem, 1.25vw, 1.2rem); }
+
+
+/* Original Full HD Detailers Inc. footage */
+.real-film {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(5rem, 11vw, 10rem) var(--pad);
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 76% 48%, rgba(0, 160, 220, .12), transparent 46%),
+    linear-gradient(135deg, #05080b 0%, #090e13 58%, #030507 100%);
+}
+.real-film::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: .22;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,.05) 50%, transparent 76%);
+}
+.real-film__inner {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .78fr);
+  align-items: center;
+  gap: clamp(2.5rem, 8vw, 9rem);
+}
+.real-film__copy { max-width: 680px; }
+.real-film__copy .eyebrow { display: flex; flex-wrap: wrap; gap: .7rem 1.4rem; color: rgba(255,255,255,.58); }
+.real-film__copy h2 {
+  margin-top: 1.4rem;
+  font-size: clamp(3.5rem, 7.5vw, 8.6rem);
+  line-height: .87;
+  letter-spacing: -.065em;
+}
+.real-film__copy h2 em { color: var(--blue); font-family: var(--f-serif); font-weight: 400; }
+.real-film__copy > p:not(.eyebrow):not(.real-film__note) {
+  max-width: 48ch;
+  margin-top: 1.8rem;
+  color: #b8c0c8;
+  font-size: clamp(.98rem, 1.2vw, 1.16rem);
+  line-height: 1.8;
+}
+.real-film__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem 1.5rem;
+  margin-top: 2.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255,255,255,.14);
+}
+.real-film__specs span,
+.real-film__note,
+.real-film__media-label {
+  font-family: var(--f-mono);
+  font-size: .61rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.real-film__specs span { color: rgba(255,255,255,.48); }
+.real-film__specs b { display: block; margin-top: .4rem; color: #fff; font-weight: 500; }
+.real-film__note { margin-top: 1.1rem; color: rgba(255,255,255,.35); }
+.real-film__media {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 440px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 12px;
+  background: #000;
+  box-shadow: 0 35px 110px rgba(0,0,0,.62), 0 0 55px rgba(0,158,220,.09);
+}
+.real-film__video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.real-film__media-label {
+  position: absolute;
+  z-index: 1;
+  top: .8rem;
+  left: .8rem;
+  right: .8rem;
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  color: rgba(255,255,255,.82);
+  text-shadow: 0 1px 8px #000;
+  pointer-events: none;
+}
 
 /* 03 angles: a framed film that opens to full screen as it arrives */
 .angles { background: var(--paper); }
@@ -385,3 +822,6 @@ fieldset { border: 0; min-width: 0; }
 .foot__bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.1); font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mist); }
 .foot__links { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; }
 .foot__links a { min-height: 24px; } .foot__links a:hover { color: var(--white); }
+
+/* The Detailers Inc. logo is now baked into the film, so the old overlay stamp is hidden. */
+.craft__stamp{display:none!important}
